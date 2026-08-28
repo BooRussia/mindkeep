@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" data-theme="default" data-glow="on">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#050505" />
+    <title>MindKeep</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter+Tight:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/app.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+        }
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+    <script type="module" src="./js/app.js"></script>
+  </head>
+  <body>
+    <canvas id="field" aria-hidden="true"></canvas>
+    <div id="app">
+      <header class="hud">
+        <a class="wordmark" href="#/" aria-label="MindKeep home">MINDKEEP</a>
+        <nav class="nav" aria-label="Sections">
+          <a href="#/" data-route="today">Today</a>
+          <a href="#/pirate" data-route="pirate">Price Pirate</a>
+          <a href="#/shipyard" data-route="shipyard">Shipyard</a>
+          <a href="#/mailbag" data-route="mailbag">Mailbag</a>
+          <a href="#/dispatch" data-route="dispatch">Dispatch</a>
+          <a href="#/data" data-route="data">Data</a>
+        </nav>
+        <div class="hud-tools">
+          <label class="search">
+            <span class="sr-only">Search</span>
+            <input
+              id="search"
+              type="search"
+              enterkeyhint="search"
+              autocomplete="off"
+              placeholder="Search items, repos, mail"
+            />
+          </label>
+          <button type="button" class="btn" id="paste-btn">Paste JSON</button>
+        </div>
+      </header>
+      <div id="search-hits" class="search-hits" hidden></div>
+      <main id="stage" class="stage" tabindex="-1"></main>
+    </div>
+    <nav class="dock" aria-label="Mobile sections">
+      <a href="#/" data-route="today">Today</a>
+      <a href="#/pirate" data-route="pirate">Pirate</a>
+      <a href="#/shipyard" data-route="shipyard">Yard</a>
+      <a href="#/mailbag" data-route="mailbag">Mail</a>
+      <a href="#/dispatch" data-route="dispatch">More</a>
+    </nav>
+    <div id="modal" class="modal" hidden>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-head">
+          <h2 id="modal-title">Paste agent JSON</h2>
+          <button type="button" class="icon-btn" id="modal-close" aria-label="Close">Close</button>
+        </div>
+        <p class="dim">
+          Inbox envelope only. This site does not scrape stores or Gmail. Agents write JSON; you
+          paste it.
+        </p>
+        <textarea
+          id="paste-area"
+          spellcheck="false"
+          placeholder='{ "schemaVersion": "1.0.0", "agent": "Pete", "bayId": "pirate", "kind": "merge", ... }'
+        ></textarea>
+        <p id="paste-error" class="error" hidden></p>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="paste-cancel">Cancel</button>
+          <button type="button" class="btn btn-primary" id="paste-apply">Merge overlay</button>
+        </div>
+      </div>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>

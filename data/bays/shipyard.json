@@ -1,0 +1,620 @@
+{
+  "schemaVersion": "1.0.0",
+  "bayId": "shipyard",
+  "updatedAt": "2026-08-27T23:00:00Z",
+  "operator": "Rig",
+  "status": "ok",
+  "alerts": [
+    {
+      "level": "now",
+      "title": "edgecase is blocked and needs you",
+      "body": "18 clip posters 404. X quota is dead. Pick a host or freeze the rows.",
+      "href": "#/shipyard/boorussia/edgecase"
+    },
+    {
+      "level": "soon",
+      "title": "voxel-drone-ops: two jobs have no owner",
+      "body": "Hernando card landed. \u201cAwaiting stills\u201d is still yours.",
+      "href": "#/shipyard/voxeldesignedit/voxel-drone-ops"
+    }
+  ],
+  "payload": {
+    "accounts": [
+      {
+        "id": "boorussia",
+        "login": "BooRussia",
+        "displayName": "BooRussia",
+        "host": "github.com",
+        "projects": [
+          {
+            "id": "boorussia/propwash-fpv",
+            "owner": "BooRussia",
+            "name": "propwash-fpv",
+            "url": "https://github.com/BooRussia/propwash-fpv",
+            "visibility": "public",
+            "description": "Browser FPV sim \u2014 physics, USB radio, Miami + procedural maps.",
+            "purpose": "Keep the sim playable and honest. Next: retrieval mission tuning.",
+            "thumbnailUrl": "",
+            "imageSource": "monogram",
+            "status": "active",
+            "needsMe": false,
+            "defaultBranch": "main",
+            "lastCommit": {
+              "sha": "a18c4e2b91d0",
+              "at": "2026-08-26T21:00:00Z",
+              "subject": "Tighten propwash torque on punch-outs",
+              "body": "Co-authored-by: grok[bot] <grok@x.ai>\n\nHold yaw authority when throttle slams. Playtest clip in issue 44.",
+              "authorName": "Ney",
+              "authorEmail": "ney@local",
+              "committerName": "GitHub",
+              "files": [
+                "js/physics/rotor.js",
+                "js/craft/quad.js",
+                "js/ui/osd.js"
+              ],
+              "url": "https://github.com/BooRussia/propwash-fpv/commit/a18c4e2b91d0"
+            },
+            "lastTool": "Grok",
+            "lastToolEvidence": "Co-authored-by: grok[bot] <grok@x.ai> in commit body.",
+            "lastBriefing": "LAST WATCH 2d. Grok co-authored a torque fix on punch-outs. OSD still shows the old watt draw. Next action is a 10-pack retrieval flight against the Miami map, then park the physics file unless the tail still wags.",
+            "recentCommits": [
+              {
+                "sha": "a18c4e2",
+                "at": "2026-08-26T21:00:00Z",
+                "subject": "Tighten propwash torque on punch-outs",
+                "authorName": "Ney",
+                "lastTool": "Grok"
+              },
+              {
+                "sha": "9bb10c1",
+                "at": "2026-08-23T16:00:00Z",
+                "subject": "USB radio axis map for Radiomaster Pocket",
+                "authorName": "Ney",
+                "lastTool": "Cursor"
+              },
+              {
+                "sha": "77e2aa0",
+                "at": "2026-08-19T19:00:00Z",
+                "subject": "Miami marina collision hulls",
+                "authorName": "Ney",
+                "lastTool": "Human"
+              },
+              {
+                "sha": "51c09de",
+                "at": "2026-08-14T11:00:00Z",
+                "subject": "OSD: add current draw and sag",
+                "authorName": "Ney",
+                "lastTool": "Claude"
+              },
+              {
+                "sha": "40aa12f",
+                "at": "2026-08-10T08:00:00Z",
+                "subject": "Procedural park seed 7",
+                "authorName": "Ney",
+                "lastTool": "Grok"
+              },
+              {
+                "sha": "2f19b8c",
+                "at": "2026-08-05T22:00:00Z",
+                "subject": "Freestyle restart without full reload",
+                "authorName": "Ney",
+                "lastTool": "Cursor"
+              },
+              {
+                "sha": "1c88e04",
+                "at": "2026-07-30T15:00:00Z",
+                "subject": "Calibrate rates to 800 deg/s",
+                "authorName": "Ney",
+                "lastTool": "Human"
+              },
+              {
+                "sha": "0aa71d5",
+                "at": "2026-07-23T09:00:00Z",
+                "subject": "Initial WebGL renderer path",
+                "authorName": "Ney",
+                "lastTool": "Unknown"
+              }
+            ],
+            "links": [
+              {
+                "label": "Issues",
+                "url": "https://github.com/BooRussia/propwash-fpv/issues"
+              },
+              {
+                "label": "Live",
+                "url": "https://boorussia.github.io/propwash-fpv/"
+              }
+            ],
+            "nextAction": "Ten retrieval laps on Miami. If yaw still walks, reopen rotor.js \u2014 do not start a new physics rewrite."
+          },
+          {
+            "id": "boorussia/floorplan-visualizer",
+            "owner": "BooRussia",
+            "name": "floorplan-visualizer",
+            "url": "https://github.com/BooRussia/floorplan-visualizer",
+            "visibility": "public",
+            "description": "Draw a 2D floorplan, get a textured 3D dollhouse.",
+            "purpose": "Sales tool for window jobs. Next: opening callouts in the 3D view.",
+            "thumbnailUrl": "",
+            "imageSource": "monogram",
+            "status": "active",
+            "needsMe": false,
+            "defaultBranch": "main",
+            "lastCommit": {
+              "sha": "c4e91aa0188b",
+              "at": "2026-08-27T23:00:00Z",
+              "subject": "Opening callouts follow camera in dollhouse",
+              "body": "Generated with Claude Code.\n\nKeep labels screen-space. Hide when occluded by exterior walls.",
+              "authorName": "Ney",
+              "authorEmail": "ney@local",
+              "committerName": "Claude",
+              "files": [
+                "src/view/dollhouse.js",
+                "src/view/callouts.js",
+                "src/ui/legend.css"
+              ],
+              "url": "https://github.com/BooRussia/floorplan-visualizer/commit/c4e91aa0188b"
+            },
+            "lastTool": "Claude",
+            "lastToolEvidence": "Commit body starts with \u201cGenerated with Claude Code.\u201d CommitterName is Claude.",
+            "lastBriefing": "LAST WATCH 1d. Claude landed screen-space opening callouts. The 2D editor still uses the old label layer, so a room rename does not push into 3D until a redraw. Resume there \u2014 one file, callouts.js, then a walkthrough on the Hernando demo plan.",
+            "recentCommits": [
+              {
+                "sha": "c4e91aa",
+                "at": "2026-08-27T23:00:00Z",
+                "subject": "Opening callouts follow camera in dollhouse",
+                "authorName": "Ney",
+                "lastTool": "Claude"
+              },
+              {
+                "sha": "b7d2201",
+                "at": "2026-08-25T14:00:00Z",
+                "subject": "Texture atlas for vinyl and brick",
+                "authorName": "Ney",
+                "lastTool": "Cursor"
+              },
+              {
+                "sha": "aa91c03",
+                "at": "2026-08-20T10:00:00Z",
+                "subject": "Snap walls to 1/4 inch",
+                "authorName": "Ney",
+                "lastTool": "Human"
+              },
+              {
+                "sha": "98c11e4",
+                "at": "2026-08-16T18:00:00Z",
+                "subject": "Export glTF of the dollhouse",
+                "authorName": "Ney",
+                "lastTool": "Grok"
+              },
+              {
+                "sha": "81ab002",
+                "at": "2026-08-12T09:00:00Z",
+                "subject": "Undo stack for wall edits",
+                "authorName": "Ney",
+                "lastTool": "Claude"
+              },
+              {
+                "sha": "70dd9a1",
+                "at": "2026-08-07T20:00:00Z",
+                "subject": "Printable 2D with dimension strings",
+                "authorName": "Ney",
+                "lastTool": "Human"
+              },
+              {
+                "sha": "5e44b19",
+                "at": "2026-08-01T11:00:00Z",
+                "subject": "Load saved plan from JSON",
+                "authorName": "Ney",
+                "lastTool": "Cursor"
+              },
+              {
+                "sha": "3a01c77",
+                "at": "2026-07-26T16:00:00Z",
+                "subject": "First dollhouse extrude",
+                "authorName": "Ney",
+                "lastTool": "Unknown"
+              }
+            ],
+            "links": [
+              {
+                "label": "Repo",
+                "url": "https://github.com/BooRussia/floorplan-visualizer"
+              }
+            ],
+            "nextAction": "Push 2D room rename into callouts.js, then walk the Hernando demo plan once."
+          },
+          {
+            "id": "boorussia/edgecase",
+            "owner": "BooRussia",
+            "name": "edgecase",
+            "url": "https://github.com/BooRussia/edgecase",
+            "visibility": "public",
+            "description": "Curated Tesla FSD dashcam index from X, ranked by severity.",
+            "purpose": "Keep the index honest. Blocked on X API quota and a broken clip host.",
+            "thumbnailUrl": "",
+            "imageSource": "monogram",
+            "status": "blocked",
+            "needsMe": true,
+            "defaultBranch": "main",
+            "lastCommit": {
+              "sha": "e9021cc45aa0",
+              "at": "2026-08-17T13:00:00Z",
+              "subject": "feat: retry clip posters when CDN 404s",
+              "body": "Made-with: Cursor\n\nDoes not fix the quota. Host still 404s 18 clips.",
+              "authorName": "Ney",
+              "authorEmail": "ney@local",
+              "committerName": "Cursor",
+              "files": [
+                "src/clips/host.js",
+                "src/clips/retry.js",
+                "data/index.json"
+              ],
+              "url": "https://github.com/BooRussia/edgecase/commit/e9021cc45aa0"
+            },
+            "lastTool": "Cursor",
+            "lastToolEvidence": "Commit body contains \u201cMade-with: Cursor\u201d. CommitterName is Cursor.",
+            "lastBriefing": "LAST WATCH 11d. Cursor added retries for clip posters. Eighteen clips still 404, and the X pull is quota-blocked. This is waiting on you: either swap the clip host or freeze the index and mark those rows as missing. Do not ask an agent to invent replacements.",
+            "recentCommits": [
+              {
+                "sha": "e9021cc",
+                "at": "2026-08-17T13:00:00Z",
+                "subject": "feat: retry clip posters when CDN 404s",
+                "authorName": "Ney",
+                "lastTool": "Cursor"
+              },
+              {
+                "sha": "d11a90b",
+                "at": "2026-08-09T17:00:00Z",
+                "subject": "Rank by severity, not likes",
+                "authorName": "Ney",
+                "lastTool": "Human"
+              },
+              {
+                "sha": "c08e44a",
+                "at": "2026-08-04T12:00:00Z",
+                "subject": "Parse X media from saved JSON",
+                "authorName": "Ney",
+                "lastTool": "Claude"
+              },
+              {
+                "sha": "aa77c12",
+                "at": "2026-07-28T08:00:00Z",
+                "subject": "Add maneuver tags",
+                "authorName": "Ney",
+                "lastTool": "Grok"
+              },
+              {
+                "sha": "9910b3e",
+                "at": "2026-07-19T21:00:00Z",
+                "subject": "Skeleton board layout",
+                "authorName": "Ney",
+                "lastTool": "Cursor"
+              },
+              {
+                "sha": "80c1d9a",
+                "at": "2026-07-11T14:00:00Z",
+                "subject": "Import first 40 clips",
+                "authorName": "Ney",
+                "lastTool": "Human"
+              },
+              {
+                "sha": "71aa002",
+                "at": "2026-07-04T09:00:00Z",
+                "subject": "Filter: night / rain / highway",
+                "authorName": "Ney",
+                "lastTool": "Copilot"
+              },
+              {
+                "sha": "60bb118",
+                "at": "2026-06-27T18:00:00Z",
+                "subject": "Initial Vite shell",
+                "authorName": "Ney",
+                "lastTool": "Unknown"
+              }
+            ],
+            "links": [
+              {
+                "label": "Live",
+                "url": "https://boorussia.github.io/edgecase/"
+              }
+            ],
+            "nextAction": "Decide: new clip host, or freeze 18 missing rows. Quota will not clear itself."
+          }
+        ]
+      },
+      {
+        "id": "voxeldesignedit",
+        "login": "VoxelDesignedIt",
+        "displayName": "Voxel Designed It",
+        "host": "github.com",
+        "projects": [
+          {
+            "id": "voxeldesignedit/voxel-drone-ops",
+            "owner": "VoxelDesignedIt",
+            "name": "voxel-drone-ops",
+            "url": "https://github.com/VoxelDesignedIt/voxel-drone-ops",
+            "visibility": "private",
+            "description": "Studio ops board: jobs, aircraft, and deliverable status.",
+            "purpose": "Private ops. JSON in this bay is the only contents the deck can show.",
+            "thumbnailUrl": "",
+            "imageSource": "monogram",
+            "status": "active",
+            "needsMe": true,
+            "defaultBranch": "main",
+            "lastCommit": {
+              "sha": "f3c10aa99120",
+              "at": "2026-08-25T07:00:00Z",
+              "subject": "Add Hernando thermal job card",
+              "body": "Co-authored-by: Cursor <cursoragent@cursor.com>\n\nDo not expose client addresses in the public site.",
+              "authorName": "Ney",
+              "authorEmail": "ney@local",
+              "committerName": "Cursor",
+              "files": [
+                "src/jobs/card.js",
+                "data/jobs/2026-08-hernando.json",
+                "src/privacy/redact.js"
+              ],
+              "url": "https://github.com/VoxelDesignedIt/voxel-drone-ops/commit/f3c10aa99120"
+            },
+            "lastTool": "Cursor",
+            "lastToolEvidence": "Co-authored-by: Cursor <cursoragent@cursor.com> in commit body.",
+            "lastBriefing": "LAST WATCH 3d. Cursor added the Hernando thermal card and a redact helper. The board still has two jobs in \u201cawaiting stills\u201d with no owner. You are the owner. Assign or close them before Friday\u2019s shoot.",
+            "recentCommits": [
+              {
+                "sha": "f3c10aa",
+                "at": "2026-08-25T07:00:00Z",
+                "subject": "Add Hernando thermal job card",
+                "authorName": "Ney",
+                "lastTool": "Cursor"
+              },
+              {
+                "sha": "e21bb04",
+                "at": "2026-08-22T19:00:00Z",
+                "subject": "Redact GPS from public JSON",
+                "authorName": "Ney",
+                "lastTool": "Human"
+              },
+              {
+                "sha": "c90aa17",
+                "at": "2026-08-18T12:00:00Z",
+                "subject": "Aircraft hours log",
+                "authorName": "Ney",
+                "lastTool": "Claude"
+              },
+              {
+                "sha": "b11d8e2",
+                "at": "2026-08-13T08:00:00Z",
+                "subject": "Status: awaiting stills",
+                "authorName": "Ney",
+                "lastTool": "Grok"
+              },
+              {
+                "sha": "a04c991",
+                "at": "2026-08-08T16:00:00Z",
+                "subject": "Client folder naming",
+                "authorName": "Ney",
+                "lastTool": "Human"
+              },
+              {
+                "sha": "8e77c10",
+                "at": "2026-08-02T11:00:00Z",
+                "subject": "Private README for operators",
+                "authorName": "Ney",
+                "lastTool": "Cursor"
+              },
+              {
+                "sha": "7c12ab9",
+                "at": "2026-07-25T09:00:00Z",
+                "subject": "Job schema v1",
+                "authorName": "Ney",
+                "lastTool": "Unknown"
+              },
+              {
+                "sha": "6a90ee4",
+                "at": "2026-07-18T18:00:00Z",
+                "subject": "Empty ops shell",
+                "authorName": "Ney",
+                "lastTool": "Copilot"
+              }
+            ],
+            "links": [],
+            "nextAction": "Assign or close the two \u201cawaiting stills\u201d jobs before Friday."
+          },
+          {
+            "id": "voxeldesignedit/aerial-pricing",
+            "owner": "VoxelDesignedIt",
+            "name": "aerial-pricing",
+            "url": "https://github.com/VoxelDesignedIt/aerial-pricing",
+            "visibility": "public",
+            "description": "Map-based drone job pricing calculator.",
+            "purpose": "Shipped. Quote path is live. Park unless a rate card changes.",
+            "thumbnailUrl": "",
+            "imageSource": "monogram",
+            "status": "shipped",
+            "needsMe": false,
+            "defaultBranch": "main",
+            "lastCommit": {
+              "sha": "11d0aae77801",
+              "at": "2026-07-12T15:00:00Z",
+              "subject": "Freeze 2026 rate card",
+              "body": "No agent trailer. Typed by hand from the printed card.",
+              "authorName": "Ney",
+              "authorEmail": "ney@local",
+              "committerName": "Ney",
+              "files": [
+                "src/rates/2026.json",
+                "README.md"
+              ],
+              "url": "https://github.com/VoxelDesignedIt/aerial-pricing/commit/11d0aae77801"
+            },
+            "lastTool": "Human",
+            "lastToolEvidence": "CommitterName matches author. Body states \u201cNo agent trailer. Typed by hand from the printed card.\u201d",
+            "lastBriefing": "LAST WATCH 47d. Human freeze of the 2026 rate card. Site is in production. Nothing in motion. Reopen only if insurance or FAA Part 107 language changes.",
+            "recentCommits": [
+              {
+                "sha": "11d0aae",
+                "at": "2026-07-12T15:00:00Z",
+                "subject": "Freeze 2026 rate card",
+                "authorName": "Ney",
+                "lastTool": "Human"
+              },
+              {
+                "sha": "0c88b12",
+                "at": "2026-07-05T10:00:00Z",
+                "subject": "Printable quote PDF",
+                "authorName": "Ney",
+                "lastTool": "Claude"
+              },
+              {
+                "sha": "fa12c90",
+                "at": "2026-06-28T13:00:00Z",
+                "subject": "Map polygon area in acres",
+                "authorName": "Ney",
+                "lastTool": "Cursor"
+              },
+              {
+                "sha": "ee90aa1",
+                "at": "2026-06-19T09:00:00Z",
+                "subject": "Travel surcharge by county",
+                "authorName": "Ney",
+                "lastTool": "Human"
+              },
+              {
+                "sha": "d4bb018",
+                "at": "2026-06-11T17:00:00Z",
+                "subject": "Thermal vs photo line items",
+                "authorName": "Ney",
+                "lastTool": "Grok"
+              },
+              {
+                "sha": "c0a19e7",
+                "at": "2026-06-01T11:00:00Z",
+                "subject": "Copy quote as markdown",
+                "authorName": "Ney",
+                "lastTool": "Copilot"
+              },
+              {
+                "sha": "b81c003",
+                "at": "2026-05-23T08:00:00Z",
+                "subject": "Leaflet draw controls",
+                "authorName": "Ney",
+                "lastTool": "Cursor"
+              },
+              {
+                "sha": "a19ee44",
+                "at": "2026-05-10T16:00:00Z",
+                "subject": "First calculator shell",
+                "authorName": "Ney",
+                "lastTool": "Unknown"
+              }
+            ],
+            "links": [
+              {
+                "label": "Live",
+                "url": "https://voxeldesignedit.github.io/aerial-pricing/"
+              }
+            ],
+            "nextAction": "None. Reopen if the rate card or Part 107 language changes."
+          },
+          {
+            "id": "voxeldesignedit/opening-ops-kit",
+            "owner": "VoxelDesignedIt",
+            "name": "opening-ops-kit",
+            "url": "https://github.com/VoxelDesignedIt/opening-ops-kit",
+            "visibility": "public",
+            "description": "3D showcase of window and door operations for customer demos.",
+            "purpose": "Parked after the last sales season. Resume before next show.",
+            "thumbnailUrl": "",
+            "imageSource": "monogram",
+            "status": "parked",
+            "needsMe": false,
+            "defaultBranch": "main",
+            "lastCommit": {
+              "sha": "99c0ee1ab210",
+              "at": "2026-06-27T14:00:00Z",
+              "subject": "chore: park demo lighting for show season",
+              "body": "Copilot-generated commit message.\nCo-authored-by: github-copilot[bot] <github-copilot[bot]@users.noreply.github.com>",
+              "authorName": "Ney",
+              "authorEmail": "ney@local",
+              "committerName": "GitHub",
+              "files": [
+                "src/demo/lights.js",
+                "src/demo/season.js"
+              ],
+              "url": "https://github.com/VoxelDesignedIt/opening-ops-kit/commit/99c0ee1ab210"
+            },
+            "lastTool": "Copilot",
+            "lastToolEvidence": "Co-authored-by: github-copilot[bot] and \u201cCopilot-generated commit message.\u201d",
+            "lastBriefing": "LAST WATCH 62d. Copilot parked the demo lighting. The casement and slider rigs still play. Nothing is blocked. Leave it until the next in-person show; do not spend a morning \u201cjust polishing\u201d the glass shader.",
+            "recentCommits": [
+              {
+                "sha": "99c0ee1",
+                "at": "2026-06-27T14:00:00Z",
+                "subject": "chore: park demo lighting for show season",
+                "authorName": "Ney",
+                "lastTool": "Copilot"
+              },
+              {
+                "sha": "88b1c20",
+                "at": "2026-06-19T11:00:00Z",
+                "subject": "Casement crank animation",
+                "authorName": "Ney",
+                "lastTool": "Grok"
+              },
+              {
+                "sha": "77a09d4",
+                "at": "2026-06-12T16:00:00Z",
+                "subject": "Slider handle hits",
+                "authorName": "Ney",
+                "lastTool": "Claude"
+              },
+              {
+                "sha": "66c12ab",
+                "at": "2026-06-04T09:00:00Z",
+                "subject": "Low-E glass tint",
+                "authorName": "Ney",
+                "lastTool": "Cursor"
+              },
+              {
+                "sha": "55d0e18",
+                "at": "2026-05-27T13:00:00Z",
+                "subject": "Frame color swatches",
+                "authorName": "Ney",
+                "lastTool": "Human"
+              },
+              {
+                "sha": "44e91c0",
+                "at": "2026-05-19T18:00:00Z",
+                "subject": "Touch orbit damping",
+                "authorName": "Ney",
+                "lastTool": "Cursor"
+              },
+              {
+                "sha": "33f10aa",
+                "at": "2026-05-08T10:00:00Z",
+                "subject": "Show-mode kiosk flag",
+                "authorName": "Ney",
+                "lastTool": "Human"
+              },
+              {
+                "sha": "22a8b17",
+                "at": "2026-04-30T15:00:00Z",
+                "subject": "First hung window rig",
+                "authorName": "Ney",
+                "lastTool": "Unknown"
+              }
+            ],
+            "links": [
+              {
+                "label": "Repo",
+                "url": "https://github.com/VoxelDesignedIt/opening-ops-kit"
+              }
+            ],
+            "nextAction": "Leave parked. Resume two weeks before the next in-person show."
+          }
+        ]
+      }
+    ]
+  }
+}

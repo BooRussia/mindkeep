@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "app": "MindKeep",
+  "updatedAt": "2026-08-28T07:00:00Z",
+  "bays": [
+    {
+      "id": "pirate",
+      "title": "Price Pirate",
+      "operator": "Pete",
+      "href": "#/pirate",
+      "renderer": "pirate",
+      "file": "data/bays/pirate.json"
+    },
+    {
+      "id": "shipyard",
+      "title": "Shipyard",
+      "operator": "Rig",
+      "href": "#/shipyard",
+      "renderer": "shipyard",
+      "file": "data/bays/shipyard.json"
+    },
+    {
+      "id": "mailbag",
+      "title": "Mailbag",
+      "operator": "Post",
+      "href": "#/mailbag",
+      "renderer": "mailbag",
+      "file": "data/bays/mailbag.json"
+    }
+  ]
+}

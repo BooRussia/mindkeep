@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0.0",
+  "bayId": "mailbag",
+  "updatedAt": "2026-08-28T07:00:00Z",
+  "operator": "Post",
+  "status": "ok",
+  "alerts": [
+    {
+      "level": "now",
+      "title": "Two threads want a reply today",
+      "body": "Hernando stills handoff and the Best Buy open-box Dyson receipt. Post flagged both.",
+      "href": "#/mailbag"
+    },
+    {
+      "level": "info",
+      "title": "Weekly scan is current",
+      "body": "Gmail last 24h \u00b7 14 threads. No tax or legal timers this week.",
+      "href": "#/mailbag"
+    }
+  ],
+  "payload": {
+    "cadence": "daily",
+    "lastScanAt": "2026-08-28T07:00:00Z",
+    "briefings": [
+      {
+        "id": "mb-2026-08-28",
+        "at": "2026-08-28T07:00:00Z",
+        "operator": "Post",
+        "subject": "Morning bag \u2014 two replies, one receipt",
+        "severity": "now",
+        "needsReply": true,
+        "bullets": [
+          "Hernando client asked for thermal stills by 16:00 ET. Thread is 6 messages. You last wrote yesterday.",
+          "Best Buy sent an open-box Dyson V15 receipt to the shopping alias. Confirm it matches the 434 Amazon print before you buy a second unit.",
+          "Framework restock mail is marketing. Ignore."
+        ],
+        "body": "Scan of the last 24 hours. Two threads need a human. Everything else is promo or already answered in the ops board.",
+        "source": "Gmail last 24h \u00b7 14 threads",
+        "threadCount": 14
+      },
+      {
+        "id": "mb-2026-08-24",
+        "at": "2026-08-24T07:00:00Z",
+        "operator": "Post",
+        "subject": "Weekly bag \u2014 quiet, one parked vendor",
+        "severity": "info",
+        "needsReply": false,
+        "bullets": [
+          "Weber dealer newsletter. No price. Still need Ace/Lowe's for the Genesis card.",
+          "GitHub billed BooRussia for private minutes. Expected. No action.",
+          "No unpaid invoices in the 7-day window."
+        ],
+        "body": "A quiet week. Nothing legal, nothing tax. Vendor mail only.",
+        "source": "Gmail last 7d \u00b7 41 threads",
+        "threadCount": 41
+      }
+    ]
+  }
+}

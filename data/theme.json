@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1.0.0",
+  "defaultPreset": "default",
+  "storageKey": "mindkeep-prefs-v1",
+  "presets": {
+    "default": {
+      "id": "default",
+      "label": "Default",
+      "note": "Black field. Blue/pink only where data moves.",
+      "glow": true,
+      "tokens": {
+        "--bg": "#050505",
+        "--bg-elev": "#0C0C0C",
+        "--bg-glass": "rgba(12,12,12,0.78)",
+        "--line": "#1A1A1A",
+        "--text": "#F4F4F4",
+        "--text-dim": "#8A8A8A",
+        "--blue": "#4D9EFF",
+        "--pink": "#FF4FA3",
+        "--good": "#4D9EFF",
+        "--bad": "#FF4FA3",
+        "--warn": "#E8E8E8",
+        "--glow-blue": "0 0 18px rgba(77,158,255,0.35)",
+        "--glow-pink": "0 0 18px rgba(255,79,163,0.32)",
+        "--glow-edge": "0 0 0 1px rgba(77,158,255,0.35), 0 0 0 2px rgba(255,79,163,0.18)",
+        "--chart-fill": "rgba(77,158,255,0.12)",
+        "--field-opacity": "0.55"
+      }
+    },
+    "paper": {
+      "id": "paper",
+      "label": "Paper",
+      "note": "Off-white deck. Same blue/pink.",
+      "glow": true,
+      "tokens": {
+        "--bg": "#F4F1EA",
+        "--bg-elev": "#FFFcf7",
+        "--bg-glass": "rgba(255,252,247,0.86)",
+        "--line": "#E4DFD4",
+        "--text": "#161616",
+        "--text-dim": "#6B6B6B",
+        "--blue": "#2F7AE5",
+        "--pink": "#E23D8C",
+        "--good": "#2F7AE5",
+        "--bad": "#E23D8C",
+        "--warn": "#2A2A2A",
+        "--glow-blue": "0 0 16px rgba(47,122,229,0.22)",
+        "--glow-pink": "0 0 16px rgba(226,61,140,0.18)",
+        "--glow-edge": "0 0 0 1px rgba(47,122,229,0.35), 0 0 0 2px rgba(226,61,140,0.16)",
+        "--chart-fill": "rgba(47,122,229,0.10)",
+        "--field-opacity": "0.12"
+      }
+    },
+    "dim": {
+      "id": "dim",
+      "label": "Dim",
+      "note": "Same black. Glow off.",
+      "glow": false,
+      "tokens": {
+        "--bg": "#050505",
+        "--bg-elev": "#0C0C0C",
+        "--bg-glass": "rgba(12,12,12,0.92)",
+        "--line": "#1A1A1A",
+        "--text": "#F4F4F4",
+        "--text-dim": "#8A8A8A",
+        "--blue": "#4D9EFF",
+        "--pink": "#FF4FA3",
+        "--good": "#4D9EFF",
+        "--bad": "#FF4FA3",
+        "--warn": "#E8E8E8",
+        "--glow-blue": "none",
+        "--glow-pink": "none",
+        "--glow-edge": "none",
+        "--chart-fill": "rgba(77,158,255,0.06)",
+        "--field-opacity": "0"
+      }
+    }
+  }
+}

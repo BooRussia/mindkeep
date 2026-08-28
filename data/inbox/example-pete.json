@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "agent": "Pete",
+  "bayId": "pirate",
+  "at": "2026-08-28T09:00:00Z",
+  "kind": "merge",
+  "payload": {
+    "items": [
+      {
+        "id": "dyson-v15-detect-extra",
+        "currentBest": {
+          "price": 429.0,
+          "retailer": "Amazon",
+          "url": "https://www.amazon.com/dp/B0C3L5R5QK",
+          "inStock": true,
+          "observedAt": "2026-08-28T09:00:00Z",
+          "notes": "Matched ATL. Sold by Amazon."
+        },
+        "priceHistory": [
+          {
+            "date": "2026-08-28T09:00:00Z",
+            "price": 429.0,
+            "retailer": "Amazon",
+            "source": "agent"
+          }
+        ],
+        "log": [
+          {
+            "at": "2026-08-28T09:00:00Z",
+            "actor": "pete",
+            "kind": "alert",
+            "text": "Amazon matched ATL at 429. Buy window is open."
+          }
+        ]
+      }
+    ]
+  }
+}

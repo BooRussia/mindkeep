@@ -1,0 +1,13 @@
+.DS_Store
+*.log
+.idea/
+.vscode/
+node_modules/
+.cache/
+dist/
+.env
+.env.*
+*.pem
+*.key
+tokens.json
+secrets.json

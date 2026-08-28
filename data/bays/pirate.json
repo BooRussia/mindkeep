@@ -1,0 +1,6221 @@
+{
+  "schemaVersion": "1.0.0",
+  "bayId": "pirate",
+  "updatedAt": "2026-08-27T19:00:00Z",
+  "operator": "Pete",
+  "status": "ok",
+  "alerts": [
+    {
+      "level": "now",
+      "title": "Dyson V15 is inside 2% of ATL",
+      "body": "Amazon $434 vs ATL $429 (Best Buy, 2025-11-28). Target $449. Steal.",
+      "href": "#/pirate/dyson-v15-detect-extra"
+    },
+    {
+      "level": "now",
+      "title": "Framework 16 is at target",
+      "body": "DIY kit $1,699 in stock at Framework. Ready status.",
+      "href": "#/pirate/framework-laptop-16"
+    },
+    {
+      "level": "soon",
+      "title": "Weber Genesis needs a real history",
+      "body": "Four prints, no ATL. Ace/Lowe's and last BF still missing.",
+      "href": "#/pirate/weber-genesis-e-325s"
+    }
+  ],
+  "payload": {
+    "items": [
+      {
+        "id": "dyson-v15-detect-extra",
+        "name": "Dyson V15 Detect Extra",
+        "variant": "Yellow / Iron, extra motorbar",
+        "category": "Vacuum",
+        "imageUrl": "",
+        "imageSource": "monogram",
+        "identifiers": {
+          "asin": "B0C3L5R5QK",
+          "upc": "885609027041",
+          "model": "V15 Detect Extra",
+          "sku": "419420-01"
+        },
+        "productUrls": [
+          {
+            "retailer": "Amazon",
+            "url": "https://www.amazon.com/dp/B0C3L5R5QK"
+          },
+          {
+            "retailer": "Best Buy",
+            "url": "https://www.bestbuy.com/site/dyson-v15-detect/6461323.p"
+          },
+          {
+            "retailer": "Dyson",
+            "url": "https://www.dyson.com/vacuum-cleaners/cordless/v15-detect"
+          },
+          {
+            "retailer": "Costco",
+            "url": "https://www.costco.com/dyson-v15.html"
+          },
+          {
+            "retailer": "Target",
+            "url": "https://www.target.com/p/dyson-v15/-/A-87901234"
+          }
+        ],
+        "status": "watching",
+        "priority": "now",
+        "targetPrice": 449.0,
+        "currency": "USD",
+        "cadence": "daily",
+        "lastCheckedAt": "2026-08-27T18:00:00Z",
+        "nextCheckAt": "2026-08-28T18:00:00Z",
+        "why": "Replacement for the dying V8. Buy at or under $449; ATL was $429 on BF 2025.",
+        "currentBest": {
+          "price": 434.0,
+          "retailer": "Amazon",
+          "url": "https://www.amazon.com/dp/B0C3L5R5QK",
+          "inStock": true,
+          "observedAt": "2026-08-27T18:00:00Z",
+          "notes": "Sold by Amazon, ships free. Two-day."
+        },
+        "allTimeLow": {
+          "price": 429.0,
+          "retailer": "Best Buy",
+          "date": "2025-11-28",
+          "url": "https://www.bestbuy.com/site/dyson-v15-detect/6461323.p",
+          "notes": "Black Friday doorbuster, open-box same price."
+        },
+        "stats": {
+          "change1dPct": 0.0,
+          "change7dPct": -9.94,
+          "change30dPct": -7.32,
+          "change90dPct": -7.41,
+          "vsAtlPct": 1.17,
+          "vs30dAvgPct": -7.97,
+          "vs90dAvgPct": -7.37
+        },
+        "dealGrade": "steal",
+        "retailers": [
+          {
+            "retailer": "Amazon",
+            "price": 434.0,
+            "url": "https://www.amazon.com/dp/B0C3L5R5QK",
+            "inStock": true,
+            "shippingNote": "Free over $35",
+            "lastSeenAt": "2026-08-27T18:00:00Z",
+            "isWinner": true,
+            "setAtl": false
+          },
+          {
+            "retailer": "Costco",
+            "price": 470.38,
+            "url": "https://www.costco.com/dyson-v15.html",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-26T15:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Target",
+            "price": 471.07,
+            "url": "https://www.target.com/p/dyson-v15/-/A-87901234",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-14T15:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Best Buy",
+            "price": 480.1,
+            "url": "https://www.bestbuy.com/site/dyson-v15-detect/6461323.p",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-18T16:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Dyson",
+            "price": 483.8,
+            "url": "https://www.dyson.com/vacuum-cleaners/cordless/v15-detect",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-26T16:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          }
+        ],
+        "priceHistory": [
+          {
+            "date": "2024-11-01T15:00:00Z",
+            "price": 550.98,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-04T15:00:00Z",
+            "price": 550.37,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-07T15:00:00Z",
+            "price": 553.14,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-10T11:00:00Z",
+            "price": 550.07,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-13T11:00:00Z",
+            "price": 546.57,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-16T11:00:00Z",
+            "price": 547.4,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-19T11:00:00Z",
+            "price": 546.02,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-22T11:00:00Z",
+            "price": 547.0,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-25T11:00:00Z",
+            "price": 542.65,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-28T15:00:00Z",
+            "price": 546.25,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-01T11:00:00Z",
+            "price": 542.16,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-04T15:00:00Z",
+            "price": 548.77,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-07T15:00:00Z",
+            "price": 547.33,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-10T11:00:00Z",
+            "price": 544.93,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-13T15:00:00Z",
+            "price": 550.86,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-16T11:00:00Z",
+            "price": 545.58,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-19T15:00:00Z",
+            "price": 553.14,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-22T11:00:00Z",
+            "price": 549.18,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-25T11:00:00Z",
+            "price": 548.21,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-28T15:00:00Z",
+            "price": 549.39,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-31T11:00:00Z",
+            "price": 548.81,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-03T15:00:00Z",
+            "price": 554.11,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-06T15:00:00Z",
+            "price": 556.85,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-09T15:00:00Z",
+            "price": 558.7,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-12T15:00:00Z",
+            "price": 559.2,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-15T11:00:00Z",
+            "price": 553.42,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-18T11:00:00Z",
+            "price": 553.26,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-21T11:00:00Z",
+            "price": 552.13,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-24T11:00:00Z",
+            "price": 548.47,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-27T15:00:00Z",
+            "price": 558.15,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-30T15:00:00Z",
+            "price": 557.76,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-02T11:00:00Z",
+            "price": 552.77,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-05T15:00:00Z",
+            "price": 559.34,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-08T11:00:00Z",
+            "price": 551.24,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-11T15:00:00Z",
+            "price": 556.3,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-14T15:00:00Z",
+            "price": 558.68,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-17T11:00:00Z",
+            "price": 556.27,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-20T15:00:00Z",
+            "price": 557.09,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-23T15:00:00Z",
+            "price": 560.32,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-26T11:00:00Z",
+            "price": 553.19,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-01T11:00:00Z",
+            "price": 555.38,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-04T11:00:00Z",
+            "price": 553.31,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-07T15:00:00Z",
+            "price": 559.9,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-10T15:00:00Z",
+            "price": 558.73,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-13T15:00:00Z",
+            "price": 560.87,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-16T15:00:00Z",
+            "price": 561.47,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-19T11:00:00Z",
+            "price": 559.29,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-22T11:00:00Z",
+            "price": 558.77,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-25T11:00:00Z",
+            "price": 557.87,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-28T15:00:00Z",
+            "price": 562.39,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-31T11:00:00Z",
+            "price": 557.03,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-03T15:00:00Z",
+            "price": 564.2,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-06T11:00:00Z",
+            "price": 558.75,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-09T15:00:00Z",
+            "price": 561.66,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-12T11:00:00Z",
+            "price": 559.28,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-15T11:00:00Z",
+            "price": 554.74,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-18T11:00:00Z",
+            "price": 553.2,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-21T11:00:00Z",
+            "price": 556.2,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-24T11:00:00Z",
+            "price": 553.63,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-27T15:00:00Z",
+            "price": 558.47,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-30T11:00:00Z",
+            "price": 552.76,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-03T11:00:00Z",
+            "price": 554.79,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-06T11:00:00Z",
+            "price": 550.14,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-09T11:00:00Z",
+            "price": 552.72,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-12T15:00:00Z",
+            "price": 555.63,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-15T11:00:00Z",
+            "price": 553.73,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-18T15:00:00Z",
+            "price": 559.68,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-21T15:00:00Z",
+            "price": 557.05,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-24T11:00:00Z",
+            "price": 551.49,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-27T11:00:00Z",
+            "price": 554.85,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-30T15:00:00Z",
+            "price": 559.57,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-02T11:00:00Z",
+            "price": 554.88,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-05T15:00:00Z",
+            "price": 558.41,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-08T15:00:00Z",
+            "price": 562.36,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-11T11:00:00Z",
+            "price": 555.54,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-14T11:00:00Z",
+            "price": 555.96,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-17T15:00:00Z",
+            "price": 559.04,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-20T15:00:00Z",
+            "price": 559.93,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-23T15:00:00Z",
+            "price": 562.28,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-26T15:00:00Z",
+            "price": 565.42,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-29T15:00:00Z",
+            "price": 565.93,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-02T15:00:00Z",
+            "price": 566.43,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-05T11:00:00Z",
+            "price": 561.37,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-08T09:00:00Z",
+            "price": 469.0,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-11T15:00:00Z",
+            "price": 472.99,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-14T11:00:00Z",
+            "price": 470.43,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-17T11:00:00Z",
+            "price": 469.52,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-20T11:00:00Z",
+            "price": 467.9,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-23T11:00:00Z",
+            "price": 466.84,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-26T15:00:00Z",
+            "price": 473.14,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-29T15:00:00Z",
+            "price": 472.27,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-01T15:00:00Z",
+            "price": 474.13,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-04T11:00:00Z",
+            "price": 468.55,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-07T11:00:00Z",
+            "price": 465.97,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-10T15:00:00Z",
+            "price": 470.65,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-13T11:00:00Z",
+            "price": 466.29,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-16T11:00:00Z",
+            "price": 464.46,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-19T11:00:00Z",
+            "price": 465.68,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-22T15:00:00Z",
+            "price": 467.81,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-25T15:00:00Z",
+            "price": 472.77,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-28T11:00:00Z",
+            "price": 465.06,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-31T11:00:00Z",
+            "price": 464.56,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-03T15:00:00Z",
+            "price": 471.83,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-06T11:00:00Z",
+            "price": 468.06,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-09T15:00:00Z",
+            "price": 469.03,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-12T15:00:00Z",
+            "price": 473.46,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-15T15:00:00Z",
+            "price": 471.53,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-18T11:00:00Z",
+            "price": 467.05,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-21T15:00:00Z",
+            "price": 472.19,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-24T11:00:00Z",
+            "price": 468.22,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-27T15:00:00Z",
+            "price": 472.38,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-30T11:00:00Z",
+            "price": 466.64,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-03T11:00:00Z",
+            "price": 467.02,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-06T11:00:00Z",
+            "price": 467.84,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-09T11:00:00Z",
+            "price": 464.74,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-12T11:00:00Z",
+            "price": 461.97,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-15T11:00:00Z",
+            "price": 462.77,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-18T11:00:00Z",
+            "price": 459.56,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-21T11:00:00Z",
+            "price": 459.04,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-24T11:00:00Z",
+            "price": 456.29,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-27T11:00:00Z",
+            "price": 456.77,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-30T15:00:00Z",
+            "price": 461.96,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-02T11:00:00Z",
+            "price": 457.81,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-05T15:00:00Z",
+            "price": 462.4,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-08T11:00:00Z",
+            "price": 458.82,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-11T15:00:00Z",
+            "price": 465.52,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-14T15:00:00Z",
+            "price": 466.64,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-17T15:00:00Z",
+            "price": 468.55,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-20T15:00:00Z",
+            "price": 467.16,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-23T11:00:00Z",
+            "price": 462.7,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-26T15:00:00Z",
+            "price": 470.97,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-29T11:00:00Z",
+            "price": 464.99,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-02T15:00:00Z",
+            "price": 471.35,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-05T11:00:00Z",
+            "price": 463.2,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-08T11:00:00Z",
+            "price": 464.99,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-11T11:00:00Z",
+            "price": 460.86,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-14T15:00:00Z",
+            "price": 469.67,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-17T11:00:00Z",
+            "price": 463.86,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-20T15:00:00Z",
+            "price": 466.93,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-23T11:00:00Z",
+            "price": 462.51,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-26T11:00:00Z",
+            "price": 459.36,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-29T15:00:00Z",
+            "price": 463.53,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-01T11:00:00Z",
+            "price": 462.78,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-04T15:00:00Z",
+            "price": 464.54,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-07T15:00:00Z",
+            "price": 464.8,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-10T11:00:00Z",
+            "price": 458.45,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-13T11:00:00Z",
+            "price": 458.14,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-16T15:00:00Z",
+            "price": 466.77,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-19T11:00:00Z",
+            "price": 462.98,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-22T15:00:00Z",
+            "price": 465.6,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-25T11:00:00Z",
+            "price": 460.61,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-28T11:00:00Z",
+            "price": 458.98,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-31T15:00:00Z",
+            "price": 462.6,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-03T15:00:00Z",
+            "price": 464.5,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-06T11:00:00Z",
+            "price": 462.28,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-09T15:00:00Z",
+            "price": 464.87,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-12T11:00:00Z",
+            "price": 457.87,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-15T15:00:00Z",
+            "price": 462.17,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-18T15:00:00Z",
+            "price": 465.83,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-21T15:00:00Z",
+            "price": 464.98,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-24T15:00:00Z",
+            "price": 464.19,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-27T15:00:00Z",
+            "price": 469.91,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-02T15:00:00Z",
+            "price": 469.43,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-05T15:00:00Z",
+            "price": 468.04,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-08T11:00:00Z",
+            "price": 461.88,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-11T15:00:00Z",
+            "price": 469.7,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-14T11:00:00Z",
+            "price": 467.01,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-17T15:00:00Z",
+            "price": 469.8,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-20T11:00:00Z",
+            "price": 463.82,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-23T11:00:00Z",
+            "price": 461.02,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-26T11:00:00Z",
+            "price": 461.8,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-29T11:00:00Z",
+            "price": 459.39,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-01T15:00:00Z",
+            "price": 465.13,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-04T11:00:00Z",
+            "price": 459.06,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-07T15:00:00Z",
+            "price": 467.01,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-10T15:00:00Z",
+            "price": 465.81,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-13T11:00:00Z",
+            "price": 464.27,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-16T11:00:00Z",
+            "price": 459.27,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-19T11:00:00Z",
+            "price": 461.87,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-22T15:00:00Z",
+            "price": 464.46,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-25T15:00:00Z",
+            "price": 468.94,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-28T15:00:00Z",
+            "price": 468.16,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-01T15:00:00Z",
+            "price": 469.79,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-04T15:00:00Z",
+            "price": 472.6,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-07T15:00:00Z",
+            "price": 474.4,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-10T11:00:00Z",
+            "price": 469.64,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-13T11:00:00Z",
+            "price": 466.35,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-16T11:00:00Z",
+            "price": 463.87,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-19T11:00:00Z",
+            "price": 464.81,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-22T11:00:00Z",
+            "price": 461.02,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-25T15:00:00Z",
+            "price": 467.76,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-28T15:00:00Z",
+            "price": 468.75,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-31T11:00:00Z",
+            "price": 463.43,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-03T15:00:00Z",
+            "price": 467.4,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-06T11:00:00Z",
+            "price": 463.06,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-09T11:00:00Z",
+            "price": 464.66,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-12T11:00:00Z",
+            "price": 464.8,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-15T11:00:00Z",
+            "price": 462.27,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-18T11:00:00Z",
+            "price": 462.61,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-21T15:00:00Z",
+            "price": 465.25,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-24T15:00:00Z",
+            "price": 468.89,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-27T11:00:00Z",
+            "price": 459.96,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-30T15:00:00Z",
+            "price": 469.8,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-03T15:00:00Z",
+            "price": 470.0,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-06T11:00:00Z",
+            "price": 463.36,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-09T11:00:00Z",
+            "price": 461.27,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-12T15:00:00Z",
+            "price": 468.16,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-15T11:00:00Z",
+            "price": 462.49,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-15T16:00:00Z",
+            "price": 463.01,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-16T16:00:00Z",
+            "price": 463.53,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-18T15:00:00Z",
+            "price": 468.58,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-18T16:00:00Z",
+            "price": 464.68,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-20T16:00:00Z",
+            "price": 467.31,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-21T15:00:00Z",
+            "price": 471.32,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-24T11:00:00Z",
+            "price": 465.47,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-25T16:00:00Z",
+            "price": 466.7,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-26T16:00:00Z",
+            "price": 468.78,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-27T11:00:00Z",
+            "price": 462.29,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-28T16:00:00Z",
+            "price": 468.28,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-30T11:00:00Z",
+            "price": 461.22,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-31T16:00:00Z",
+            "price": 468.31,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-02T15:00:00Z",
+            "price": 467.43,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-03T16:00:00Z",
+            "price": 468.97,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-04T16:00:00Z",
+            "price": 471.69,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-05T15:00:00Z",
+            "price": 467.76,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-07T16:00:00Z",
+            "price": 472.24,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-08T11:00:00Z",
+            "price": 464.42,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-09T16:00:00Z",
+            "price": 474.63,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-11T11:00:00Z",
+            "price": 463.74,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-13T16:00:00Z",
+            "price": 474.81,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-14T15:00:00Z",
+            "price": 471.07,
+            "retailer": "Target",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-14T16:00:00Z",
+            "price": 476.03,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-15T16:00:00Z",
+            "price": 475.7,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-16T16:00:00Z",
+            "price": 477.32,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-17T11:00:00Z",
+            "price": 462.63,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-18T16:00:00Z",
+            "price": 480.1,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-19T16:00:00Z",
+            "price": 480.17,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-20T15:00:00Z",
+            "price": 468.47,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-21T16:00:00Z",
+            "price": 481.88,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-22T16:00:00Z",
+            "price": 481.72,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-23T15:00:00Z",
+            "price": 467.87,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-23T16:00:00Z",
+            "price": 482.43,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-24T16:00:00Z",
+            "price": 484.19,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-26T15:00:00Z",
+            "price": 470.38,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-26T16:00:00Z",
+            "price": 483.8,
+            "retailer": "Dyson",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-27T18:00:00Z",
+            "price": 434.0,
+            "retailer": "Amazon",
+            "source": "agent"
+          }
+        ],
+        "saleEvents": [
+          {
+            "type": "black_friday",
+            "name": "Black Friday",
+            "year": 2024,
+            "price": 449.0,
+            "retailer": "Best Buy",
+            "notes": "First sub-450 print."
+          },
+          {
+            "type": "cyber_monday",
+            "name": "Cyber Monday",
+            "year": 2024,
+            "price": 439.99,
+            "retailer": "Amazon",
+            "notes": "Lightning deal, 4h window."
+          },
+          {
+            "type": "prime_day",
+            "name": "Prime Day",
+            "year": 2025,
+            "price": 469.0,
+            "retailer": "Amazon",
+            "notes": "Coupon stacked."
+          },
+          {
+            "type": "black_friday",
+            "name": "Black Friday",
+            "year": 2025,
+            "price": 429.0,
+            "retailer": "Best Buy",
+            "notes": "ATL. Sold through by 11am ET."
+          },
+          {
+            "type": "cyber_monday",
+            "name": "Cyber Monday",
+            "year": 2025,
+            "price": 434.0,
+            "retailer": "Amazon",
+            "notes": "Matched ATL plus tax-free in FL? No \u2014 same 434 now."
+          },
+          {
+            "type": "prime_day",
+            "name": "Prime Day",
+            "year": 2026,
+            "price": 459.0,
+            "retailer": "Costco",
+            "notes": "Shop card made it $444 effective. Not recorded as ATL."
+          }
+        ],
+        "log": [
+          {
+            "at": "2026-07-08T20:00:00Z",
+            "actor": "pete",
+            "kind": "check",
+            "text": "Prime Day 2026: Costco 459. Shop card is a maybe, not a print ATL."
+          },
+          {
+            "at": "2026-08-27T18:00:00Z",
+            "actor": "pete",
+            "kind": "alert",
+            "text": "Amazon 434 \u2014 inside 2% of ATL 429. Rule: steal."
+          },
+          {
+            "at": "2026-08-27T19:00:00Z",
+            "actor": "me",
+            "kind": "note",
+            "text": "Hold one more check overnight. If it holds at 434, buy."
+          }
+        ]
+      },
+      {
+        "id": "sony-wh-1000xm5",
+        "name": "Sony WH-1000XM5",
+        "variant": "Black",
+        "category": "Headphones",
+        "imageUrl": "",
+        "imageSource": "monogram",
+        "identifiers": {
+          "asin": "B09XS7JWHH",
+          "upc": "027242925074",
+          "model": "WH-1000XM5",
+          "sku": "WH1000XM5/B"
+        },
+        "productUrls": [
+          {
+            "retailer": "Amazon",
+            "url": "https://www.amazon.com/dp/B09XS7JWHH"
+          },
+          {
+            "retailer": "Best Buy",
+            "url": "https://www.bestbuy.com/site/sony-wh-1000xm5/6505727.p"
+          },
+          {
+            "retailer": "Sony",
+            "url": "https://electronics.sony.com/audio/headphones/p/wh1000xm5"
+          },
+          {
+            "retailer": "Costco",
+            "url": "https://www.costco.com/sony-wh-1000xm5.html"
+          },
+          {
+            "retailer": "B&H",
+            "url": "https://www.bhphotovideo.com/c/product/1707630-REG/sony.html"
+          }
+        ],
+        "status": "watching",
+        "priority": "watch",
+        "targetPrice": 248.0,
+        "currency": "USD",
+        "cadence": "weekly",
+        "lastCheckedAt": "2026-08-27T12:00:00Z",
+        "nextCheckAt": "2026-09-03T12:00:00Z",
+        "why": "Travel pair. XM6 launched; XM5 should keep drifting. Target is the 2024 BF print.",
+        "currentBest": {
+          "price": 328.0,
+          "retailer": "Best Buy",
+          "url": "https://www.bestbuy.com/site/sony-wh-1000xm5/6505727.p",
+          "inStock": true,
+          "observedAt": "2026-08-27T12:00:00Z",
+          "notes": "Totaltech not stacked. Amazon 329."
+        },
+        "allTimeLow": {
+          "price": 248.0,
+          "retailer": "Amazon",
+          "date": "2024-11-29",
+          "url": "https://www.amazon.com/dp/B09XS7JWHH",
+          "notes": "Black Friday 2024 lightning deal."
+        },
+        "stats": {
+          "change1dPct": 0.0,
+          "change7dPct": -0.01,
+          "change30dPct": 0.19,
+          "change90dPct": 15.54,
+          "vsAtlPct": 32.26,
+          "vs30dAvgPct": 0.01,
+          "vs90dAvgPct": 6.29
+        },
+        "dealGrade": "fair",
+        "retailers": [
+          {
+            "retailer": "Sony",
+            "price": 323.96,
+            "url": "https://electronics.sony.com/audio/headphones/p/wh1000xm5",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-10T16:00:00Z",
+            "isWinner": true,
+            "setAtl": false
+          },
+          {
+            "retailer": "B&H",
+            "price": 324.77,
+            "url": "https://www.bhphotovideo.com/c/product/1707630-REG/sony.html",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-25T16:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Costco",
+            "price": 327.25,
+            "url": "https://www.costco.com/sony-wh-1000xm5.html",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-27T16:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Best Buy",
+            "price": 328.0,
+            "url": "https://www.bestbuy.com/site/sony-wh-1000xm5/6505727.p",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-27T12:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Amazon",
+            "price": 330.41,
+            "url": "https://www.amazon.com/dp/B09XS7JWHH",
+            "inStock": true,
+            "shippingNote": "Free over $35",
+            "lastSeenAt": "2026-08-26T11:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          }
+        ],
+        "priceHistory": [
+          {
+            "date": "2024-11-01T11:00:00Z",
+            "price": 327.93,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-04T11:00:00Z",
+            "price": 327.85,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-07T15:00:00Z",
+            "price": 332.67,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-10T11:00:00Z",
+            "price": 324.74,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-13T11:00:00Z",
+            "price": 327.13,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-16T15:00:00Z",
+            "price": 329.73,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-19T15:00:00Z",
+            "price": 329.59,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-22T11:00:00Z",
+            "price": 326.82,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-25T11:00:00Z",
+            "price": 326.09,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-28T15:00:00Z",
+            "price": 331.01,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-01T11:00:00Z",
+            "price": 323.76,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-04T15:00:00Z",
+            "price": 327.86,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-07T11:00:00Z",
+            "price": 324.82,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-10T15:00:00Z",
+            "price": 327.89,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-13T15:00:00Z",
+            "price": 330.57,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-16T15:00:00Z",
+            "price": 331.73,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-19T11:00:00Z",
+            "price": 327.76,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-22T15:00:00Z",
+            "price": 331.44,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-25T11:00:00Z",
+            "price": 325.64,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-28T11:00:00Z",
+            "price": 326.12,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-31T15:00:00Z",
+            "price": 329.88,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-03T11:00:00Z",
+            "price": 323.85,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-06T15:00:00Z",
+            "price": 328.67,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-09T15:00:00Z",
+            "price": 330.85,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-12T11:00:00Z",
+            "price": 327.07,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-15T11:00:00Z",
+            "price": 326.55,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-18T11:00:00Z",
+            "price": 324.68,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-21T11:00:00Z",
+            "price": 325.67,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-24T11:00:00Z",
+            "price": 323.62,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-27T11:00:00Z",
+            "price": 321.45,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-30T15:00:00Z",
+            "price": 329.13,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-02T15:00:00Z",
+            "price": 328.42,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-05T11:00:00Z",
+            "price": 323.91,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-08T11:00:00Z",
+            "price": 322.6,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-11T11:00:00Z",
+            "price": 324.27,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-14T15:00:00Z",
+            "price": 328.42,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-17T15:00:00Z",
+            "price": 328.86,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-20T15:00:00Z",
+            "price": 328.82,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-23T11:00:00Z",
+            "price": 323.5,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-26T11:00:00Z",
+            "price": 324.41,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-01T15:00:00Z",
+            "price": 329.78,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-04T11:00:00Z",
+            "price": 326.84,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-07T15:00:00Z",
+            "price": 332.05,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-10T11:00:00Z",
+            "price": 323.17,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-13T15:00:00Z",
+            "price": 330.31,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-16T11:00:00Z",
+            "price": 324.56,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-19T15:00:00Z",
+            "price": 330.1,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-22T11:00:00Z",
+            "price": 326.4,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-25T15:00:00Z",
+            "price": 332.15,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-28T11:00:00Z",
+            "price": 326.43,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-31T11:00:00Z",
+            "price": 325.71,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-03T11:00:00Z",
+            "price": 326.82,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-06T15:00:00Z",
+            "price": 332.59,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-09T15:00:00Z",
+            "price": 332.39,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-12T11:00:00Z",
+            "price": 325.93,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-15T11:00:00Z",
+            "price": 325.4,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-18T15:00:00Z",
+            "price": 330.06,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-21T15:00:00Z",
+            "price": 330.39,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-24T15:00:00Z",
+            "price": 332.37,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-27T15:00:00Z",
+            "price": 332.87,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-30T11:00:00Z",
+            "price": 328.25,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-03T11:00:00Z",
+            "price": 327.0,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-06T11:00:00Z",
+            "price": 327.69,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-09T15:00:00Z",
+            "price": 332.26,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-12T15:00:00Z",
+            "price": 332.1,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-15T15:00:00Z",
+            "price": 332.5,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-18T11:00:00Z",
+            "price": 326.64,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-21T11:00:00Z",
+            "price": 326.59,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-24T15:00:00Z",
+            "price": 331.68,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-27T15:00:00Z",
+            "price": 333.52,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-30T15:00:00Z",
+            "price": 335.6,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-02T15:00:00Z",
+            "price": 335.61,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-05T11:00:00Z",
+            "price": 331.36,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-08T11:00:00Z",
+            "price": 328.62,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-11T15:00:00Z",
+            "price": 335.21,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-14T11:00:00Z",
+            "price": 330.51,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-17T15:00:00Z",
+            "price": 335.21,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-20T15:00:00Z",
+            "price": 333.05,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-23T15:00:00Z",
+            "price": 337.37,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-26T11:00:00Z",
+            "price": 331.99,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-29T15:00:00Z",
+            "price": 336.91,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-02T15:00:00Z",
+            "price": 335.37,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-05T11:00:00Z",
+            "price": 332.32,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-08T09:00:00Z",
+            "price": 278.0,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-11T15:00:00Z",
+            "price": 281.84,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-14T11:00:00Z",
+            "price": 276.29,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-17T11:00:00Z",
+            "price": 276.25,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-20T11:00:00Z",
+            "price": 275.53,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-23T11:00:00Z",
+            "price": 274.77,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-26T15:00:00Z",
+            "price": 281.6,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-29T11:00:00Z",
+            "price": 275.72,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-01T15:00:00Z",
+            "price": 281.18,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-04T11:00:00Z",
+            "price": 275.51,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-07T15:00:00Z",
+            "price": 281.64,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-10T15:00:00Z",
+            "price": 281.15,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-13T15:00:00Z",
+            "price": 283.28,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-16T11:00:00Z",
+            "price": 278.49,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-19T15:00:00Z",
+            "price": 283.68,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-22T11:00:00Z",
+            "price": 276.48,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-25T15:00:00Z",
+            "price": 282.72,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-28T15:00:00Z",
+            "price": 285.04,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-31T15:00:00Z",
+            "price": 285.58,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-03T15:00:00Z",
+            "price": 285.1,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-06T11:00:00Z",
+            "price": 280.13,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-09T11:00:00Z",
+            "price": 281.26,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-12T11:00:00Z",
+            "price": 280.87,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-15T11:00:00Z",
+            "price": 279.02,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-18T11:00:00Z",
+            "price": 278.25,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-21T15:00:00Z",
+            "price": 284.94,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-24T11:00:00Z",
+            "price": 281.27,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-27T15:00:00Z",
+            "price": 286.61,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-30T11:00:00Z",
+            "price": 277.69,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-03T11:00:00Z",
+            "price": 279.2,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-06T11:00:00Z",
+            "price": 279.77,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-09T15:00:00Z",
+            "price": 284.54,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-12T15:00:00Z",
+            "price": 282.73,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-15T15:00:00Z",
+            "price": 284.7,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-18T15:00:00Z",
+            "price": 287.39,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-21T11:00:00Z",
+            "price": 282.5,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-24T11:00:00Z",
+            "price": 280.23,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-27T11:00:00Z",
+            "price": 281.63,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-30T15:00:00Z",
+            "price": 286.91,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-02T15:00:00Z",
+            "price": 284.61,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-05T11:00:00Z",
+            "price": 279.45,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-08T11:00:00Z",
+            "price": 281.47,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-11T11:00:00Z",
+            "price": 281.31,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-14T15:00:00Z",
+            "price": 282.67,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-17T11:00:00Z",
+            "price": 279.85,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-20T15:00:00Z",
+            "price": 285.86,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-23T15:00:00Z",
+            "price": 285.99,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-26T15:00:00Z",
+            "price": 285.42,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-29T11:00:00Z",
+            "price": 283.19,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-02T15:00:00Z",
+            "price": 283.94,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-05T15:00:00Z",
+            "price": 285.83,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-08T11:00:00Z",
+            "price": 280.76,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-11T11:00:00Z",
+            "price": 281.36,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-14T11:00:00Z",
+            "price": 278.65,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-17T15:00:00Z",
+            "price": 283.11,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-20T15:00:00Z",
+            "price": 284.1,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-23T15:00:00Z",
+            "price": 284.14,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-26T11:00:00Z",
+            "price": 282.3,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-29T15:00:00Z",
+            "price": 287.14,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-01T15:00:00Z",
+            "price": 288.9,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-04T11:00:00Z",
+            "price": 280.47,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-07T11:00:00Z",
+            "price": 279.21,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-10T11:00:00Z",
+            "price": 278.24,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-13T15:00:00Z",
+            "price": 285.52,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-16T11:00:00Z",
+            "price": 279.47,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-19T11:00:00Z",
+            "price": 280.7,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-22T15:00:00Z",
+            "price": 282.08,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-25T15:00:00Z",
+            "price": 286.16,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-28T11:00:00Z",
+            "price": 281.46,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-31T15:00:00Z",
+            "price": 282.86,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-03T11:00:00Z",
+            "price": 280.93,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-06T11:00:00Z",
+            "price": 278.73,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-09T15:00:00Z",
+            "price": 281.7,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-12T15:00:00Z",
+            "price": 284.7,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-15T11:00:00Z",
+            "price": 278.57,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-18T11:00:00Z",
+            "price": 279.68,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-21T11:00:00Z",
+            "price": 276.98,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-24T11:00:00Z",
+            "price": 278.44,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-27T15:00:00Z",
+            "price": 283.34,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-02T15:00:00Z",
+            "price": 283.12,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-05T11:00:00Z",
+            "price": 278.15,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-08T11:00:00Z",
+            "price": 276.35,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-11T11:00:00Z",
+            "price": 279.41,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-14T11:00:00Z",
+            "price": 277.33,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-17T11:00:00Z",
+            "price": 277.22,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-20T15:00:00Z",
+            "price": 278.87,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-23T15:00:00Z",
+            "price": 282.6,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-26T11:00:00Z",
+            "price": 279.21,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-29T15:00:00Z",
+            "price": 280.42,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-01T11:00:00Z",
+            "price": 277.18,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-04T11:00:00Z",
+            "price": 276.54,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-07T15:00:00Z",
+            "price": 283.46,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-10T15:00:00Z",
+            "price": 280.16,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-13T11:00:00Z",
+            "price": 279.22,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-16T15:00:00Z",
+            "price": 282.97,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-19T11:00:00Z",
+            "price": 279.97,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-22T11:00:00Z",
+            "price": 279.63,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-25T11:00:00Z",
+            "price": 276.72,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-28T15:00:00Z",
+            "price": 280.61,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-01T11:00:00Z",
+            "price": 276.87,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-04T15:00:00Z",
+            "price": 282.68,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-07T15:00:00Z",
+            "price": 283.36,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-10T11:00:00Z",
+            "price": 278.97,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-13T15:00:00Z",
+            "price": 282.7,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-16T15:00:00Z",
+            "price": 281.05,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-19T15:00:00Z",
+            "price": 284.85,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-22T15:00:00Z",
+            "price": 282.7,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-25T11:00:00Z",
+            "price": 279.6,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-28T15:00:00Z",
+            "price": 283.89,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-31T15:00:00Z",
+            "price": 287.12,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-03T11:00:00Z",
+            "price": 278.43,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-06T15:00:00Z",
+            "price": 283.14,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-09T15:00:00Z",
+            "price": 284.1,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-12T11:00:00Z",
+            "price": 279.04,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-15T15:00:00Z",
+            "price": 287.01,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-18T15:00:00Z",
+            "price": 286.83,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-21T11:00:00Z",
+            "price": 282.33,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-24T15:00:00Z",
+            "price": 284.98,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-27T15:00:00Z",
+            "price": 284.31,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-30T11:00:00Z",
+            "price": 280.41,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-03T11:00:00Z",
+            "price": 283.35,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-06T11:00:00Z",
+            "price": 280.46,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-09T11:00:00Z",
+            "price": 278.87,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-12T11:00:00Z",
+            "price": 276.98,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-15T15:00:00Z",
+            "price": 285.65,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-15T16:00:00Z",
+            "price": 288.06,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-17T16:00:00Z",
+            "price": 287.78,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-18T15:00:00Z",
+            "price": 282.6,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-18T16:00:00Z",
+            "price": 287.85,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-19T16:00:00Z",
+            "price": 287.85,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-20T16:00:00Z",
+            "price": 287.53,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-21T15:00:00Z",
+            "price": 283.87,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-22T16:00:00Z",
+            "price": 289.71,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-23T16:00:00Z",
+            "price": 288.88,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-24T11:00:00Z",
+            "price": 280.21,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-26T16:00:00Z",
+            "price": 288.75,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-27T15:00:00Z",
+            "price": 325.67,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-27T16:00:00Z",
+            "price": 327.91,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-29T16:00:00Z",
+            "price": 327.37,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-30T11:00:00Z",
+            "price": 325.6,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-31T16:00:00Z",
+            "price": 329.43,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-01T16:00:00Z",
+            "price": 329.15,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-02T11:00:00Z",
+            "price": 330.69,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-02T16:00:00Z",
+            "price": 323.99,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-03T16:00:00Z",
+            "price": 329.99,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-04T16:00:00Z",
+            "price": 329.27,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-05T15:00:00Z",
+            "price": 325.82,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-08T11:00:00Z",
+            "price": 327.18,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-09T16:00:00Z",
+            "price": 332.96,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-10T16:00:00Z",
+            "price": 323.96,
+            "retailer": "Sony",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-11T15:00:00Z",
+            "price": 331.0,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-11T16:00:00Z",
+            "price": 326.04,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-12T16:00:00Z",
+            "price": 323.47,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-13T16:00:00Z",
+            "price": 330.36,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-14T15:00:00Z",
+            "price": 328.7,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-14T16:00:00Z",
+            "price": 331.66,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-16T16:00:00Z",
+            "price": 332.16,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-17T11:00:00Z",
+            "price": 332.27,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-17T16:00:00Z",
+            "price": 326.16,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-18T16:00:00Z",
+            "price": 328.6,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-19T16:00:00Z",
+            "price": 325.82,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-20T11:00:00Z",
+            "price": 329.11,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-21T16:00:00Z",
+            "price": 328.04,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-23T11:00:00Z",
+            "price": 329.01,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-23T16:00:00Z",
+            "price": 323.26,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-24T16:00:00Z",
+            "price": 323.61,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-25T16:00:00Z",
+            "price": 324.77,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-26T11:00:00Z",
+            "price": 330.41,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-27T16:00:00Z",
+            "price": 327.25,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-27T12:00:00Z",
+            "price": 328.0,
+            "retailer": "Best Buy",
+            "source": "agent"
+          }
+        ],
+        "saleEvents": [
+          {
+            "type": "black_friday",
+            "name": "Black Friday",
+            "year": 2024,
+            "price": 248.0,
+            "retailer": "Amazon",
+            "notes": "ATL. XM5 still current-gen then."
+          },
+          {
+            "type": "cyber_monday",
+            "name": "Cyber Monday",
+            "year": 2024,
+            "price": 258.0,
+            "retailer": "Best Buy",
+            "notes": "Open-box as low as 229 \u2014 ignored, condition unknown."
+          },
+          {
+            "type": "prime_day",
+            "name": "Prime Day",
+            "year": 2025,
+            "price": 278.0,
+            "retailer": "Amazon",
+            "notes": "Post-XM6 rumor cycle."
+          },
+          {
+            "type": "black_friday",
+            "name": "Black Friday",
+            "year": 2025,
+            "price": 268.0,
+            "retailer": "Amazon",
+            "notes": "XM6 out. XM5 didn't reprint ATL."
+          },
+          {
+            "type": "prime_day",
+            "name": "Prime Day",
+            "year": 2026,
+            "price": 298.0,
+            "retailer": "Costco",
+            "notes": "Bundle with case. Skip."
+          }
+        ],
+        "log": [
+          {
+            "at": "2026-03-12T09:00:00Z",
+            "actor": "pete",
+            "kind": "note",
+            "text": "XM6 street 398. XM5 mid-pack is 318\u2013338. Wait for a 279 print."
+          },
+          {
+            "at": "2026-08-27T12:00:00Z",
+            "actor": "pete",
+            "kind": "check",
+            "text": "Best Buy 328. Fair vs 30-day average. Not a buy."
+          }
+        ]
+      },
+      {
+        "id": "lg-c4-65",
+        "name": "LG C4 65-inch OLED",
+        "variant": "OLED65C4PUA",
+        "category": "TV",
+        "imageUrl": "",
+        "imageSource": "monogram",
+        "identifiers": {
+          "asin": "B0CV4GQK8S",
+          "upc": "195174075216",
+          "model": "OLED65C4PUA",
+          "sku": "6572054"
+        },
+        "productUrls": [
+          {
+            "retailer": "Amazon",
+            "url": "https://www.amazon.com/dp/B0CV4GQK8S"
+          },
+          {
+            "retailer": "Best Buy",
+            "url": "https://www.bestbuy.com/site/lg-c4-65/6572054.p"
+          },
+          {
+            "retailer": "LG",
+            "url": "https://www.lg.com/us/tvs/lg-oled65c4pua"
+          },
+          {
+            "retailer": "Costco",
+            "url": "https://www.costco.com/lg-c4-65.html"
+          },
+          {
+            "retailer": "Adorama",
+            "url": "https://www.adorama.com/lgc465.html"
+          }
+        ],
+        "status": "watching",
+        "priority": "someday",
+        "targetPrice": 1099.0,
+        "currency": "USD",
+        "cadence": "weekly",
+        "lastCheckedAt": "2026-08-27T10:00:00Z",
+        "nextCheckAt": "2026-09-03T10:00:00Z",
+        "why": "Living room. C5 is out so C4 should sag into fall. Do not pay 1496.",
+        "currentBest": {
+          "price": 1496.0,
+          "retailer": "Amazon",
+          "url": "https://www.amazon.com/dp/B0CV4GQK8S",
+          "inStock": true,
+          "observedAt": "2026-08-27T10:00:00Z",
+          "notes": "Post-Prime bounce. Best Buy 1549."
+        },
+        "allTimeLow": {
+          "price": 996.0,
+          "retailer": "Best Buy",
+          "date": "2024-11-29",
+          "url": "https://www.bestbuy.com/site/lg-c4-65/6572054.p",
+          "notes": "Black Friday 2024. C4 launch year."
+        },
+        "stats": {
+          "change1dPct": 0.0,
+          "change7dPct": 21.81,
+          "change30dPct": 22.12,
+          "change90dPct": 22.64,
+          "vsAtlPct": 50.2,
+          "vs30dAvgPct": 19.33,
+          "vs90dAvgPct": 20.67
+        },
+        "dealGrade": "high",
+        "retailers": [
+          {
+            "retailer": "Best Buy",
+            "price": 1220.72,
+            "url": "https://www.bestbuy.com/site/lg-c4-65/6572054.p",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-23T11:00:00Z",
+            "isWinner": true,
+            "setAtl": false
+          },
+          {
+            "retailer": "Adorama",
+            "price": 1221.25,
+            "url": "https://www.adorama.com/lgc465.html",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-22T16:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Costco",
+            "price": 1227.84,
+            "url": "https://www.costco.com/lg-c4-65.html",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-23T16:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "LG",
+            "price": 1231.15,
+            "url": "https://www.lg.com/us/tvs/lg-oled65c4pua",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-16T16:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Amazon",
+            "price": 1496.0,
+            "url": "https://www.amazon.com/dp/B0CV4GQK8S",
+            "inStock": true,
+            "shippingNote": "Free over $35",
+            "lastSeenAt": "2026-08-27T16:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          }
+        ],
+        "priceHistory": [
+          {
+            "date": "2024-11-01T11:00:00Z",
+            "price": 1393.3,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-04T11:00:00Z",
+            "price": 1389.64,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-07T11:00:00Z",
+            "price": 1392.37,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-10T15:00:00Z",
+            "price": 1399.32,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-13T11:00:00Z",
+            "price": 1393.97,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-16T11:00:00Z",
+            "price": 1388.78,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-19T11:00:00Z",
+            "price": 1383.45,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-22T15:00:00Z",
+            "price": 1393.65,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-25T15:00:00Z",
+            "price": 1396.84,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2024-11-28T11:00:00Z",
+            "price": 1388.83,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-01T11:00:00Z",
+            "price": 1384.96,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-04T15:00:00Z",
+            "price": 1395.18,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-07T11:00:00Z",
+            "price": 1390.66,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-10T11:00:00Z",
+            "price": 1383.3,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-13T15:00:00Z",
+            "price": 1387.89,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-16T15:00:00Z",
+            "price": 1390.33,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-19T15:00:00Z",
+            "price": 1394.94,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-22T11:00:00Z",
+            "price": 1388.71,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-25T15:00:00Z",
+            "price": 1397.58,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-28T11:00:00Z",
+            "price": 1390.1,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2024-12-31T11:00:00Z",
+            "price": 1387.02,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-03T15:00:00Z",
+            "price": 1392.52,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-06T15:00:00Z",
+            "price": 1399.54,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-09T11:00:00Z",
+            "price": 1389.61,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-12T11:00:00Z",
+            "price": 1390.96,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-15T15:00:00Z",
+            "price": 1392.52,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-18T15:00:00Z",
+            "price": 1393.76,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-21T11:00:00Z",
+            "price": 1392.92,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-24T15:00:00Z",
+            "price": 1399.69,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-27T11:00:00Z",
+            "price": 1395.3,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-01-30T15:00:00Z",
+            "price": 1398.09,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-02T15:00:00Z",
+            "price": 1398.79,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-05T15:00:00Z",
+            "price": 1406.47,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-08T15:00:00Z",
+            "price": 1407.89,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-11T15:00:00Z",
+            "price": 1413.15,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-14T11:00:00Z",
+            "price": 1407.88,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-17T11:00:00Z",
+            "price": 1402.44,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-20T11:00:00Z",
+            "price": 1402.27,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-23T15:00:00Z",
+            "price": 1410.11,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-02-26T11:00:00Z",
+            "price": 1405.96,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-01T15:00:00Z",
+            "price": 1407.99,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-04T11:00:00Z",
+            "price": 1406.82,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-07T11:00:00Z",
+            "price": 1400.88,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-10T11:00:00Z",
+            "price": 1393.73,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-13T15:00:00Z",
+            "price": 1405.67,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-16T11:00:00Z",
+            "price": 1393.24,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-19T11:00:00Z",
+            "price": 1390.95,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-22T11:00:00Z",
+            "price": 1390.37,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-25T15:00:00Z",
+            "price": 1398.33,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-28T11:00:00Z",
+            "price": 1395.75,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-03-31T11:00:00Z",
+            "price": 1386.58,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-03T15:00:00Z",
+            "price": 1394.98,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-06T11:00:00Z",
+            "price": 1391.71,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-09T11:00:00Z",
+            "price": 1390.68,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-12T11:00:00Z",
+            "price": 1391.42,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-15T11:00:00Z",
+            "price": 1388.93,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-18T15:00:00Z",
+            "price": 1393.4,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-21T11:00:00Z",
+            "price": 1392.31,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-24T11:00:00Z",
+            "price": 1389.08,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-27T11:00:00Z",
+            "price": 1381.1,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-04-30T15:00:00Z",
+            "price": 1385.76,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-03T15:00:00Z",
+            "price": 1389.7,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-06T11:00:00Z",
+            "price": 1386.82,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-09T11:00:00Z",
+            "price": 1380.11,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-12T15:00:00Z",
+            "price": 1392.38,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-15T15:00:00Z",
+            "price": 1390.27,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-18T15:00:00Z",
+            "price": 1394.61,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-21T11:00:00Z",
+            "price": 1392.43,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-24T11:00:00Z",
+            "price": 1383.48,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-27T11:00:00Z",
+            "price": 1378.03,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-30T11:00:00Z",
+            "price": 1374.57,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-02T15:00:00Z",
+            "price": 1382.09,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-05T15:00:00Z",
+            "price": 1387.92,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-08T11:00:00Z",
+            "price": 1383.73,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-11T11:00:00Z",
+            "price": 1379.67,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-14T15:00:00Z",
+            "price": 1387.22,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-17T11:00:00Z",
+            "price": 1380.24,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-20T11:00:00Z",
+            "price": 1382.19,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-23T11:00:00Z",
+            "price": 1372.89,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-26T15:00:00Z",
+            "price": 1382.98,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-29T11:00:00Z",
+            "price": 1376.04,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-02T15:00:00Z",
+            "price": 1384.0,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-05T15:00:00Z",
+            "price": 1382.92,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-08T09:00:00Z",
+            "price": 1196.0,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-11T11:00:00Z",
+            "price": 1187.84,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-14T11:00:00Z",
+            "price": 1186.48,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-17T11:00:00Z",
+            "price": 1183.11,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-20T11:00:00Z",
+            "price": 1181.6,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-23T11:00:00Z",
+            "price": 1176.69,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-26T11:00:00Z",
+            "price": 1174.61,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-29T11:00:00Z",
+            "price": 1173.34,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-01T11:00:00Z",
+            "price": 1166.67,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-04T15:00:00Z",
+            "price": 1176.41,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-07T15:00:00Z",
+            "price": 1174.62,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-10T11:00:00Z",
+            "price": 1172.77,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-13T15:00:00Z",
+            "price": 1174.49,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-16T11:00:00Z",
+            "price": 1164.88,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-19T11:00:00Z",
+            "price": 1162.91,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-22T15:00:00Z",
+            "price": 1172.43,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-25T15:00:00Z",
+            "price": 1170.43,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-28T11:00:00Z",
+            "price": 1165.06,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-31T15:00:00Z",
+            "price": 1173.13,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-03T11:00:00Z",
+            "price": 1161.91,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-06T15:00:00Z",
+            "price": 1165.83,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-09T15:00:00Z",
+            "price": 1168.69,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-12T15:00:00Z",
+            "price": 1176.4,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-15T11:00:00Z",
+            "price": 1170.99,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-18T15:00:00Z",
+            "price": 1174.26,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-21T15:00:00Z",
+            "price": 1181.39,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-24T15:00:00Z",
+            "price": 1181.72,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-27T15:00:00Z",
+            "price": 1187.83,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-30T15:00:00Z",
+            "price": 1191.47,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-03T15:00:00Z",
+            "price": 1193.13,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-06T11:00:00Z",
+            "price": 1191.37,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-09T15:00:00Z",
+            "price": 1196.72,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-12T15:00:00Z",
+            "price": 1200.23,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-15T15:00:00Z",
+            "price": 1203.6,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-18T15:00:00Z",
+            "price": 1207.55,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-21T15:00:00Z",
+            "price": 1208.62,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-24T15:00:00Z",
+            "price": 1215.24,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-27T15:00:00Z",
+            "price": 1219.01,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-30T11:00:00Z",
+            "price": 1215.32,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-02T15:00:00Z",
+            "price": 1223.27,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-05T11:00:00Z",
+            "price": 1212.4,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-08T15:00:00Z",
+            "price": 1218.28,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-11T15:00:00Z",
+            "price": 1223.81,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-14T11:00:00Z",
+            "price": 1214.0,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-17T15:00:00Z",
+            "price": 1217.37,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-20T11:00:00Z",
+            "price": 1216.58,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-23T15:00:00Z",
+            "price": 1220.61,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-26T15:00:00Z",
+            "price": 1224.79,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-29T11:00:00Z",
+            "price": 1215.78,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-02T11:00:00Z",
+            "price": 1211.82,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-05T11:00:00Z",
+            "price": 1210.63,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-08T11:00:00Z",
+            "price": 1205.19,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-11T11:00:00Z",
+            "price": 1198.95,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-14T11:00:00Z",
+            "price": 1201.46,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-17T15:00:00Z",
+            "price": 1210.17,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-20T15:00:00Z",
+            "price": 1212.34,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-23T11:00:00Z",
+            "price": 1208.14,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-26T15:00:00Z",
+            "price": 1218.89,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-29T15:00:00Z",
+            "price": 1218.67,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-01T11:00:00Z",
+            "price": 1212.14,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-04T11:00:00Z",
+            "price": 1209.34,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-07T15:00:00Z",
+            "price": 1216.52,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-10T11:00:00Z",
+            "price": 1205.21,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-13T11:00:00Z",
+            "price": 1208.92,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-16T11:00:00Z",
+            "price": 1205.77,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-19T15:00:00Z",
+            "price": 1216.12,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-22T11:00:00Z",
+            "price": 1203.63,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-25T15:00:00Z",
+            "price": 1212.53,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-28T15:00:00Z",
+            "price": 1214.75,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-31T11:00:00Z",
+            "price": 1203.69,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-03T11:00:00Z",
+            "price": 1206.0,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-06T15:00:00Z",
+            "price": 1214.93,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-09T15:00:00Z",
+            "price": 1221.96,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-12T15:00:00Z",
+            "price": 1225.25,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-15T11:00:00Z",
+            "price": 1215.79,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-18T11:00:00Z",
+            "price": 1211.73,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-21T11:00:00Z",
+            "price": 1208.1,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-24T11:00:00Z",
+            "price": 1208.88,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-27T15:00:00Z",
+            "price": 1211.97,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-02T15:00:00Z",
+            "price": 1220.19,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-05T11:00:00Z",
+            "price": 1208.98,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-08T15:00:00Z",
+            "price": 1214.13,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-11T15:00:00Z",
+            "price": 1222.06,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-14T15:00:00Z",
+            "price": 1227.93,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-17T15:00:00Z",
+            "price": 1232.03,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-20T15:00:00Z",
+            "price": 1233.19,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-23T15:00:00Z",
+            "price": 1235.94,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-26T11:00:00Z",
+            "price": 1228.98,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-29T15:00:00Z",
+            "price": 1239.64,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-01T15:00:00Z",
+            "price": 1245.37,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-04T11:00:00Z",
+            "price": 1235.15,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-07T15:00:00Z",
+            "price": 1240.88,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-10T11:00:00Z",
+            "price": 1233.89,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-13T15:00:00Z",
+            "price": 1240.02,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-16T11:00:00Z",
+            "price": 1233.25,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-19T11:00:00Z",
+            "price": 1233.53,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-22T11:00:00Z",
+            "price": 1231.95,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-25T15:00:00Z",
+            "price": 1241.51,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-28T11:00:00Z",
+            "price": 1231.7,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-01T15:00:00Z",
+            "price": 1240.74,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-04T15:00:00Z",
+            "price": 1242.79,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-07T11:00:00Z",
+            "price": 1234.9,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-10T11:00:00Z",
+            "price": 1228.54,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-13T15:00:00Z",
+            "price": 1239.86,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-16T11:00:00Z",
+            "price": 1230.98,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-19T11:00:00Z",
+            "price": 1230.05,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-22T11:00:00Z",
+            "price": 1228.56,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-25T11:00:00Z",
+            "price": 1229.24,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-28T11:00:00Z",
+            "price": 1219.84,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-31T15:00:00Z",
+            "price": 1229.29,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-03T15:00:00Z",
+            "price": 1231.88,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-06T11:00:00Z",
+            "price": 1220.45,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-09T11:00:00Z",
+            "price": 1221.79,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-12T11:00:00Z",
+            "price": 1217.62,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-15T11:00:00Z",
+            "price": 1210.07,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-18T15:00:00Z",
+            "price": 1215.0,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-21T15:00:00Z",
+            "price": 1224.8,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-24T15:00:00Z",
+            "price": 1227.27,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-27T15:00:00Z",
+            "price": 1233.81,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-30T11:00:00Z",
+            "price": 1224.25,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-03T11:00:00Z",
+            "price": 1222.26,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-06T11:00:00Z",
+            "price": 1217.03,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-09T15:00:00Z",
+            "price": 1221.21,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-12T11:00:00Z",
+            "price": 1219.01,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-14T16:00:00Z",
+            "price": 1220.41,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-15T15:00:00Z",
+            "price": 1225.14,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-15T16:00:00Z",
+            "price": 1223.2,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-18T15:00:00Z",
+            "price": 1233.26,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-18T16:00:00Z",
+            "price": 1222.49,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-20T16:00:00Z",
+            "price": 1224.59,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-21T15:00:00Z",
+            "price": 1229.69,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-22T16:00:00Z",
+            "price": 1226.7,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-23T16:00:00Z",
+            "price": 1226.33,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-24T15:00:00Z",
+            "price": 1237.52,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-27T11:00:00Z",
+            "price": 1230.73,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-27T16:00:00Z",
+            "price": 1220.99,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-28T16:00:00Z",
+            "price": 1225.17,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-29T16:00:00Z",
+            "price": 1224.98,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-30T11:00:00Z",
+            "price": 1228.29,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-30T16:00:00Z",
+            "price": 1221.32,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-31T16:00:00Z",
+            "price": 1225.26,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-01T16:00:00Z",
+            "price": 1220.72,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-02T15:00:00Z",
+            "price": 1227.84,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-02T16:00:00Z",
+            "price": 1237.83,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-03T16:00:00Z",
+            "price": 1221.73,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-05T15:00:00Z",
+            "price": 1223.98,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-06T16:00:00Z",
+            "price": 1233.92,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-08T11:00:00Z",
+            "price": 1229.2,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-09T16:00:00Z",
+            "price": 1234.91,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-10T16:00:00Z",
+            "price": 1228.83,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-11T11:00:00Z",
+            "price": 1225.37,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-12T16:00:00Z",
+            "price": 1222.12,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-13T16:00:00Z",
+            "price": 1222.3,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-14T15:00:00Z",
+            "price": 1232.47,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-14T16:00:00Z",
+            "price": 1229.38,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-15T16:00:00Z",
+            "price": 1229.29,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-16T16:00:00Z",
+            "price": 1231.15,
+            "retailer": "LG",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-17T11:00:00Z",
+            "price": 1233.53,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-17T16:00:00Z",
+            "price": 1234.74,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-18T16:00:00Z",
+            "price": 1226.44,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-19T16:00:00Z",
+            "price": 1232.51,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-20T15:00:00Z",
+            "price": 1228.15,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-22T16:00:00Z",
+            "price": 1221.25,
+            "retailer": "Adorama",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-23T11:00:00Z",
+            "price": 1220.72,
+            "retailer": "Best Buy",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-23T16:00:00Z",
+            "price": 1227.84,
+            "retailer": "Costco",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-26T11:00:00Z",
+            "price": 1496.0,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-27T16:00:00Z",
+            "price": 1496.0,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-27T10:00:00Z",
+            "price": 1496.0,
+            "retailer": "Amazon",
+            "source": "agent"
+          }
+        ],
+        "saleEvents": [
+          {
+            "type": "black_friday",
+            "name": "Black Friday",
+            "year": 2024,
+            "price": 996.0,
+            "retailer": "Best Buy",
+            "notes": "ATL. Haul-away included."
+          },
+          {
+            "type": "cyber_monday",
+            "name": "Cyber Monday",
+            "year": 2024,
+            "price": 1096.0,
+            "retailer": "Amazon",
+            "notes": "Missed the 996."
+          },
+          {
+            "type": "prime_day",
+            "name": "Prime Day",
+            "year": 2025,
+            "price": 1196.0,
+            "retailer": "Best Buy",
+            "notes": "C5 not yet. Fine-not-great."
+          },
+          {
+            "type": "black_friday",
+            "name": "Black Friday",
+            "year": 2025,
+            "price": 1096.0,
+            "retailer": "Best Buy",
+            "notes": "C5 took the doorbuster slot."
+          },
+          {
+            "type": "prime_day",
+            "name": "Prime Day",
+            "year": 2026,
+            "price": 1246.0,
+            "retailer": "Amazon",
+            "notes": "Last useful print before the bounce."
+          }
+        ],
+        "log": [
+          {
+            "at": "2026-07-09T08:00:00Z",
+            "actor": "pete",
+            "kind": "check",
+            "text": "Prime Day 1246. Not target. Park until October ads."
+          },
+          {
+            "at": "2026-08-27T10:00:00Z",
+            "actor": "pete",
+            "kind": "alert",
+            "text": "Amazon 1496. High vs 30-day average. Do not chase."
+          }
+        ]
+      },
+      {
+        "id": "weber-genesis-e-325s",
+        "name": "Weber Genesis E-325s",
+        "variant": "Black, 3-burner + sear",
+        "category": "Grill",
+        "imageUrl": "",
+        "imageSource": "monogram",
+        "identifiers": {
+          "asin": "B0C8LGENESIS",
+          "upc": "077924181234",
+          "model": "E-325s",
+          "sku": "36410001"
+        },
+        "productUrls": [
+          {
+            "retailer": "Amazon",
+            "url": "https://www.amazon.com/dp/B0C8LGENESIS"
+          },
+          {
+            "retailer": "Home Depot",
+            "url": "https://www.homedepot.com/p/Weber-Genesis-E-325s/314958000"
+          },
+          {
+            "retailer": "Weber",
+            "url": "https://www.weber.com/US/en/grills/gas-grills/genesis/e-325s/"
+          },
+          {
+            "retailer": "Ace",
+            "url": "https://www.acehardware.com/departments/lawn-and-garden/weber-genesis"
+          }
+        ],
+        "status": "needs_pete",
+        "priority": "watch",
+        "targetPrice": 899.0,
+        "currency": "USD",
+        "cadence": "manual",
+        "lastCheckedAt": "2026-08-21T11:00:00Z",
+        "nextCheckAt": "2026-08-31T11:00:00Z",
+        "why": "Deck rebuild this fall. Four prints only. Need Ace, Lowe's, and last year's BF card.",
+        "currentBest": {
+          "price": 1079.0,
+          "retailer": "Amazon",
+          "url": "https://www.amazon.com/dp/B0C8LGENESIS",
+          "inStock": true,
+          "observedAt": "2026-07-12T11:00:00Z",
+          "notes": "Home Depot 1099 as of Aug 21. Amazon print is stale."
+        },
+        "allTimeLow": null,
+        "stats": {
+          "change1dPct": -1.82,
+          "change7dPct": -1.82,
+          "change30dPct": 0.0,
+          "change90dPct": null,
+          "vsAtlPct": null,
+          "vs30dAvgPct": -1.82,
+          "vs90dAvgPct": -2.49
+        },
+        "dealGrade": "unknown",
+        "retailers": [
+          {
+            "retailer": "Amazon",
+            "price": 1079.0,
+            "url": "https://www.amazon.com/dp/B0C8LGENESIS",
+            "inStock": true,
+            "shippingNote": "Free over $35",
+            "lastSeenAt": "2026-07-12T11:00:00Z",
+            "isWinner": true,
+            "setAtl": false
+          },
+          {
+            "retailer": "Home Depot",
+            "price": 1099.0,
+            "url": "https://www.homedepot.com/p/Weber-Genesis-E-325s/314958000",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-21T11:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Weber",
+            "price": 1099.0,
+            "url": "https://www.weber.com/US/en/grills/gas-grills/genesis/e-325s/",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-06-18T11:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          }
+        ],
+        "priceHistory": [
+          {
+            "date": "2026-06-02T11:00:00Z",
+            "price": 1149.0,
+            "retailer": "Home Depot",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-18T11:00:00Z",
+            "price": 1099.0,
+            "retailer": "Weber",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-12T11:00:00Z",
+            "price": 1079.0,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-21T11:00:00Z",
+            "price": 1099.0,
+            "retailer": "Home Depot",
+            "source": "agent"
+          }
+        ],
+        "saleEvents": [],
+        "log": [
+          {
+            "at": "2026-08-21T11:00:00Z",
+            "actor": "pete",
+            "kind": "flag",
+            "text": "History too thin for a grade. Need Ace/Lowe's and 2025 BF. Status: needs_pete."
+          }
+        ]
+      },
+      {
+        "id": "framework-laptop-16",
+        "name": "Framework Laptop 16",
+        "variant": "DIY, Ryzen 7040, 16GB, 1TB",
+        "category": "Laptop",
+        "imageUrl": "",
+        "imageSource": "monogram",
+        "identifiers": {
+          "asin": "B0FRAME16",
+          "upc": "",
+          "model": "Laptop 16 DIY AMD",
+          "sku": "FRANMD0001"
+        },
+        "productUrls": [
+          {
+            "retailer": "Framework",
+            "url": "https://frame.work/products/laptop16-diy-edition-amd"
+          },
+          {
+            "retailer": "Amazon",
+            "url": "https://www.amazon.com/dp/B0FRAME16"
+          },
+          {
+            "retailer": "B&H",
+            "url": "https://www.bhphotovideo.com/c/product/framework-laptop-16.html"
+          }
+        ],
+        "status": "ready",
+        "priority": "now",
+        "targetPrice": 1699.0,
+        "currency": "USD",
+        "cadence": "weekly",
+        "lastCheckedAt": "2026-08-26T17:00:00Z",
+        "nextCheckAt": "2026-09-02T17:00:00Z",
+        "why": "Travel build machine. DIY kit at 1699 is the line. Batch 16 restock this week.",
+        "currentBest": {
+          "price": 1699.0,
+          "retailer": "Framework",
+          "url": "https://frame.work/products/laptop16-diy-edition-amd",
+          "inStock": true,
+          "observedAt": "2026-08-26T17:00:00Z",
+          "notes": "DIY edition in stock. Ships from Taiwan, ~2 weeks."
+        },
+        "allTimeLow": {
+          "price": 1549.0,
+          "retailer": "Framework",
+          "date": "2025-11-28",
+          "url": "https://frame.work/products/laptop16-diy-edition-amd",
+          "notes": "Black Friday 2025 configured closer to base. This SKU was 1549."
+        },
+        "stats": {
+          "change1dPct": 0.26,
+          "change7dPct": 2.28,
+          "change30dPct": 1.31,
+          "change90dPct": 1.82,
+          "vsAtlPct": 9.68,
+          "vs30dAvgPct": 0.96,
+          "vs90dAvgPct": 1.31
+        },
+        "dealGrade": "steal",
+        "retailers": [
+          {
+            "retailer": "B&H",
+            "price": 1668.88,
+            "url": "https://www.bhphotovideo.com/c/product/framework-laptop-16.html",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-24T15:00:00Z",
+            "isWinner": true,
+            "setAtl": false
+          },
+          {
+            "retailer": "Amazon",
+            "price": 1693.33,
+            "url": "https://www.amazon.com/dp/B0FRAME16",
+            "inStock": true,
+            "shippingNote": "Free over $35",
+            "lastSeenAt": "2026-08-25T16:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Framework",
+            "price": 1694.62,
+            "url": "https://frame.work/products/laptop16-diy-edition-amd",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-27T16:00:00Z",
+            "isWinner": false,
+            "setAtl": false
+          }
+        ],
+        "priceHistory": [
+          {
+            "date": "2025-05-01T15:00:00Z",
+            "price": 1899.61,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-05T15:00:00Z",
+            "price": 1902.89,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-09T15:00:00Z",
+            "price": 1905.89,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-13T11:00:00Z",
+            "price": 1898.59,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-17T15:00:00Z",
+            "price": 1908.12,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-21T15:00:00Z",
+            "price": 1905.92,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-25T11:00:00Z",
+            "price": 1898.07,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-05-29T11:00:00Z",
+            "price": 1895.15,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-02T15:00:00Z",
+            "price": 1904.37,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-06T11:00:00Z",
+            "price": 1893.31,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-10T15:00:00Z",
+            "price": 1905.09,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-14T11:00:00Z",
+            "price": 1897.65,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-18T15:00:00Z",
+            "price": 1905.47,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-22T15:00:00Z",
+            "price": 1905.07,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-26T15:00:00Z",
+            "price": 1909.5,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-06-30T15:00:00Z",
+            "price": 1913.44,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-04T15:00:00Z",
+            "price": 1913.53,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-08T09:00:00Z",
+            "price": 1699.0,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-12T11:00:00Z",
+            "price": 1694.26,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-16T11:00:00Z",
+            "price": 1689.0,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-20T11:00:00Z",
+            "price": 1686.05,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-24T11:00:00Z",
+            "price": 1688.25,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-07-28T11:00:00Z",
+            "price": 1680.59,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-01T15:00:00Z",
+            "price": 1690.25,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-05T15:00:00Z",
+            "price": 1696.63,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-09T15:00:00Z",
+            "price": 1695.25,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-13T15:00:00Z",
+            "price": 1702.58,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-17T15:00:00Z",
+            "price": 1704.28,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-21T11:00:00Z",
+            "price": 1694.08,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-25T11:00:00Z",
+            "price": 1695.81,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-08-29T11:00:00Z",
+            "price": 1691.1,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-02T15:00:00Z",
+            "price": 1698.17,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-06T15:00:00Z",
+            "price": 1698.34,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-10T11:00:00Z",
+            "price": 1692.1,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-14T11:00:00Z",
+            "price": 1691.49,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-18T15:00:00Z",
+            "price": 1695.74,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-22T15:00:00Z",
+            "price": 1698.43,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-26T15:00:00Z",
+            "price": 1701.87,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-09-30T11:00:00Z",
+            "price": 1699.54,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-04T11:00:00Z",
+            "price": 1691.26,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-08T11:00:00Z",
+            "price": 1693.13,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-12T15:00:00Z",
+            "price": 1698.81,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-16T11:00:00Z",
+            "price": 1688.7,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-20T15:00:00Z",
+            "price": 1697.44,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-24T15:00:00Z",
+            "price": 1697.83,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-10-28T11:00:00Z",
+            "price": 1688.44,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-01T15:00:00Z",
+            "price": 1700.35,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-05T11:00:00Z",
+            "price": 1688.33,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-09T11:00:00Z",
+            "price": 1687.69,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-13T15:00:00Z",
+            "price": 1694.78,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-17T15:00:00Z",
+            "price": 1696.06,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-21T11:00:00Z",
+            "price": 1692.48,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-25T15:00:00Z",
+            "price": 1698.26,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-11-29T11:00:00Z",
+            "price": 1694.21,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-03T15:00:00Z",
+            "price": 1702.51,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-07T15:00:00Z",
+            "price": 1707.66,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-11T11:00:00Z",
+            "price": 1701.66,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-15T15:00:00Z",
+            "price": 1703.21,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-19T11:00:00Z",
+            "price": 1698.01,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-23T11:00:00Z",
+            "price": 1691.73,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-27T15:00:00Z",
+            "price": 1699.47,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2025-12-31T15:00:00Z",
+            "price": 1700.69,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-04T11:00:00Z",
+            "price": 1695.81,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-08T11:00:00Z",
+            "price": 1689.95,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-12T11:00:00Z",
+            "price": 1684.96,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-16T15:00:00Z",
+            "price": 1693.83,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-20T11:00:00Z",
+            "price": 1685.6,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-24T15:00:00Z",
+            "price": 1689.99,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-01-28T11:00:00Z",
+            "price": 1684.36,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-01T11:00:00Z",
+            "price": 1679.24,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-05T11:00:00Z",
+            "price": 1682.11,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-09T15:00:00Z",
+            "price": 1686.53,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-13T11:00:00Z",
+            "price": 1679.73,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-17T15:00:00Z",
+            "price": 1690.71,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-21T11:00:00Z",
+            "price": 1680.74,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-02-25T11:00:00Z",
+            "price": 1683.42,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-01T11:00:00Z",
+            "price": 1682.92,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-05T15:00:00Z",
+            "price": 1688.09,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-09T11:00:00Z",
+            "price": 1682.17,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-13T15:00:00Z",
+            "price": 1690.81,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-17T11:00:00Z",
+            "price": 1680.76,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-21T11:00:00Z",
+            "price": 1675.74,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-25T11:00:00Z",
+            "price": 1677.61,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-03-29T11:00:00Z",
+            "price": 1673.37,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-02T15:00:00Z",
+            "price": 1677.42,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-06T15:00:00Z",
+            "price": 1677.25,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-10T15:00:00Z",
+            "price": 1683.1,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-14T11:00:00Z",
+            "price": 1678.63,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-18T11:00:00Z",
+            "price": 1673.25,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-22T11:00:00Z",
+            "price": 1668.19,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-26T15:00:00Z",
+            "price": 1677.01,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-04-30T15:00:00Z",
+            "price": 1675.36,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-04T11:00:00Z",
+            "price": 1669.19,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-08T11:00:00Z",
+            "price": 1669.1,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-12T11:00:00Z",
+            "price": 1663.84,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-16T11:00:00Z",
+            "price": 1664.55,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-20T11:00:00Z",
+            "price": 1657.92,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-24T15:00:00Z",
+            "price": 1662.65,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-05-28T15:00:00Z",
+            "price": 1668.64,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-01T11:00:00Z",
+            "price": 1659.13,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-05T15:00:00Z",
+            "price": 1663.75,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-09T11:00:00Z",
+            "price": 1658.86,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-13T15:00:00Z",
+            "price": 1664.68,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-17T15:00:00Z",
+            "price": 1668.17,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-21T11:00:00Z",
+            "price": 1663.91,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-25T11:00:00Z",
+            "price": 1662.6,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-06-29T15:00:00Z",
+            "price": 1671.1,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-03T15:00:00Z",
+            "price": 1670.8,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-07T15:00:00Z",
+            "price": 1677.91,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-11T11:00:00Z",
+            "price": 1671.58,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-15T11:00:00Z",
+            "price": 1672.22,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-16T16:00:00Z",
+            "price": 1673.53,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-19T11:00:00Z",
+            "price": 1668.8,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-20T16:00:00Z",
+            "price": 1675.42,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-21T16:00:00Z",
+            "price": 1674.59,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-22T16:00:00Z",
+            "price": 1675.54,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-23T11:00:00Z",
+            "price": 1670.09,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-24T16:00:00Z",
+            "price": 1678.13,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-25T16:00:00Z",
+            "price": 1677.59,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-27T15:00:00Z",
+            "price": 1676.17,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-29T16:00:00Z",
+            "price": 1677.07,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-30T16:00:00Z",
+            "price": 1678.02,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-31T11:00:00Z",
+            "price": 1666.88,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-07-31T16:00:00Z",
+            "price": 1681.0,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-01T16:00:00Z",
+            "price": 1682.51,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-02T16:00:00Z",
+            "price": 1684.05,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-04T15:00:00Z",
+            "price": 1677.93,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-05T16:00:00Z",
+            "price": 1684.32,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-07T16:00:00Z",
+            "price": 1686.29,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-08T15:00:00Z",
+            "price": 1677.6,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-08T16:00:00Z",
+            "price": 1687.29,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-09T16:00:00Z",
+            "price": 1688.18,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-11T16:00:00Z",
+            "price": 1688.39,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-12T11:00:00Z",
+            "price": 1668.32,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-16T11:00:00Z",
+            "price": 1667.64,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-16T16:00:00Z",
+            "price": 1691.36,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-17T16:00:00Z",
+            "price": 1692.48,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-18T16:00:00Z",
+            "price": 1691.63,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-19T16:00:00Z",
+            "price": 1692.33,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-20T11:00:00Z",
+            "price": 1661.16,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-24T15:00:00Z",
+            "price": 1668.88,
+            "retailer": "B&H",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-24T16:00:00Z",
+            "price": 1691.59,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-25T16:00:00Z",
+            "price": 1693.33,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-27T16:00:00Z",
+            "price": 1694.62,
+            "retailer": "Framework",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-26T17:00:00Z",
+            "price": 1699.0,
+            "retailer": "Framework",
+            "source": "agent"
+          }
+        ],
+        "saleEvents": [
+          {
+            "type": "prime_day",
+            "name": "Prime Day",
+            "year": 2025,
+            "price": 1699.0,
+            "retailer": "Framework",
+            "notes": "Not Amazon. Framework ran a parallel promo."
+          },
+          {
+            "type": "black_friday",
+            "name": "Black Friday",
+            "year": 2025,
+            "price": 1549.0,
+            "retailer": "Framework",
+            "notes": "ATL for this config."
+          },
+          {
+            "type": "cyber_monday",
+            "name": "Cyber Monday",
+            "year": 2025,
+            "price": 1599.0,
+            "retailer": "B&H",
+            "notes": "Prebuilt, not DIY. Logged anyway."
+          },
+          {
+            "type": "prime_day",
+            "name": "Prime Day",
+            "year": 2026,
+            "price": 1649.0,
+            "retailer": "Framework",
+            "notes": "Missed it. 1699 is back and at target."
+          }
+        ],
+        "log": [
+          {
+            "at": "2026-08-26T17:00:00Z",
+            "actor": "pete",
+            "kind": "alert",
+            "text": "Framework DIY 1699, in stock. Hits target. Steal via target rule."
+          },
+          {
+            "at": "2026-08-26T18:00:00Z",
+            "actor": "me",
+            "kind": "note",
+            "text": "Ready to order after RAM/SSD inventory check."
+          }
+        ]
+      }
+    ]
+  }
+}
