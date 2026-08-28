@@ -17,6 +17,8 @@ python3 -m http.server 4173
 
 Hash routing (`#/pirate`, `#/shipyard/...`) is used so GitHub Pages works with no server rewrite.
 
+Live: https://boorussia.github.io/mindkeep/
+
 ## Folder map
 
 ```
@@ -58,6 +60,15 @@ scripts/gen-demo.py
 ```
 
 If `renderer` is not `pirate`, `shipyard`, or `mailbag`, the generic briefing list is used.
+
+## Price Pirate command center
+
+- Recurring watches (`daily` / `weekly` / `biweekly`) sit above one-time checks (`manual` / `once`).
+- Name opens the item. The spark under the price expands like an X cashtag chart.
+- Remove hides the item in `localStorage` overlay (`removedIds`). Restore on **Data**. History in `/data` is not deleted.
+- Product cutouts: transparent PNGs in `assets/products/[id].png`. On an item page, **Bring in PNG** overrides locally (no background, so the deck stays black/paper).
+- Price target is the buy line. The brief says buy now / wait / retarget when the old ATL is dead (new gen, supply shock — RAM/AI is the pattern).
+- When live price ≤ target, MindKeep writes a Pete ping (Today queue + optional desktop notification). Pete can also paste a `kind: "alert"` envelope. This site does not scrape stores.
 
 ## Inbox envelope
 

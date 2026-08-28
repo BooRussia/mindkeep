@@ -10,15 +10,33 @@ async function loadJson(path) {
   return res.json();
 }
 
+function emptyOverlay() {
+  return {
+    drops: [],
+    removedIds: [],
+    targets: {},
+    itemImages: {},
+    pings: [],
+    notifiedTargets: {},
+  };
+}
+
 export function readOverlay() {
   try {
     const raw = localStorage.getItem(VAULT_KEY);
-    if (!raw) return { drops: [] };
+    if (!raw) return emptyOverlay();
     const parsed = JSON.parse(raw);
-    return { drops: Array.isArray(parsed.drops) ? parsed.drops : [] };
+    return { ...emptyOverlay(), ...parsed, drops: Array.isArray(parsed.drops) ? parsed.drops : [] };
   } catch {
-    return { drops: [] };
+    return emptyOverlay();
   }
+}
+
+export function patchOverlay(mutator) {
+  const overlay = readOverlay();
+  mutator(overlay);
+  writeOverlay(overlay);
+  return overlay;
 }
 
 export function writeOverlay(overlay) {
@@ -266,8 +284,40 @@ export function appendDrop(envelope) {
   return overlay;
 }
 
-export function allItems(bays) {
-  return bays.pirate?.payload?.items || [];
+export function decorateItem(item, overlay = {}) {
+  const next = { ...item };
+  if (overlay.targets && overlay.targets[item.id] != null && overlay.targets[item.id] !== "") {
+    next.targetPrice = Number(overlay.targets[item.id]);
+  }
+  if (overlay.itemImages?.[item.id]) {
+    next.imageUrl = overlay.itemImages[item.id];
+    next.imageSource = "import";
+  } else if (!next.imageUrl) {
+    next.imageUrl = `./assets/products/${item.id}.png`;
+    if (next.imageSource === "monogram") next.imageSource = "imagine";
+  }
+  if (next.notifyOnTarget == null) next.notifyOnTarget = true;
+  return next;
+}
+
+export function allItems(bays, overlay = null) {
+  const items = bays.pirate?.payload?.items || [];
+  if (!overlay) return items;
+  return items.map((it) => decorateItem(it, overlay));
+}
+
+export function visibleItems(state) {
+  const removed = new Set(state.overlay?.removedIds || []);
+  return allItems(state.bays, state.overlay).filter((it) => !removed.has(it.id));
+}
+
+export function removedItems(state) {
+  const removed = new Set(state.overlay?.removedIds || []);
+  return allItems(state.bays, state.overlay).filter((it) => removed.has(it.id));
+}
+
+export function isRecurring(item) {
+  return ["daily", "weekly", "biweekly"].includes(item.cadence);
 }
 
 export function allProjects(bays) {
@@ -278,13 +328,27 @@ export function allProjects(bays) {
   return out;
 }
 
-export function allAlerts(bays) {
+export function allAlerts(state) {
+  const bays = state.bays || state;
+  const overlay = state.overlay || {};
   const rank = { now: 0, soon: 1, info: 2 };
   const list = [];
   for (const [bayId, bay] of Object.entries(bays)) {
+    if (!bay || typeof bay !== "object" || !bay.alerts) continue;
     for (const alert of bay.alerts || []) {
       list.push({ ...alert, bayId, operator: bay.operator });
     }
+  }
+  for (const ping of overlay.pings || []) {
+    list.push({
+      level: "now",
+      title: ping.title,
+      body: ping.body,
+      href: ping.href,
+      bayId: "pirate",
+      operator: "Pete",
+      ping: true,
+    });
   }
   return list.sort((a, b) => (rank[a.level] ?? 9) - (rank[b.level] ?? 9));
 }

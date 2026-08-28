@@ -1,24 +1,18 @@
-import { gradeItem, enrichProject } from "./grades.js";
-import { allAlerts, allItems, allProjects } from "./vault.js";
+import { enrichProject } from "./grades.js";
+import { allAlerts, allProjects, removedItems, visibleItems } from "./vault.js";
 import {
   ageDays,
-  copyText,
   esc,
   isoDay,
   money,
   monogram,
-  pct,
   relTime,
   shortDate,
   shortSha,
-  signedClass,
 } from "./format.js";
+import { peteBrief as piratePeteBrief, renderPirateItem as pirateItemView, renderPirateList as pirateListView } from "./pirate.js";
 
 let chart;
-
-function gradeChip(g) {
-  return `<span class="grade grade-${esc(g.grade)}">${esc(g.grade)}</span>`;
-}
 
 function mark(name) {
   return `<span class="mono-mark" aria-hidden="true">${esc(monogram(name))}</span>`;
@@ -42,15 +36,15 @@ export function destroyChart() {
 }
 
 function kpis(state) {
-  const items = allItems(state.bays);
+  const items = visibleItems(state);
   const projects = allProjects(state.bays);
-  const steals = items.filter((it) => gradeItem(it).grade === "steal").length;
+  const hits = items.filter((it) => it.targetPrice != null && it.currentBest?.price <= it.targetPrice).length;
   const need = projects.filter((p) => p.needsMe).length;
   const active = projects.filter((p) => p.status === "active").length;
   const lastMail = state.bays.mailbag?.payload?.lastScanAt;
   return [
     { label: "Watched items", value: String(items.length) },
-    { label: "Steals", value: String(steals) },
+    { label: "Target hits", value: String(hits) },
     { label: "Repos that need me", value: String(need) },
     { label: "Active repos", value: String(active) },
     { label: "Last mailbag scan", value: relTime(lastMail) },
@@ -59,7 +53,7 @@ function kpis(state) {
 
 function inMotion(state) {
   const now = Date.now();
-  const items = allItems(state.bays)
+  const items = visibleItems(state)
     .filter((it) => ageDays(it.lastCheckedAt, now) <= 7)
     .map((it) => ({
       href: `#/pirate/${it.id}`,
@@ -77,10 +71,10 @@ function inMotion(state) {
 }
 
 export function renderToday(state) {
-  const alerts = allAlerts(state.bays);
+  const alerts = allAlerts(state);
   const motion = inMotion(state);
   const k = kpis(state);
-  const empty = !allItems(state.bays).length && !allProjects(state.bays).length;
+  const empty = !visibleItems(state).length && !allProjects(state.bays).length;
   if (empty) {
     return `<div class="empty">Add a quarry or import JSON.</div>`;
   }
@@ -142,174 +136,15 @@ export function renderToday(state) {
 }
 
 export function renderPirateList(state) {
-  const items = allItems(state.bays).map((it) => ({ it, g: gradeItem(it) }));
-  return `
-    <header class="page-head">
-      <div>
-        <p class="kicker">Operator Pete</p>
-        <h1>Price Pirate</h1>
-      </div>
-      <p class="legend">Down is good. Blue = down / steal. Pink = up / high.</p>
-    </header>
-    <div class="ticker" aria-label="Watched ticker">
-      ${items
-        .map(({ it, g }) => {
-          const ch = g.stats.change7dPct;
-          return `<a href="#/pirate/${esc(it.id)}" data-grade="${esc(g.grade)}">
-            <strong>${esc(it.name)}</strong>
-            <span class="num">${esc(money(it.currentBest?.price, it.currency))}</span>
-            <span class="pct ${signedClass(ch, { invert: true })}">${esc(pct(ch))} 7d</span>
-            ${gradeChip(g)}
-          </a>`;
-        })
-        .join("")}
-    </div>
-    <div class="tbl-scroll" role="region" aria-labelledby="watch-cap" tabindex="0">
-      <table>
-        <caption id="watch-cap" class="sr-only">Watchlist</caption>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th class="col-p2">Variant</th>
-            <th class="num">Best</th>
-            <th class="num col-p2">vs ATL</th>
-            <th class="num">7d</th>
-            <th>Grade</th>
-            <th>Status</th>
-            <th class="col-p2">Checked</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${items
-            .map(({ it, g }) => {
-              const ch = g.stats.change7dPct;
-              return `<tr data-href="#/pirate/${esc(it.id)}">
-                <td>${mark(it.name)}</td>
-                <td>${esc(it.name)}</td>
-                <td class="col-p2 dim">${esc(it.variant || "")}</td>
-                <td class="num">${esc(money(it.currentBest?.price, it.currency))}<div class="dim">${esc(it.currentBest?.retailer || "")}</div></td>
-                <td class="num col-p2 ${signedClass(g.stats.vsAtlPct, { invert: true })}">${esc(pct(g.stats.vsAtlPct))}</td>
-                <td class="num ${signedClass(ch, { invert: true })}">${esc(pct(ch))}</td>
-                <td>${gradeChip(g)}</td>
-                <td><span class="status-pill" data-status="${esc(it.status)}">${esc(it.status)}</span></td>
-                <td class="col-p2 mono">${esc(relTime(it.lastCheckedAt))}</td>
-              </tr>`;
-            })
-            .join("")}
-        </tbody>
-      </table>
-    </div>
-  `;
+  return pirateListView(state);
 }
 
-function peteBrief(it, g) {
-  const urls = (it.productUrls || []).map((u) => `- ${u.retailer}: ${u.url}`).join("\n");
-  const last = [...(it.priceHistory || [])]
-    .sort((a, b) => String(b.date).localeCompare(String(a.date)))
-    .slice(0, 8)
-    .map((h) => `- ${isoDay(h.date)}  ${money(h.price, it.currency)}  ${h.retailer}`)
-    .join("\n");
-  return `# Pete brief — ${it.name}
-
-- id: ${it.id}
-- variant: ${it.variant || ""}
-- status: ${it.status}
-- target: ${money(it.targetPrice, it.currency)}
-- current: ${money(it.currentBest?.price, it.currency)} (${it.currentBest?.retailer || "—"})
-- ATL: ${it.allTimeLow ? `${money(it.allTimeLow.price, it.currency)} ${it.allTimeLow.retailer} ${it.allTimeLow.date}` : "none"}
-- grade: ${g.grade} — ${g.rule}
-- identifiers: ASIN ${it.identifiers?.asin || "—"} · UPC ${it.identifiers?.upc || "—"} · model ${it.identifiers?.model || "—"}
-
-## URLs
-${urls || "- none"}
-
-## Last prices
-${last || "- none"}
-`;
+export function peteBrief(it, g) {
+  return piratePeteBrief(it, g);
 }
 
 export function renderPirateItem(state, id) {
-  const it = allItems(state.bays).find((x) => x.id === id);
-  if (!it) return `<p class="empty">No item ${esc(id)}.</p>`;
-  const g = gradeItem(it);
-  const windows = [
-    ["1d", g.stats.change1dPct],
-    ["7d", g.stats.change7dPct],
-    ["30d", g.stats.change30dPct],
-    ["90d", g.stats.change90dPct],
-  ];
-  return `
-    <nav class="crumb"><a href="#/pirate">Price Pirate</a><span class="dim">/</span><span>${esc(it.name)}</span></nav>
-    <header class="page-head">
-      <div>
-        <p class="kicker">Pete · ${esc(it.category || "item")}</p>
-        <h1>${esc(it.name)}</h1>
-        <p class="dim">${esc(it.variant || "")}</p>
-      </div>
-      <div class="actions">
-        <button type="button" class="btn btn-primary" data-copy-pete="${esc(it.id)}">Copy Pete brief</button>
-      </div>
-    </header>
-    <p class="legend">${gradeChip(g)} Rule: ${esc(g.rule)}. Down is good.</p>
-    <div class="stat-row">
-      <article class="kpi"><div class="kpi-label">Best now</div><p class="kpi-value">${esc(money(it.currentBest?.price, it.currency))}</p><p class="dim">${esc(it.currentBest?.retailer || "")}</p></article>
-      <article class="kpi"><div class="kpi-label">ATL</div><p class="kpi-value">${esc(it.allTimeLow ? money(it.allTimeLow.price, it.currency) : "—")}</p><p class="dim">${esc(it.allTimeLow ? `${it.allTimeLow.retailer} · ${shortDate(it.allTimeLow.date)}` : "no ATL")}</p></article>
-      <article class="kpi"><div class="kpi-label">Target</div><p class="kpi-value">${esc(money(it.targetPrice, it.currency))}</p></article>
-      ${windows
-        .map(
-          ([label, v]) =>
-            `<article class="kpi"><div class="kpi-label">${label}</div><p class="kpi-value ${signedClass(v, { invert: true })}">${esc(pct(v))}</p></article>`
-        )
-        .join("")}
-    </div>
-    <div class="chart-wrap"><canvas id="price-chart" aria-label="Price history"></canvas></div>
-    <div class="two-col">
-      <section class="card">
-        <h3>Retailer scoreboard</h3>
-        <div class="tbl-scroll" role="region" tabindex="0" aria-label="Retailers">
-          <table>
-            <thead><tr><th>Retailer</th><th class="num">Price</th><th>Stock</th><th class="col-p2">Seen</th></tr></thead>
-            <tbody>
-              ${(it.retailers || [])
-                .map(
-                  (r) => `<tr>
-                    <td>${esc(r.retailer)}${r.isWinner ? ' <span class="good">best</span>' : ""}${r.setAtl ? ' <span class="dim">ATL</span>' : ""}</td>
-                    <td class="num">${esc(money(r.price, it.currency))}</td>
-                    <td>${r.inStock ? "in" : "out"}</td>
-                    <td class="col-p2 mono">${esc(relTime(r.lastSeenAt))}</td>
-                  </tr>`
-                )
-                .join("")}
-            </tbody>
-          </table>
-        </div>
-      </section>
-      <section class="card">
-        <h3>Seasonal cards</h3>
-        ${(it.saleEvents || []).length
-          ? (it.saleEvents || [])
-              .map(
-                (e) => `<p><strong>${esc(e.name)} ${esc(e.year)}</strong><br><span class="num">${esc(money(e.price, it.currency))}</span> · ${esc(e.retailer)}<br><span class="dim">${esc(e.notes || "")}</span></p>`
-              )
-              .join("")
-          : `<p class="dim">No seasonal prints yet.</p>`}
-      </section>
-    </div>
-    <section class="card" style="margin-top:1rem">
-      <h3>Pete log</h3>
-      <ul class="log">
-        ${(it.log || [])
-          .slice()
-          .reverse()
-          .map(
-            (row) => `<li><div class="meta">${esc(shortDate(row.at))} · ${esc(row.actor)} · ${esc(row.kind)}</div><p>${esc(row.text)}</p></li>`
-          )
-          .join("")}
-      </ul>
-    </section>
-    <p class="dim" style="margin-top:1rem">${esc(it.why || "")}</p>
-  `;
+  return pirateItemView(state, id);
 }
 
 export function mountPirateChart(item) {
@@ -562,6 +397,7 @@ const TEMPLATES = {
     "items": [
       {
         "id": "item-id",
+        "targetPrice": 0,
         "currentBest": { "price": 0, "retailer": "", "url": "", "inStock": true, "observedAt": "${new Date().toISOString()}", "notes": "" },
         "priceHistory": [{ "date": "${new Date().toISOString()}", "price": 0, "retailer": "", "source": "agent" }]
       }
@@ -638,6 +474,7 @@ export function renderDispatch(state, agent = "Pete") {
       <pre id="brief-template">${esc(TEMPLATES[agent])}</pre>
       <div class="actions">
         <button type="button" class="btn btn-primary" data-copy-template>Copy template</button>
+        <button type="button" class="btn" data-copy-ping>Copy target-hit ping</button>
         <button type="button" class="btn" data-load-example>Load example Pete drop</button>
         <button type="button" class="btn" id="dispatch-paste">Paste agent JSON</button>
       </div>
@@ -688,7 +525,31 @@ export function renderData(state, themeDoc, prefs) {
         <button type="button" class="btn" data-export-vault>Export vault JSON</button>
         <button type="button" class="btn" data-reset-overlay>Reset overlay</button>
       </div>
-      <p class="dim">localStorage key <span class="mono">mindkeep-vault-v1</span>. Overlay merges by item/repo id and unions price history. It never deletes old history.</p>
+      <p class="dim">localStorage key <span class="mono">mindkeep-vault-v1</span>. Overlay merges by item/repo id and unions price history. It never deletes old history. Remove only hides an item.</p>
+    </section>
+    <section class="card" style="margin-bottom:1.5rem">
+      <label class="toggle">
+        <span>Pete pings in this browser</span>
+        <button type="button" class="btn" data-notify-toggle>${prefs.notify === false ? "Off" : "On"}</button>
+      </label>
+      <p class="dim">When a live price meets the target, MindKeep writes a ping and can fire a desktop notification. Pete can also drop an inbox alert. No scrape, no Gmail.</p>
+    </section>
+    <section class="card" style="margin-bottom:1.5rem">
+      <h3>Removed from Price Pirate</h3>
+      ${
+        removedItems(state).length
+          ? `<ul class="path-list">${removedItems(state)
+              .map(
+                (it) =>
+                  `<li>${esc(it.name)} <button type="button" class="btn" data-restore-item="${esc(it.id)}">Restore</button></li>`
+              )
+              .join("")}</ul>`
+          : `<p class="dim">None. Remove on a watch card; history stays in /data.</p>`
+      }
+    </section>
+    <section class="card" style="margin-bottom:1.5rem">
+      <h3>Product PNGs</h3>
+      <p class="dim">Cutouts live in <span class="mono">assets/products/[id].png</span>. Bring a transparent PNG on the item page to override locally.</p>
     </section>
     <section class="card" style="margin-bottom:1.5rem">
       <h3>Expected paths</h3>
@@ -726,7 +587,7 @@ export function renderGeneric(bay) {
 
 export function searchIndex(state) {
   const out = [];
-  for (const it of allItems(state.bays)) {
+  for (const it of visibleItems(state)) {
     out.push({
       href: `#/pirate/${it.id}`,
       title: it.name,
@@ -753,4 +614,18 @@ export function searchIndex(state) {
   return out;
 }
 
-export { peteBrief, TEMPLATES };
+export const PING_TEMPLATE = `{
+  "schemaVersion": "1.0.0",
+  "agent": "Pete",
+  "bayId": "pirate",
+  "at": "${new Date().toISOString()}",
+  "kind": "alert",
+  "payload": {
+    "level": "now",
+    "title": "Target hit: item-id",
+    "body": "Live price met the watch target. Buy window is open.",
+    "href": "#/pirate/item-id"
+  }
+}`;
+
+export { TEMPLATES };

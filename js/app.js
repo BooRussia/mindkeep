@@ -2,14 +2,16 @@ import {
   appendDrop,
   exportVault,
   loadVault,
+  patchOverlay,
   resetOverlay,
   validateEnvelope,
-  allItems,
+  visibleItems,
 } from "./vault.js";
 import { applyTheme, loadThemeDoc, readPrefs, writePrefs } from "./theme.js";
 import { syncField } from "./field.js";
-import { copyText, esc } from "./format.js";
+import { copyText, esc, money } from "./format.js";
 import {
+  PING_TEMPLATE,
   TEMPLATES,
   destroyChart,
   mountPirateChart,
@@ -27,6 +29,7 @@ import {
   toast,
 } from "./views.js";
 import { gradeItem } from "./grades.js";
+import { isTargetHit } from "./brief.js";
 
 const stage = () => document.getElementById("stage");
 
@@ -73,12 +76,62 @@ async function render() {
   const el = stage();
   el.innerHTML = html;
   if (route.name === "pirate" && route.id) {
-    const item = allItems(state.bays).find((x) => x.id === route.id);
+    const item = visibleItems(state).find((x) => x.id === route.id);
     if (item) {
       const start = () => mountPirateChart(item);
       if (window.Chart) start();
       else window.addEventListener("load", start, { once: true });
     }
+  }
+  document.querySelectorAll("img.thumb-img").forEach((img) => {
+    img.addEventListener("error", () => {
+      const wrap = img.closest(".thumb");
+      if (!wrap) return;
+      wrap.classList.add("thumb-mono");
+      wrap.textContent = wrap.parentElement?.getAttribute("aria-label")?.slice(0, 2).toUpperCase() || "MK";
+    });
+  });
+}
+
+function firePing(ping) {
+  const prefs = readPrefs();
+  if (prefs.notify === false) return;
+  if (!("Notification" in window)) return;
+  if (Notification.permission === "granted") {
+    new Notification(ping.title, { body: ping.body, tag: ping.id });
+  }
+}
+
+function ensureTargetPings() {
+  const prefs = readPrefs();
+  if (prefs.notify === false) return;
+  const overlay = state.overlay;
+  overlay.pings = overlay.pings || [];
+  overlay.notifiedTargets = overlay.notifiedTargets || {};
+  let wrote = false;
+  for (const it of visibleItems(state)) {
+    if (it.notifyOnTarget === false || !isTargetHit(it)) continue;
+    const key = `${it.id}@${it.targetPrice}`;
+    if (overlay.notifiedTargets[key]) continue;
+    overlay.notifiedTargets[key] = new Date().toISOString();
+    const ping = {
+      id: key,
+      at: overlay.notifiedTargets[key],
+      itemId: it.id,
+      title: `Target hit: ${it.name}`,
+      body: `${money(it.currentBest.price, it.currency)} at ${it.currentBest.retailer} ≤ ${money(it.targetPrice, it.currency)}`,
+      href: `#/pirate/${it.id}`,
+    };
+    overlay.pings.unshift(ping);
+    wrote = true;
+    firePing(ping);
+  }
+  if (wrote) {
+    patchOverlay((o) => {
+      o.pings = overlay.pings;
+      o.notifiedTargets = overlay.notifiedTargets;
+    });
+    state.overlay = { ...state.overlay, pings: overlay.pings, notifiedTargets: overlay.notifiedTargets };
   }
 }
 
@@ -113,6 +166,7 @@ async function boot() {
   applyTheme(themeDoc);
   syncField(themeDoc);
   state = await loadVault();
+  ensureTargetPings();
   await render();
 }
 
@@ -147,9 +201,60 @@ document.addEventListener("click", async (e) => {
     await applyPaste(document.getElementById("paste-area").value);
     return;
   }
+  const sparkBtn = e.target.closest("[data-spark]");
+  if (sparkBtn) {
+    e.preventDefault();
+    e.stopPropagation();
+    const open = sparkBtn.getAttribute("aria-expanded") === "true";
+    document.querySelectorAll("[data-spark]").forEach((btn) => {
+      btn.setAttribute("aria-expanded", "false");
+      const grow = btn.querySelector(".spark-grow");
+      if (grow) grow.hidden = true;
+    });
+    if (!open) {
+      sparkBtn.setAttribute("aria-expanded", "true");
+      const grow = sparkBtn.querySelector(".spark-grow");
+      if (grow) grow.hidden = false;
+    }
+    return;
+  }
+  const removeBtn = e.target.closest("[data-remove-item]");
+  if (removeBtn) {
+    e.preventDefault();
+    e.stopPropagation();
+    const id = removeBtn.dataset.removeItem;
+    if (!window.confirm("Remove from Price Pirate? History stays in the vault. Restore on Data.")) return;
+    patchOverlay((o) => {
+      o.removedIds = [...new Set([...(o.removedIds || []), id])];
+    });
+    toast("Removed from the deck.");
+    location.hash = "#/pirate";
+    await boot();
+    return;
+  }
+  const restoreBtn = e.target.closest("[data-restore-item]");
+  if (restoreBtn) {
+    patchOverlay((o) => {
+      o.removedIds = (o.removedIds || []).filter((id) => id !== restoreBtn.dataset.restoreItem);
+    });
+    toast("Restored.");
+    await boot();
+    return;
+  }
+  const applyTarget = e.target.closest("[data-apply-target]");
+  if (applyTarget) {
+    const id = applyTarget.dataset.applyTarget;
+    const value = Number(applyTarget.dataset.targetValue);
+    patchOverlay((o) => {
+      o.targets = { ...(o.targets || {}), [id]: value };
+    });
+    toast("Target updated.");
+    await boot();
+    return;
+  }
   const pete = e.target.closest("[data-copy-pete]");
   if (pete) {
-    const item = allItems(state.bays).find((x) => x.id === pete.dataset.copyPete);
+    const item = visibleItems(state).find((x) => x.id === pete.dataset.copyPete);
     if (item) {
       await copyText(peteBrief(item, gradeItem(item)));
       toast("Pete brief copied.");
@@ -165,6 +270,25 @@ document.addEventListener("click", async (e) => {
   if (e.target.closest("[data-copy-template]")) {
     await copyText(TEMPLATES[dispatchAgent]);
     toast(`${dispatchAgent} template copied.`);
+    return;
+  }
+  if (e.target.closest("[data-copy-ping]")) {
+    await copyText(PING_TEMPLATE);
+    toast("Target-hit ping copied.");
+    return;
+  }
+  if (e.target.closest("[data-notify-toggle]")) {
+    const prefs = readPrefs();
+    if (prefs.notify === false) {
+      if ("Notification" in window && Notification.permission !== "granted") {
+        await Notification.requestPermission();
+      }
+      prefs.notify = true;
+    } else {
+      prefs.notify = false;
+    }
+    writePrefs(prefs);
+    await render();
     return;
   }
   if (e.target.closest("[data-load-example]")) {
@@ -236,6 +360,51 @@ document.getElementById("search").addEventListener("input", (e) => {
 document.getElementById("search-hits").addEventListener("click", () => {
   document.getElementById("search-hits").hidden = true;
   document.getElementById("search").value = "";
+});
+
+document.addEventListener("submit", async (e) => {
+  const form = e.target.closest("[data-target-form]");
+  if (!form) return;
+  e.preventDefault();
+  const id = form.dataset.targetForm;
+  const value = Number(new FormData(form).get("target"));
+  if (!Number.isFinite(value) || value <= 0) {
+    toast("Need a dollar target.");
+    return;
+  }
+  patchOverlay((o) => {
+    o.targets = { ...(o.targets || {}), [id]: value };
+  });
+  toast("Target saved. Pete will ping when it prints.");
+  await boot();
+});
+
+document.addEventListener("change", (e) => {
+  const input = e.target.closest("[data-import-png]");
+  if (!input?.files?.[0]) return;
+  const file = input.files[0];
+  const reader = new FileReader();
+  reader.onload = () => {
+    const img = new Image();
+    img.onload = async () => {
+      const side = 768;
+      const canvas = document.createElement("canvas");
+      canvas.width = side;
+      canvas.height = side;
+      const ctx = canvas.getContext("2d");
+      const scale = Math.min(side / img.width, side / img.height);
+      const w = img.width * scale;
+      const h = img.height * scale;
+      ctx.drawImage(img, (side - w) / 2, (side - h) / 2, w, h);
+      patchOverlay((o) => {
+        o.itemImages = { ...(o.itemImages || {}), [input.dataset.importPng]: canvas.toDataURL("image/png") };
+      });
+      toast("PNG attached to this item.");
+      await boot();
+    };
+    img.src = reader.result;
+  };
+  reader.readAsDataURL(file);
 });
 
 window.addEventListener("hashchange", () => {
