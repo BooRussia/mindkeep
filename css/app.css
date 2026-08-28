@@ -185,6 +185,16 @@ time,
   line-height: var(--leading-tight);
 }
 
+html[data-live="on"] .wordmark::after {
+  content: "LIVE";
+  margin-left: 0.55rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--blue);
+  font-weight: 600;
+  vertical-align: 0.15em;
+}
+
 .nav {
   display: none;
   gap: var(--space-1);

@@ -1,6 +1,7 @@
 import {
   appendDrop,
   exportVault,
+  loadLiveConfig,
   loadVault,
   patchOverlay,
   resetOverlay,
@@ -33,9 +34,21 @@ import { isTargetHit } from "./brief.js";
 
 const stage = () => document.getElementById("stage");
 
-let state = { manifest: { bays: [] }, bays: {}, overlay: { drops: [] } };
+let state = { manifest: { bays: [] }, bays: {}, overlay: { drops: [] }, live: null };
 let themeDoc = null;
 let dispatchAgent = "Pete";
+let liveCfg = { overlayUrl: "", pollMs: 4000 };
+let liveTimer = 0;
+let lastLiveRevision = null;
+
+function resolveLiveUrl() {
+  const prefs = readPrefs();
+  if (prefs.liveUrl) return prefs.liveUrl;
+  if (liveCfg.overlayUrl) return liveCfg.overlayUrl;
+  const host = location.hostname;
+  if (host === "localhost" || host === "127.0.0.1") return liveCfg.localOverlayUrl || "http://127.0.0.1:8787/overlay.json";
+  return "";
+}
 
 function parseRoute() {
   const raw = (location.hash || "#/").replace(/^#/, "");
@@ -73,6 +86,7 @@ async function render() {
   else if (route.name === "dispatch") html = renderDispatch(state, dispatchAgent);
   else if (route.name === "data") html = renderData(state, themeDoc, prefs);
   else html = renderGeneric(state.bays[route.id]);
+  document.documentElement.dataset.live = state.live && !state.liveError ? "on" : "off";
   const el = stage();
   el.innerHTML = html;
   if (route.name === "pirate" && route.id) {
@@ -161,13 +175,35 @@ function applyPaste(text) {
   return boot();
 }
 
-async function boot() {
+function startLivePoll() {
+  if (liveTimer) clearInterval(liveTimer);
+  const url = resolveLiveUrl();
+  const ms = Math.max(2000, Number(liveCfg.pollMs) || 4000);
+  if (!url) return;
+  liveTimer = setInterval(async () => {
+    try {
+      const live = await (await fetch(url, { cache: "no-store" })).json();
+      if (live && live.revision !== lastLiveRevision) {
+        lastLiveRevision = live.revision;
+        await boot({ quiet: true });
+      }
+    } catch {
+      /* overlay host down — keep published vault */
+    }
+  }, ms);
+}
+
+async function boot({ quiet = false } = {}) {
   themeDoc = await loadThemeDoc();
   applyTheme(themeDoc);
   syncField(themeDoc);
-  state = await loadVault();
+  liveCfg = await loadLiveConfig();
+  const liveUrl = resolveLiveUrl();
+  state = await loadVault(liveUrl);
+  lastLiveRevision = state.live?.revision ?? lastLiveRevision;
   ensureTargetPings();
   await render();
+  if (!quiet) startLivePoll();
 }
 
 function downloadJson(filename, obj) {
@@ -275,6 +311,14 @@ document.addEventListener("click", async (e) => {
   if (e.target.closest("[data-copy-ping]")) {
     await copyText(PING_TEMPLATE);
     toast("Target-hit ping copied.");
+    return;
+  }
+  if (e.target.closest("[data-save-live-url]")) {
+    const prefs = readPrefs();
+    prefs.liveUrl = (document.getElementById("live-url")?.value || "").trim();
+    writePrefs(prefs);
+    toast(prefs.liveUrl ? "Live URL saved." : "Live URL cleared.");
+    await boot();
     return;
   }
   if (e.target.closest("[data-notify-toggle]")) {

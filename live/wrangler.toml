@@ -1,0 +1,17 @@
+name = "mindkeep-live"
+main = "worker.js"
+compatibility_date = "2026-01-15"
+workers_dev = true
+
+[vars]
+PAGES_BASE = "https://boorussia.github.io/mindkeep"
+
+# After login:
+#   npx wrangler kv namespace create VAULT
+# then uncomment and paste the id:
+# [[kv_namespaces]]
+# binding = "VAULT"
+# id = "YOUR_KV_ID"
+
+# Bot write token (never commit the value):
+#   npx wrangler secret put BOT_TOKEN

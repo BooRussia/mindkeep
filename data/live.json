@@ -1,0 +1,7 @@
+{
+  "overlayUrl": "",
+  "pollMs": 4000,
+  "mcpUrl": "",
+  "localOverlayUrl": "http://127.0.0.1:8787/overlay.json",
+  "localMcpUrl": "http://127.0.0.1:8787/mcp"
+}

@@ -520,6 +520,24 @@ export function renderData(state, themeDoc, prefs) {
       <p class="dim">Reduced-motion also disables the canvas. Dim preset turns glow off.</p>
     </section>
     <section class="card" style="margin-bottom:1.5rem">
+      <h3>Live overlay</h3>
+      <p class="dim">${
+        state.live && !state.liveError
+          ? `Connected · revision ${esc(String(state.live.revision ?? 0))} · ${esc(state.live.updatedAt || "waiting")}`
+          : state.liveError
+            ? `Unreachable: ${esc(state.liveError)}`
+            : "Not connected. Pete talks to the Worker; this page only reads overlay.json."
+      }</p>
+      <label>
+        <span class="kpi-label">Overlay URL</span>
+        <input class="target-input" id="live-url" value="${esc(prefs.liveUrl || "")}" placeholder="https://mindkeep-live.your-account.workers.dev/overlay.json" autocomplete="off" spellcheck="false">
+      </label>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-save-live-url>Save live URL</button>
+      </div>
+      <p class="dim">Writes never go through this browser. Bots call MCP with a Bearer token. See <span class="mono">live/README.md</span>.</p>
+    </section>
+    <section class="card" style="margin-bottom:1.5rem">
       <h3>Vault</h3>
       <div class="actions">
         <button type="button" class="btn" data-export-vault>Export vault JSON</button>
