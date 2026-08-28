@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "agent": "Post",
+  "bayId": "mailbag",
+  "at": "2026-08-28T17:24:00Z",
+  "kind": "replace",
+  "payload": {
+    "cadence": "daily",
+    "lastScanAt": "2026-08-28T17:24:00Z",
+    "briefings": [
+      {
+        "id": "2026-08-28",
+        "at": "2026-08-28T17:24:00Z",
+        "operator": "Post",
+        "subject": "Mailbag · Fri 28",
+        "severity": "now",
+        "needsReply": true,
+        "bullets": [
+          "Reply today on deadlysinsutube: Marketplace Pack out $275 and Hunter Arentz (Text me).",
+          "Tesla Shop order #LJVWGG8KEW confirmed then shipped.",
+          "Venmo receipt HOMEDEPOT.COM $68.36 — confirm it is yours.",
+          "BetaFPV drone: no new mail; still Chicago Aug 24, GoFo label-only.",
+          "Voxel idle: zero [TesDrive inquiry]. Maps Platform ToS change Sep 28."
+        ],
+        "body": "25 threads last 24h across three inboxes, most promo. Two human threads on deadlysinsutube need a reply today. Money: Tesla shop shipped, Home Depot Venmo $68.36. No drone email, no landing-page inquiries.",
+        "source": "Gmail last 24h",
+        "threadCount": 25
+      }
+    ]
+  }
+}

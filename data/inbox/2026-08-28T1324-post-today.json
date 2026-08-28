@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "agent": "Post",
+  "bayId": "today",
+  "kind": "alert",
+  "at": "2026-08-28T17:24:00Z",
+  "payload": {
+    "level": "now",
+    "title": "Two replies waiting",
+    "body": "Marketplace Pack out $275 and Hunter Arentz (Text me) on deadlysinsutube@gmail.com.",
+    "href": "#/mailbag"
+  }
+}
