@@ -1,0 +1,580 @@
+{
+  "schemaVersion": "1.0.0",
+  "agent": "Pete",
+  "bayId": "pirate",
+  "at": "2026-08-28T16:54:00-04:00",
+  "kind": "merge",
+  "payload": {
+    "items": [
+      {
+        "id": "geprc-vapor-d5-pnp-gps",
+        "name": "GEPRC Vapor-D5 HD O4 Pro",
+        "variant": "PNP with GPS · DJI O4 Pro · 6S",
+        "category": "FPV",
+        "imageUrl": "",
+        "imageSource": "imagine",
+        "identifiers": {
+          "asin": "B0DTHFGNH2",
+          "upc": "",
+          "model": "Vapor-D5 O4 Pro PNP GPS",
+          "sku": "GP107583"
+        },
+        "productUrls": [
+          {
+            "retailer": "Amazon",
+            "url": "https://www.amazon.com/dp/B0DTHFGNH2"
+          },
+          {
+            "retailer": "Next FPV",
+            "url": "https://www.nextfpv.com/products/geprc-vapor-d5-hd-o4-pro-fpv-drone"
+          },
+          {
+            "retailer": "Pyrodrone",
+            "url": "https://pyrodrone.com/products/geprc-vapor-d5-hd-dji-o4-pro-deadcat-freestyle-6s-5-bnf-with-gps-choose-receiver-type"
+          },
+          {
+            "retailer": "EpicFPV",
+            "url": "https://epicfpv.ca/products/geprc-vapor-d5-hd-o4-pro-fpv-drone"
+          },
+          {
+            "retailer": "Rotor Village",
+            "url": "https://rotorvillage.ca/geprc-vapor-d5-hd-o4-pro-pnp-gps/"
+          }
+        ],
+        "status": "watching",
+        "priority": "now",
+        "targetPrice": 549.99,
+        "currency": "USD",
+        "cadence": "daily",
+        "lastCheckedAt": "2026-08-28T16:54:00-04:00",
+        "nextCheckAt": "2026-08-29T16:54:00-04:00",
+        "notifyOnTarget": true,
+        "why": "RECURRING weekday drop watch. Amazon is at the $549.99 target; Next FPV / Pyrodrone / CAD shops are OOS.",
+        "currentBest": {
+          "price": 549.99,
+          "retailer": "Amazon",
+          "url": "https://www.amazon.com/dp/B0DTHFGNH2",
+          "inStock": true,
+          "observedAt": "2026-08-28T16:54:00-04:00",
+          "notes": "In stock. Matched target. Sold by Amazon."
+        },
+        "stats": {
+          "change1dPct": 0.0,
+          "change7dPct": null,
+          "change30dPct": null,
+          "change90dPct": null,
+          "vsAtlPct": null,
+          "vs30dAvgPct": -4.53,
+          "vs90dAvgPct": -4.53
+        },
+        "dealGrade": "unknown",
+        "retailers": [
+          {
+            "retailer": "Amazon",
+            "price": 549.99,
+            "url": "https://www.amazon.com/dp/B0DTHFGNH2",
+            "inStock": true,
+            "shippingNote": "Free over $35",
+            "lastSeenAt": "2026-08-28T16:54:00-04:00",
+            "isWinner": true,
+            "setAtl": false
+          },
+          {
+            "retailer": "Next FPV",
+            "price": 562.0,
+            "url": "https://www.nextfpv.com/products/geprc-vapor-d5-hd-o4-pro-fpv-drone",
+            "inStock": false,
+            "shippingNote": "OOS",
+            "lastSeenAt": "2026-08-28T16:54:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Pyrodrone",
+            "price": 588.99,
+            "url": "https://pyrodrone.com/products/geprc-vapor-d5-hd-dji-o4-pro-deadcat-freestyle-6s-5-bnf-with-gps-choose-receiver-type",
+            "inStock": false,
+            "shippingNote": "OOS",
+            "lastSeenAt": "2026-08-28T16:54:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "EpicFPV",
+            "price": 641.99,
+            "url": "https://epicfpv.ca/products/geprc-vapor-d5-hd-o4-pro-fpv-drone",
+            "inStock": false,
+            "shippingNote": "CAD · OOS",
+            "lastSeenAt": "2026-08-28T16:54:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Rotor Village",
+            "price": 641.99,
+            "url": "https://rotorvillage.ca/geprc-vapor-d5-hd-o4-pro-pnp-gps/",
+            "inStock": false,
+            "shippingNote": "CAD · OOS",
+            "lastSeenAt": "2026-08-28T16:54:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          }
+        ],
+        "priceHistory": [
+          {
+            "date": "2026-08-24T16:54:00-04:00",
+            "price": 549.99,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-25T16:54:00-04:00",
+            "price": 549.99,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-26T16:54:00-04:00",
+            "price": 549.99,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-27T16:54:00-04:00",
+            "price": 549.99,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-28T16:54:00-04:00",
+            "price": 549.99,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-28T16:54:00-04:00",
+            "price": 562.0,
+            "retailer": "Next FPV",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-28T16:54:00-04:00",
+            "price": 588.99,
+            "retailer": "Pyrodrone",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-28T16:54:00-04:00",
+            "price": 641.99,
+            "retailer": "EpicFPV",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-28T16:54:00-04:00",
+            "price": 641.99,
+            "retailer": "Rotor Village",
+            "source": "agent"
+          }
+        ],
+        "saleEvents": [],
+        "log": [
+          {
+            "at": "2026-08-28T16:54:00-04:00",
+            "actor": "pete",
+            "kind": "alert",
+            "text": "RECURRING daily. Amazon 549.99 in stock at target. Next FPV 562 OOS, Pyrodrone 588.99 OOS, EpicFPV 641.99 CAD OOS, Rotor Village 641.99 CAD OOS."
+          }
+        ]
+      },
+      {
+        "id": "ninja-hydrasense-wf1001wh1",
+        "name": "Ninja HydraSense Intelligent Water Filtration System",
+        "variant": "WF1001WH1 Dove White",
+        "category": "Water",
+        "imageUrl": "",
+        "imageSource": "imagine",
+        "identifiers": {
+          "asin": "B0GXWVHKLQ",
+          "upc": "",
+          "model": "WF1001WH1",
+          "sku": "WF1001WH1"
+        },
+        "productUrls": [
+          {
+            "retailer": "Amazon",
+            "url": "https://www.amazon.com/Ninja-HydraSense-Intelligent-Filtration-WF1001WH1/dp/B0GXWVHKLQ"
+          },
+          {
+            "retailer": "SharkNinja",
+            "url": "https://www.sharkninja.com/ninja-hydrasense-water-filtration-system-blue/WF1001.html"
+          }
+        ],
+        "status": "watching",
+        "priority": "watch",
+        "targetPrice": null,
+        "currency": "USD",
+        "cadence": "weekly",
+        "lastCheckedAt": "2026-08-28T16:54:00-04:00",
+        "nextCheckAt": "2026-09-04T16:54:00-04:00",
+        "notifyOnTarget": true,
+        "why": "RECURRING weekly track. Launch print 2026-08-13 still $199.99 at Amazon and SharkNinja.",
+        "currentBest": {
+          "price": 199.99,
+          "retailer": "Amazon",
+          "url": "https://www.amazon.com/Ninja-HydraSense-Intelligent-Filtration-WF1001WH1/dp/B0GXWVHKLQ",
+          "inStock": true,
+          "observedAt": "2026-08-28T16:54:00-04:00",
+          "notes": "Matched SharkNinja MSRP. Sold by Amazon."
+        },
+        "stats": {
+          "change1dPct": 0.0,
+          "change7dPct": 0.0,
+          "change30dPct": null,
+          "change90dPct": null,
+          "vsAtlPct": null,
+          "vs30dAvgPct": 0.0,
+          "vs90dAvgPct": 0.0
+        },
+        "dealGrade": "unknown",
+        "retailers": [
+          {
+            "retailer": "Amazon",
+            "price": 199.99,
+            "url": "https://www.amazon.com/Ninja-HydraSense-Intelligent-Filtration-WF1001WH1/dp/B0GXWVHKLQ",
+            "inStock": true,
+            "shippingNote": "Free over $35",
+            "lastSeenAt": "2026-08-28T16:54:00-04:00",
+            "isWinner": true,
+            "setAtl": false
+          },
+          {
+            "retailer": "SharkNinja",
+            "price": 199.99,
+            "url": "https://www.sharkninja.com/ninja-hydrasense-water-filtration-system-blue/WF1001.html",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-28T16:54:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          }
+        ],
+        "priceHistory": [
+          {
+            "date": "2026-08-13T12:00:00-04:00",
+            "price": 199.99,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-13T12:00:00-04:00",
+            "price": 199.99,
+            "retailer": "SharkNinja",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-20T16:54:00-04:00",
+            "price": 199.99,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-28T16:54:00-04:00",
+            "price": 199.99,
+            "retailer": "Amazon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-28T16:54:00-04:00",
+            "price": 199.99,
+            "retailer": "SharkNinja",
+            "source": "agent"
+          }
+        ],
+        "saleEvents": [
+          {
+            "type": "launch",
+            "name": "Launch",
+            "year": 2026,
+            "price": 199.99,
+            "retailer": "Amazon",
+            "notes": "2026-08-13 launch print 199.99."
+          }
+        ],
+        "log": [
+          {
+            "at": "2026-08-13T12:00:00-04:00",
+            "actor": "pete",
+            "kind": "note",
+            "text": "Launch. Amazon and SharkNinja both 199.99."
+          },
+          {
+            "at": "2026-08-28T16:54:00-04:00",
+            "actor": "pete",
+            "kind": "check",
+            "text": "RECURRING weekly track. Still 199.99 Amazon / SharkNinja. No target set."
+          }
+        ]
+      },
+      {
+        "id": "faxon-gb910n43sgq-t",
+        "name": "Faxon Match Series 9mm Barrel G43/43X",
+        "variant": "Straight fluted · threaded 1/2-28 · Black Nitride",
+        "category": "Barrel",
+        "imageUrl": "https://cdn11.bigcommerce.com/s-f1hwux/images/stencil/1280x1280/products/1036/10382/1__35441.1708113322.jpg",
+        "imageSource": "official",
+        "identifiers": {
+          "asin": "",
+          "upc": "816341025936",
+          "model": "GB910N43SGQ-T",
+          "sku": "GB910N43SGQ-T"
+        },
+        "productUrls": [
+          {
+            "retailer": "RK Guns",
+            "url": "https://www.rkguns.com/faxon-firearms-match-series-9mm-luger-compatible-with-glock-4343x-black-nitride-gb910n43sgqt.html"
+          },
+          {
+            "retailer": "TheGunDock",
+            "url": "https://www.thegundock.com/live/faxon-firearms-match-series-straight-fluted-target-crowned-9mm-threaded"
+          },
+          {
+            "retailer": "Beverly Hills Guns",
+            "url": "https://beverlyhillsguns.com/parts/barrels-choke-tubes-muzzle-devices/faxon-firearms-match-series--fxgb910n43sgq-t"
+          },
+          {
+            "retailer": "Faxon",
+            "url": "https://faxonfirearms.com/GB910N43SGQ-T"
+          }
+        ],
+        "status": "watching",
+        "priority": "now",
+        "targetPrice": 110.97,
+        "currency": "USD",
+        "cadence": "weekly",
+        "lastCheckedAt": "2026-08-28T16:54:00-04:00",
+        "nextCheckAt": "2026-09-04T16:54:00-04:00",
+        "notifyOnTarget": true,
+        "why": "ONE-TIME buy hunt. RK Guns 110.97 is the live floor; TheGunDock 114; Beverly Hills Guns 115; Faxon official 124 OOS.",
+        "currentBest": {
+          "price": 110.97,
+          "retailer": "RK Guns",
+          "url": "https://www.rkguns.com/faxon-firearms-match-series-9mm-luger-compatible-with-glock-4343x-black-nitride-gb910n43sgqt.html",
+          "inStock": true,
+          "observedAt": "2026-08-28T16:54:00-04:00",
+          "notes": "Best live print. Faxon.com 124 OOS."
+        },
+        "stats": {
+          "change1dPct": -2.66,
+          "change7dPct": -2.66,
+          "change30dPct": null,
+          "change90dPct": null,
+          "vsAtlPct": null,
+          "vs30dAvgPct": -4.92,
+          "vs90dAvgPct": -4.92
+        },
+        "dealGrade": "unknown",
+        "retailers": [
+          {
+            "retailer": "RK Guns",
+            "price": 110.97,
+            "url": "https://www.rkguns.com/faxon-firearms-match-series-9mm-luger-compatible-with-glock-4343x-black-nitride-gb910n43sgqt.html",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-28T16:54:00-04:00",
+            "isWinner": true,
+            "setAtl": false
+          },
+          {
+            "retailer": "TheGunDock",
+            "price": 114.0,
+            "url": "https://www.thegundock.com/live/faxon-firearms-match-series-straight-fluted-target-crowned-9mm-threaded",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-28T16:54:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Beverly Hills Guns",
+            "price": 115.0,
+            "url": "https://beverlyhillsguns.com/parts/barrels-choke-tubes-muzzle-devices/faxon-firearms-match-series--fxgb910n43sgq-t",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-28T16:54:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Faxon",
+            "price": 124.0,
+            "url": "https://faxonfirearms.com/GB910N43SGQ-T",
+            "inStock": false,
+            "shippingNote": "OOS",
+            "lastSeenAt": "2026-08-28T16:54:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          }
+        ],
+        "priceHistory": [
+          {
+            "date": "2026-08-14T12:00:00-04:00",
+            "price": 124.0,
+            "retailer": "Faxon",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-21T16:54:00-04:00",
+            "price": 115.0,
+            "retailer": "Beverly Hills Guns",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-21T16:54:00-04:00",
+            "price": 114.0,
+            "retailer": "TheGunDock",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-28T16:54:00-04:00",
+            "price": 110.97,
+            "retailer": "RK Guns",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-28T16:54:00-04:00",
+            "price": 114.0,
+            "retailer": "TheGunDock",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-28T16:54:00-04:00",
+            "price": 115.0,
+            "retailer": "Beverly Hills Guns",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-28T16:54:00-04:00",
+            "price": 124.0,
+            "retailer": "Faxon",
+            "source": "agent"
+          }
+        ],
+        "saleEvents": [],
+        "log": [
+          {
+            "at": "2026-08-28T16:54:00-04:00",
+            "actor": "pete",
+            "kind": "alert",
+            "text": "ONE-TIME buy hunt. RK Guns 110.97 in stock. TheGunDock 114, Beverly Hills Guns 115, Faxon 124 OOS."
+          }
+        ]
+      },
+      {
+        "id": "craftsman-cmcbl730p1",
+        "name": "Craftsman V20 Brushless RP Leaf Blower",
+        "variant": "CMCBL730P1 kit · 5.0Ah battery + charger",
+        "category": "Outdoor",
+        "imageUrl": "",
+        "imageSource": "imagine",
+        "identifiers": {
+          "asin": "B0C67VTX88",
+          "upc": "885911840354",
+          "model": "CMCBL730P1",
+          "sku": "CMCBL730P1"
+        },
+        "productUrls": [
+          {
+            "retailer": "Amazon",
+            "url": "https://www.amazon.com/CRAFTSMAN-Cordless-Lightweight-Included-CMCBL730P1/dp/B0C67VTX88"
+          },
+          {
+            "retailer": "Ace",
+            "url": "https://www.acehardware.com/departments/lawn-and-garden/outdoor-power-equipment/leaf-blowers/7020974"
+          },
+          {
+            "retailer": "Craftsman",
+            "url": "https://www.craftsman.com/en-us/product/cmcbl730p1/v20-brushless-rp-cordless-410-cfm-axial-leaf-blower-1-50ah-battery-and-charger"
+          }
+        ],
+        "status": "ready",
+        "priority": "now",
+        "targetPrice": 139.0,
+        "currency": "USD",
+        "cadence": "manual",
+        "lastCheckedAt": "2026-08-28T16:54:00-04:00",
+        "nextCheckAt": "2026-09-11T16:54:00-04:00",
+        "notifyOnTarget": true,
+        "why": "ONE-TIME pick. Amazon 139 vs Ace 159 in history. Ready.",
+        "currentBest": {
+          "price": 139.0,
+          "retailer": "Amazon",
+          "url": "https://www.amazon.com/CRAFTSMAN-Cordless-Lightweight-Included-CMCBL730P1/dp/B0C67VTX88",
+          "inStock": true,
+          "observedAt": "2026-08-28T16:54:00-04:00",
+          "notes": "Kit with 5.0Ah + charger. Ace last seen 159."
+        },
+        "stats": {
+          "change1dPct": -12.58,
+          "change7dPct": -12.58,
+          "change30dPct": null,
+          "change90dPct": null,
+          "vsAtlPct": null,
+          "vs30dAvgPct": -6.71,
+          "vs90dAvgPct": -6.71
+        },
+        "dealGrade": "unknown",
+        "retailers": [
+          {
+            "retailer": "Amazon",
+            "price": 139.0,
+            "url": "https://www.amazon.com/CRAFTSMAN-Cordless-Lightweight-Included-CMCBL730P1/dp/B0C67VTX88",
+            "inStock": true,
+            "shippingNote": "Free over $35",
+            "lastSeenAt": "2026-08-28T16:54:00-04:00",
+            "isWinner": true,
+            "setAtl": false
+          },
+          {
+            "retailer": "Ace",
+            "price": 159.0,
+            "url": "https://www.acehardware.com/departments/lawn-and-garden/outdoor-power-equipment/leaf-blowers/7020974",
+            "inStock": true,
+            "shippingNote": "",
+            "lastSeenAt": "2026-08-07T12:00:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          }
+        ],
+        "priceHistory": [
+          {
+            "date": "2026-08-07T12:00:00-04:00",
+            "price": 159.0,
+            "retailer": "Ace",
+            "source": "agent"
+          },
+          {
+            "date": "2026-08-28T16:54:00-04:00",
+            "price": 139.0,
+            "retailer": "Amazon",
+            "source": "agent"
+          }
+        ],
+        "saleEvents": [],
+        "log": [
+          {
+            "at": "2026-08-07T12:00:00-04:00",
+            "actor": "pete",
+            "kind": "note",
+            "text": "Ace 159 kit print on file."
+          },
+          {
+            "at": "2026-08-28T16:54:00-04:00",
+            "actor": "pete",
+            "kind": "alert",
+            "text": "ONE-TIME pick. Amazon 139 in stock. Status ready."
+          }
+        ]
+      }
+    ]
+  }
+}
