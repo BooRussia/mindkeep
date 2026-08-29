@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0.0",
+  "agent": "Pete",
+  "bayId": "pirate",
+  "at": "2026-08-28T21:34:00-04:00",
+  "kind": "merge",
+  "payload": {
+    "items": [
+      {
+        "id": "blazer-brass-9mm-147-fmj",
+        "name": "CCI Blazer Brass 9mm 147gr FMJ",
+        "variant": "5203 50rd box / 1000rd case, not 5203S Clean-Fire",
+        "category": "ammo",
+        "imageUrl": "https://www.cci-ammunition.com/dw/image/v2/BKSZ_PRD/on/demandware.static/-/Sites-cci-master-catalog/default/dw3c058b4b/images/large/BL_5203_9mmLugerBlazerFMJ_COMBO_R.jpg?sw=800&sh=800&sm=fit",
+        "imageSource": "official",
+        "identifiers": {"asin": null, "upc": "604544650594", "model": "5203", "sku": "5203"},
+        "productUrls": [
+          {"retailer": "CCI", "url": "https://www.cci-ammunition.com/handgun/blazer/blazer-brass/6-5203.html"},
+          {"retailer": "BulkAmmoToGo", "url": "https://bulkammotogo.com/product/9mm-147-gr-fmj-blazer-brass-5203-1000-rounds/"},
+          {"retailer": "SG Ammo", "url": "https://sgammo.com/product/9mm-luger-ammo/50-round-box-9mm-luger-147-grain-fmj-cci-blazer-brass-ammo-5203/"},
+          {"retailer": "KYGUNCO", "url": "https://www.kygunco.com/product/blazer-ammo-5203-9mm-brass-147gr-fmj-50rd"},
+          {"retailer": "Target Sports USA", "url": "https://www.targetsportsusa.com/cci-blazer-brass-9mm-luger-ammo-147-grain-full-metal-jacket-5203-p-109068.aspx"}
+        ],
+        "status": "watching",
+        "priority": "now",
+        "targetPrice": null,
+        "currency": "USD",
+        "cadence": "weekly",
+        "lastCheckedAt": "2026-08-28T21:34:00-04:00",
+        "nextCheckAt": "2026-09-04T10:00:00-04:00",
+        "why": "ONE-TIME quarry unless TesDrive says recurring. Subsonic 147gr FMJ for range / Mojave 9 training. Exact SKU 5203 only.",
+        "currentBest": {"price": 249, "retailer": "BulkAmmoToGo", "url": "https://bulkammotogo.com/product/9mm-147-gr-fmj-blazer-brass-5203-1000-rounds/", "inStock": true, "observedAt": "2026-08-28T21:34:00-04:00", "notes": "1000rd case, 231 listed in stock, 0.249/rd. Shipping/hazmat not confirmed at checkout. Trusted-shop alternative is SG Ammo 20 boxes at 14.99 (299.80) with free ship over 200."},
+        "stats": {"change1dPct": null, "change7dPct": null, "change30dPct": null, "change90dPct": null, "vsAtlPct": null, "vs30dAvgPct": null, "vs90dAvgPct": null},
+        "dealGrade": "unknown",
+        "retailers": [
+          {"retailer": "BulkAmmoToGo", "price": 249, "url": "https://bulkammotogo.com/product/9mm-147-gr-fmj-blazer-brass-5203-1000-rounds/", "inStock": true, "shippingNote": "1000rd case. 231 listed. Shipping/hazmat unknown until checkout.", "lastSeenAt": "2026-08-28T21:34:00-04:00", "isWinner": true, "setAtl": false},
+          {"retailer": "SG Ammo", "price": 14.99, "url": "https://sgammo.com/product/9mm-luger-ammo/50-round-box-9mm-luger-147-grain-fmj-cci-blazer-brass-ammo-5203/", "inStock": true, "shippingNote": "20+ boxes 14.99 (0.300/rd). Single box 16.95. 9 boxes listed. Free ship 200+. Ships to FL.", "lastSeenAt": "2026-08-28T21:34:00-04:00", "isWinner": false, "setAtl": false},
+          {"retailer": "KYGUNCO", "price": 15.99, "url": "https://www.kygunco.com/product/blazer-ammo-5203-9mm-brass-147gr-fmj-50rd", "inStock": true, "shippingNote": "50rd box 0.32/rd. Ships home. Flat 13.94 per 25 lb. Bad for one box.", "lastSeenAt": "2026-08-28T21:34:00-04:00", "isWinner": false, "setAtl": false},
+          {"retailer": "SG Ammo 350 can", "price": 115, "url": "https://sgammo.com/product/9mm-luger-ammo/350-round-can-9mm-luger-147-grain-fmj-cci-blazer-brass-ammo-5203-packed-in-m19a1-canister/", "inStock": true, "shippingNote": "350rd can 0.329/rd. Ships to FL.", "lastSeenAt": "2026-08-28T21:34:00-04:00", "isWinner": false, "setAtl": false},
+          {"retailer": "Target Sports USA", "price": 15.99, "url": "https://www.targetsportsusa.com/cci-blazer-brass-9mm-luger-ammo-147-grain-full-metal-jacket-5203-p-109068.aspx", "inStock": false, "shippingNote": "Box 15.99 / case 319.80. Member 14.71 / 294.22. Both OOS.", "lastSeenAt": "2026-08-28T21:34:00-04:00", "isWinner": false, "setAtl": false},
+          {"retailer": "CCI", "price": 19.99, "url": "https://www.cci-ammunition.com/handgun/blazer/blazer-brass/6-5203.html", "inStock": true, "shippingNote": "MSRP / factory store listing 19.99 per 50.", "lastSeenAt": "2026-08-28T21:34:00-04:00", "isWinner": false, "setAtl": false}
+        ],
+        "priceHistory": [
+          {"date": "2026-07-30", "price": 299.8, "retailer": "Firearm Data Lab case track", "source": "public tracker last checked 2026-07-30"},
+          {"date": "2026-08-28", "price": 249, "retailer": "BulkAmmoToGo", "source": "live listing 1000rd case"},
+          {"date": "2026-08-28", "price": 15.99, "retailer": "KYGUNCO", "source": "live listing 50rd"},
+          {"date": "2026-08-28", "price": 16.95, "retailer": "SG Ammo", "source": "live listing 50rd"},
+          {"date": "2026-08-28", "price": 15.99, "retailer": "Target Sports USA", "source": "live listing OOS 50rd"},
+          {"date": "2026-08-28", "price": 19.99, "retailer": "CCI", "source": "factory listing"}
+        ],
+        "saleEvents": [],
+        "log": [
+          {"at": "2026-08-28T21:34:00-04:00", "actor": "pete", "kind": "note", "text": "Exact variant 5203 Blazer Brass FMJ. Do not mix 5203S Clean-Fire TMJ or aluminum Blazer. allTimeLow unverified, omitted."},
+          {"at": "2026-08-28T21:34:00-04:00", "actor": "pete", "kind": "check", "text": "147gr is thinner than 115/124. Major shops (Target Sports, Lucky Gunner, AmmoJoy) OOS. Best sticker is BulkAmmoToGo 249/1000. Cleaner buy is SG 20+ at 14.99 with free ship over 200. TX Arms 15.99 is Fort Worth pickup only."}
+        ]
+      }
+    ]
+  }
+}
