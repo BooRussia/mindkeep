@@ -1,0 +1,235 @@
+{
+  "schemaVersion": "1.0.0",
+  "agent": "Pete",
+  "bayId": "pirate",
+  "at": "2026-08-28T21:38:00-04:00",
+  "kind": "merge",
+  "payload": {
+    "items": [
+      {
+        "id": "blazer-brass-9mm-147-fmj",
+        "name": "CCI Blazer Brass 9mm 147gr FMJ",
+        "variant": "5203 50rd box / 1000rd case, not 5203S Clean-Fire",
+        "category": "ammo",
+        "imageUrl": "https://www.cci-ammunition.com/dw/image/v2/BKSZ_PRD/on/demandware.static/-/Sites-cci-master-catalog/default/dw3c058b4b/images/large/BL_5203_9mmLugerBlazerFMJ_COMBO_R.jpg?sw=800&sh=800&sm=fit",
+        "imageSource": "official",
+        "identifiers": {
+          "asin": null,
+          "upc": "604544650594",
+          "model": "5203",
+          "sku": "5203"
+        },
+        "productUrls": [
+          {
+            "retailer": "Sportsman's Outdoor Superstore",
+            "url": "https://www.sportsmansoutdoorsuperstore.com/products2.cfm/ID/213316/5203/cci-ammunition-9mm-luger-147-gr-fmj-blazer-brass-50box"
+          },
+          {
+            "retailer": "Rural King / RK Guns",
+            "url": "https://www.rkguns.com/cci-9mm-luger-147-gr-50-rd-5203.html"
+          },
+          {
+            "retailer": "Lucky Gunner",
+            "url": "https://www.luckygunner.com/9mm-147-grain-fmj-blazer-brass-1000-rounds"
+          },
+          {
+            "retailer": "CCI",
+            "url": "https://www.cci-ammunition.com/handgun/blazer/blazer-brass/6-5203.html"
+          },
+          {
+            "retailer": "BulkAmmoToGo",
+            "url": "https://bulkammotogo.com/product/9mm-147-gr-fmj-blazer-brass-5203-1000-rounds/"
+          },
+          {
+            "retailer": "SG Ammo",
+            "url": "https://sgammo.com/product/9mm-luger-ammo/50-round-box-9mm-luger-147-grain-fmj-cci-blazer-brass-ammo-5203/"
+          },
+          {
+            "retailer": "Bud's Gun Shop",
+            "url": "https://www.budsgunshop.com/products/ammunition-centerfire/cci-blazer-brass-9mm-147-gr-fmj-brass-50-rounds-149304"
+          }
+        ],
+        "status": "watching",
+        "priority": "now",
+        "targetPrice": 14.99,
+        "currency": "USD",
+        "cadence": "weekly",
+        "lastCheckedAt": "2026-08-28T21:38:00-04:00",
+        "nextCheckAt": "2026-09-04T10:00:00-04:00",
+        "why": "ONE-TIME. TesDrive paid Rural King $14.99/50 on 2026-08-28 (Crystal River walk-out). SOS $12.99/50 now beats that after ship (limit 50, deadline Aug 31; 20 boxes ~$279.79 shipped). Exact SKU 5203 only.",
+        "currentBest": {
+          "price": 12.99,
+          "retailer": "Sportsman's Outdoor Superstore",
+          "url": "https://www.sportsmansoutdoorsuperstore.com/products2.cfm/ID/213316/5203/cci-ammunition-9mm-luger-147-gr-fmj-blazer-brass-50box",
+          "inStock": true,
+          "observedAt": "2026-08-28T21:38:00-04:00",
+          "notes": "SOS winner $12.99/50 in stock, limit 50, deadline Aug 31. 20 boxes ~$279.79 shipped. RK $14.99 walk-out is for a few boxes. Lucky Gunner 1000rd $320 with 48 in stock is worse than SOS/RK."
+        },
+        "stats": {
+          "change1dPct": null,
+          "change7dPct": null,
+          "change30dPct": null,
+          "change90dPct": null,
+          "vsAtlPct": null,
+          "vs30dAvgPct": null,
+          "vs90dAvgPct": null
+        },
+        "dealGrade": "steal",
+        "retailers": [
+          {
+            "retailer": "Sportsman's Outdoor Superstore",
+            "price": 12.99,
+            "url": "https://www.sportsmansoutdoorsuperstore.com/products2.cfm/ID/213316/5203/cci-ammunition-9mm-luger-147-gr-fmj-blazer-brass-50box",
+            "inStock": true,
+            "shippingNote": "Winner. $12.99/50 in stock, limit 50, deadline Aug 31. 20 boxes ~$279.79 shipped.",
+            "lastSeenAt": "2026-08-28T21:38:00-04:00",
+            "isWinner": true,
+            "setAtl": false
+          },
+          {
+            "retailer": "Rural King",
+            "price": 14.99,
+            "url": "https://www.rkguns.com/cci-9mm-luger-147-gr-50-rd-5203.html",
+            "inStock": true,
+            "shippingNote": "Walk-out $14.99/50 for a few boxes. TesDrive bought today. Worse than SOS $12.99.",
+            "lastSeenAt": "2026-08-28T21:38:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Lucky Gunner",
+            "price": 320,
+            "url": "https://www.luckygunner.com/9mm-147-grain-fmj-blazer-brass-1000-rounds",
+            "inStock": true,
+            "shippingNote": "1000rd case $320, 48 in stock. Worse than SOS 20-box ~$279.79 shipped and RK $14.99 walk-out.",
+            "lastSeenAt": "2026-08-28T21:38:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Bud's Gun Shop",
+            "price": 13.29,
+            "url": "https://www.budsgunshop.com/products/ammunition-centerfire/cci-blazer-brass-9mm-147-gr-fmj-brass-50-rounds-149304",
+            "inStock": false,
+            "shippingNote": "Ghost sticker $13.29. Retail stores OUT OF STOCK. Not buyable.",
+            "lastSeenAt": "2026-08-28T21:38:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "BulkAmmoToGo",
+            "price": 249,
+            "url": "https://bulkammotogo.com/product/9mm-147-gr-fmj-blazer-brass-5203-1000-rounds/",
+            "inStock": true,
+            "shippingNote": "1000rd case $0.249/rd, 231 listed. Beats 20x RK ($299.80) only if FL ship/hazmat stays under ~$50. Checkout not run.",
+            "lastSeenAt": "2026-08-28T21:36:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "SG Ammo",
+            "price": 16.95,
+            "url": "https://sgammo.com/product/9mm-luger-ammo/50-round-box-9mm-luger-147-grain-fmj-cci-blazer-brass-ammo-5203/",
+            "inStock": true,
+            "shippingNote": "Single $16.95. 20+ would be $14.99 but only 9 boxes listed. Free ship $200+. Worse than RK.",
+            "lastSeenAt": "2026-08-28T21:36:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "AmmoMan",
+            "price": 18.0,
+            "url": "https://www.ammoman.com/9mm-blazer-brass-147-grain-fmj-5203-50-rounds",
+            "inStock": true,
+            "shippingNote": "42 in stock. $0.36/rd. Worse than RK.",
+            "lastSeenAt": "2026-08-28T21:36:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "Target Sports USA",
+            "price": 15.99,
+            "url": "https://www.targetsportsusa.com/cci-blazer-brass-9mm-luger-ammo-147-grain-full-metal-jacket-5203-p-109068.aspx",
+            "inStock": false,
+            "shippingNote": "Box $15.99 / case $319.80. Member $14.71 / $294.22. Both OOS.",
+            "lastSeenAt": "2026-08-28T21:36:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          },
+          {
+            "retailer": "CCI",
+            "price": 19.99,
+            "url": "https://www.cci-ammunition.com/handgun/blazer/blazer-brass/6-5203.html",
+            "inStock": true,
+            "shippingNote": "Factory list $19.99/50.",
+            "lastSeenAt": "2026-08-28T21:36:00-04:00",
+            "isWinner": false,
+            "setAtl": false
+          }
+        ],
+        "priceHistory": [
+          {
+            "date": "2026-08-28",
+            "price": 12.99,
+            "retailer": "Sportsman's Outdoor Superstore",
+            "source": "live listing 50rd, limited-time deal deadline Aug 31"
+          },
+          {
+            "date": "2026-08-28",
+            "price": 14.99,
+            "retailer": "Rural King",
+            "source": "TesDrive walk-out Crystal River plus rkguns.com live listing"
+          },
+          {
+            "date": "2026-08-28",
+            "price": 320,
+            "retailer": "Lucky Gunner",
+            "source": "live listing 1000rd case, 48 in stock"
+          },
+          {
+            "date": "2026-08-28",
+            "price": 249,
+            "retailer": "BulkAmmoToGo",
+            "source": "live listing 1000rd case"
+          },
+          {
+            "date": "2026-08-28",
+            "price": 13.29,
+            "retailer": "Bud's Gun Shop",
+            "source": "sticker only, retail OOS, not buyable"
+          },
+          {
+            "date": "2026-08-28",
+            "price": 16.95,
+            "retailer": "SG Ammo",
+            "source": "live listing 50rd"
+          },
+          {
+            "date": "2026-08-28",
+            "price": 18.0,
+            "retailer": "AmmoMan",
+            "source": "live listing 50rd"
+          }
+        ],
+        "saleEvents": [
+          {
+            "type": "sale",
+            "name": "SOS limited-time 5203",
+            "year": 2026,
+            "price": 12.99,
+            "retailer": "Sportsman's Outdoor Superstore",
+            "notes": "In stock, limit 50, deadline Aug 31. 20 boxes ~$279.79 shipped."
+          }
+        ],
+        "log": [
+          {
+            "at": "2026-08-28T21:38:00-04:00",
+            "actor": "pete",
+            "kind": "check",
+            "text": "Correction: SOS $12.99/50 is currentBest, in stock, limit 50, deadline Aug 31. 20 boxes ~$279.79 shipped. RK $14.99 walk-out is for a few boxes. Lucky Gunner 1000rd $320 with 48 in stock is worse than SOS/RK. Bud $13.29 is still a ghost."
+          }
+        ]
+      }
+    ]
+  }
+}
