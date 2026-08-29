@@ -37,10 +37,10 @@ The Dyson card should move to $419 within a few seconds. No JSON paste.
 
 `mindkeep-live.boorussia.workers.dev` does **not** exist. Do not use it.
 
-Public Worker (this is the URL Pete can reach):
+Public Worker (this is the URL Pete / Rig / Post can reach — one URL for all three):
 
-- Overlay (read, no token): https://mindkeep-live.recent-satellite.workers.dev/overlay.json
-- MCP (write): https://mindkeep-live.recent-satellite.workers.dev/mcp
+- Overlay (read, no token): https://mindkeep-live.quiver-exoplanet.workers.dev/overlay.json
+- MCP (write): https://mindkeep-live.quiver-exoplanet.workers.dev/mcp
 
 ```bash
 grok mcp add --transport http mindkeep https://mindkeep-live.recent-satellite.workers.dev/mcp \
