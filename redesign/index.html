@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#050505" />
+    <title>MindKeep — deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter+Tight:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./deck.css" />
+    <script type="module" src="./deck.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#stage">Skip to content</a>
+
+    <header class="hud">
+      <div class="hud-left">
+        <a class="wordmark" href="#/" aria-label="MindKeep deck">MINDKEEP</a>
+        <span class="rule" aria-hidden="true"></span>
+        <nav class="nav" aria-label="Sections">
+          <a href="#/" data-route="today">Deck</a>
+          <a href="#/pirate" data-route="pirate">Prices</a>
+          <a href="#/shipyard" data-route="shipyard">Projects</a>
+          <a href="#/mailbag" data-route="mailbag">Mail</a>
+          <a href="#/agents" data-route="agents">Agents</a>
+        </nav>
+      </div>
+      <div class="hud-right">
+        <button type="button" class="cmd-open" id="cmd-open">
+          <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="7" cy="7" r="4.5" /><path d="M10.5 10.5 14 14" stroke-linecap="round" />
+          </svg>
+          <span class="cmd-open-label">Search</span>
+          <kbd>⌘K</kbd>
+        </button>
+        <button type="button" class="btn btn-ghost" id="settings-btn" aria-label="Settings">
+          <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="8" cy="8" r="2.2" />
+            <path d="M8 1.2v1.6M8 13.2v1.6M1.2 8h1.6M13.2 8h1.6M3.2 3.2l1.1 1.1M11.7 11.7l1.1 1.1M12.8 3.2l-1.1 1.1M4.3 11.7l-1.1 1.1" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Telemetry strip: the always-on status line -->
+    <div class="telemetry" id="telemetry" aria-label="Deck status"></div>
+
+    <main id="stage" class="stage" tabindex="-1"></main>
+
+    <nav class="dock" aria-label="Sections">
+      <a href="#/" data-route="today"><span class="dock-ico" aria-hidden="true">▚</span>Deck</a>
+      <a href="#/pirate" data-route="pirate"><span class="dock-ico" aria-hidden="true">$</span>Prices</a>
+      <a href="#/shipyard" data-route="shipyard"><span class="dock-ico" aria-hidden="true">⌥</span>Projects</a>
+      <a href="#/mailbag" data-route="mailbag"><span class="dock-ico" aria-hidden="true">✉</span>Mail</a>
+      <a href="#/agents" data-route="agents"><span class="dock-ico" aria-hidden="true">◆</span>Agents</a>
+    </nav>
+
+    <!-- Command palette -->
+    <div class="palette" id="palette" hidden>
+      <div class="palette-scrim" data-close-palette></div>
+      <div class="palette-card" role="dialog" aria-modal="true" aria-label="Command palette">
+        <div class="palette-field">
+          <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="7" cy="7" r="4.5" /><path d="M10.5 10.5 14 14" stroke-linecap="round" />
+          </svg>
+          <input
+            id="palette-input"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Jump to an item, repo, or thread — or type a command"
+            aria-label="Search or run a command"
+            aria-controls="palette-list"
+          />
+          <kbd>ESC</kbd>
+        </div>
+        <ul class="palette-list" id="palette-list" role="listbox" aria-label="Results"></ul>
+      </div>
+    </div>
+
+    <!-- Bottom sheet (settings / edit target / paste) -->
+    <div class="sheet" id="sheet" hidden>
+      <div class="sheet-scrim" data-close-sheet></div>
+      <div class="sheet-card" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+        <div class="sheet-grab" aria-hidden="true"></div>
+        <header class="sheet-head">
+          <h2 id="sheet-title">Sheet</h2>
+          <button type="button" class="btn btn-ghost" data-close-sheet aria-label="Close">✕</button>
+        </header>
+        <div class="sheet-body" id="sheet-body"></div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>

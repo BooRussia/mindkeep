@@ -17,17 +17,26 @@ export function emptyLive() {
   };
 }
 
+/**
+ * Key on the FULL timestamp, not the day. Keying by day meant a second check of
+ * the same retailer on the same date was silently dropped — which is exactly
+ * when it matters (lightning deals, doorbusters, an intraday drop). Re-importing
+ * an identical row still dedups, because identical rows share a timestamp.
+ */
 function historyKey(row) {
-  return `${String(row.date).slice(0, 10)}|${row.retailer || ""}`;
+  return `${String(row.date)}|${row.retailer || ""}`;
 }
 
 export function unionHistory(oldList = [], nextList = []) {
   const map = new Map();
-  for (const row of oldList) map.set(historyKey(row), row);
-  for (const row of nextList) {
+  const put = (row) => {
     const key = historyKey(row);
-    if (!map.has(key)) map.set(key, row);
-  }
+    const prev = map.get(key);
+    // same retailer, same instant, two prices → keep the better one
+    if (!prev || Number(row.price) < Number(prev.price)) map.set(key, row);
+  };
+  for (const row of oldList) put(row);
+  for (const row of nextList) put(row);
   return [...map.values()].sort((a, b) => String(a.date).localeCompare(String(b.date)));
 }
 
@@ -66,6 +75,44 @@ export function rebuildRetailers(item) {
     .sort((a, b) => a.price - b.price);
   if (rows[0]) rows[0].isWinner = true;
   item.retailers = rows;
+
+  /**
+   * currentBest must mean "the cheapest place you can buy it right now", not
+   * "whatever the agent happened to check last". Without this, a routine check
+   * of a pricier retailer overwrites a cheaper known price — which quietly
+   * suppresses target-hit pings and skews every grade and delta.
+   */
+  const winner = rows.find((r) => r.inStock !== false) || rows[0];
+  if (winner) {
+    const prev = item.currentBest || {};
+    if (prev.retailer !== winner.retailer || Number(prev.price) !== Number(winner.price)) {
+      item.currentBest = {
+        ...prev,
+        price: winner.price,
+        retailer: winner.retailer,
+        url: winner.url || prev.url || "",
+        inStock: winner.inStock !== false,
+        observedAt: winner.lastSeenAt || prev.observedAt,
+        notes: prev.retailer === winner.retailer ? prev.notes || "" : "",
+      };
+    }
+  }
+
+  // an all-time low that the tape now beats is not an all-time low
+  const floor = (item.priceHistory || []).reduce(
+    (lo, h) => (Number(h.price) < Number(lo?.price ?? Infinity) ? h : lo),
+    null
+  );
+  if (floor && (item.allTimeLow == null || Number(floor.price) < Number(item.allTimeLow.price))) {
+    item.allTimeLow = {
+      price: floor.price,
+      retailer: floor.retailer,
+      date: String(floor.date).slice(0, 10),
+      url: item.retailers.find((r) => r.retailer === floor.retailer)?.url || "",
+      notes: item.allTimeLow?.notes || "",
+    };
+  }
+
   return item;
 }
 

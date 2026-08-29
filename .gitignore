@@ -11,3 +11,4 @@ dist/
 *.key
 tokens.json
 secrets.json
+.claude/

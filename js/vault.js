@@ -76,7 +76,7 @@ export function validateEnvelope(raw) {
   return { ok: true, envelope: data };
 }
 
-function applyDrop(bays, drop) {
+export function applyEnvelope(bays, drop) {
   const bay = bays[drop.bayId];
   if (!bay) {
     if (drop.bayId === "today" && drop.kind === "alert") {
@@ -148,8 +148,24 @@ export async function loadVault(liveUrl) {
       liveError = err.message;
     }
   }
+  try {
+    const inbox = await loadJson("./data/inbox/index.json");
+    const files = inbox.files || [];
+    const drops = [];
+    for (const file of files) {
+      try {
+        drops.push(await loadJson(`./data/inbox/${file}`));
+      } catch {
+        /* skip missing */
+      }
+    }
+    drops.sort((a, b) => String(a.at).localeCompare(String(b.at)));
+    for (const drop of drops) applyEnvelope(bays, drop);
+  } catch {
+    /* no inbox index */
+  }
   const overlay = readOverlay();
-  for (const drop of overlay.drops) applyDrop(bays, drop);
+  for (const drop of overlay.drops) applyEnvelope(bays, drop);
   return { manifest, bays, overlay, live, liveError };
 }
 

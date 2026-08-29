@@ -19,6 +19,8 @@ Hash routing (`#/pirate`, `#/shipyard/...`) is used so GitHub Pages works with n
 
 Live: https://boorussia.github.io/mindkeep/
 
+Claude deck prototype (same vault, live overlay, scoring): https://boorussia.github.io/mindkeep/redesign/
+
 Bots do not paste JSON on a timer. Pete / Rig / Post call a MindKeep MCP (or `POST /v1/<tool>`) with a Bearer token. The public page only **reads** `overlay.json`. See `live/README.md`.
 
 ## Folder map

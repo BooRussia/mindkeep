@@ -29,7 +29,13 @@ const TOOLS = [
     inputSchema: {
       type: "object",
       properties: {
-        id: { type: "string" },
+        id: { type: "string", description: "Slug, e.g. lg-c5-65. Reused on every later check." },
+        name: { type: "string", description: "Required when creating a new watch." },
+        variant: { type: "string" },
+        category: { type: "string" },
+        cadence: { type: "string", enum: ["daily", "weekly", "biweekly", "manual"] },
+        currency: { type: "string" },
+        why: { type: "string", description: "Why this is being watched." },
         price: { type: "number" },
         retailer: { type: "string" },
         url: { type: "string" },
@@ -38,7 +44,22 @@ const TOOLS = [
         observedAt: { type: "string" },
         targetPrice: { type: "number" },
         status: { type: "string" },
-        why: { type: "string" },
+        productUrls: {
+          type: "array",
+          description: "[{retailer, url}] — every storefront to check on later runs.",
+          items: {
+            type: "object",
+            properties: { retailer: { type: "string" }, url: { type: "string" } },
+          },
+        },
+        saleEvents: {
+          type: "array",
+          description:
+            "Historic sale prints: [{type: black_friday|cyber_monday|prime_day, name, year, price, retailer, notes}]. Backfill these so the deck can answer wait-or-buy.",
+          items: { type: "object" },
+        },
+        allTimeLow: { type: "object" },
+        identifiers: { type: "object", description: "{asin, upc, model, sku}" },
         currentBest: { type: "object" },
         priceHistory: { type: "array" },
         log: { type: "array" },
@@ -181,12 +202,48 @@ async function fetchBay(env, bayId) {
   return res.json();
 }
 
+// identity/metadata a bot must be able to set when it creates a watch.
+// These used to be dropped silently, so a bot could only ever make a nameless row.
+const ITEM_FIELDS = [
+  "name",
+  "variant",
+  "category",
+  "cadence",
+  "currency",
+  "status",
+  "why",
+  "productUrls",
+  "saleEvents",
+  "allTimeLow",
+  "identifiers",
+];
+
+/**
+ * The published vault UNION anything that only exists in the live overlay.
+ * Iterating just the published items meant a watch a bot created over MCP was
+ * invisible to get_queue / list_items — so its target hits never fired and the
+ * bot could not find its own item on the next run.
+ */
+function mergedItems(pirate, live) {
+  const published = pirate?.payload?.items || [];
+  const seen = new Set(published.map((it) => it.id));
+  const out = published.map((it) => mergeItem(it, live.items[it.id] || {}));
+  for (const [id, patch] of Object.entries(live.items || {})) {
+    if (!seen.has(id)) out.push(mergeItem({ id }, patch));
+  }
+  for (const it of out) {
+    if (live.targets[it.id] != null) it.targetPrice = Number(live.targets[it.id]);
+  }
+  return out;
+}
+
 function applyItemPatch(args) {
   const id = args.id;
   const observedAt = args.observedAt || new Date().toISOString();
   const patch = { id };
-  if (args.status) patch.status = args.status;
-  if (args.why) patch.why = args.why;
+  for (const key of ITEM_FIELDS) {
+    if (args[key] != null) patch[key] = args[key];
+  }
   if (args.targetPrice != null) patch.targetPrice = args.targetPrice;
   if (args.currentBest) patch.currentBest = args.currentBest;
   if (args.priceHistory) patch.priceHistory = args.priceHistory;
@@ -225,10 +282,8 @@ async function callTool(name, args, env) {
     const pirate = await fetchBay(env, "pirate").catch(() => null);
     const ship = await fetchBay(env, "shipyard").catch(() => null);
     const mail = await fetchBay(env, "mailbag").catch(() => null);
-    const items = [...(pirate?.payload?.items || [])].map((it) => mergeItem(it, live.items[it.id] || {}));
-    for (const it of items) {
-      if (live.targets[it.id] != null) it.targetPrice = live.targets[it.id];
-    }
+    const removed = new Set(live.removedIds || []);
+    const items = mergedItems(pirate, live).filter((it) => !removed.has(it.id));
     const hits = items
       .filter((it) => it.targetPrice != null && it.currentBest?.price <= it.targetPrice)
       .map((it) => ({
@@ -249,20 +304,16 @@ async function callTool(name, args, env) {
 
   if (name === "list_items") {
     const pirate = await fetchBay(env, "pirate").catch(() => ({ payload: { items: [] } }));
-    const items = [...(pirate.payload?.items || [])].map((it) => {
-      const merged = mergeItem(it, live.items[it.id] || {});
-      if (live.targets[merged.id] != null) merged.targetPrice = live.targets[merged.id];
-      return {
-        id: merged.id,
-        name: merged.name,
-        price: merged.currentBest?.price,
-        retailer: merged.currentBest?.retailer,
-        target: merged.targetPrice,
-        cadence: merged.cadence,
-        status: merged.status,
-        hidden: (live.removedIds || []).includes(merged.id),
-      };
-    });
+    const items = mergedItems(pirate, live).map((merged) => ({
+      id: merged.id,
+      name: merged.name,
+      price: merged.currentBest?.price,
+      retailer: merged.currentBest?.retailer,
+      target: merged.targetPrice,
+      cadence: merged.cadence,
+      status: merged.status,
+      hidden: (live.removedIds || []).includes(merged.id),
+    }));
     return { revision: live.revision, items };
   }
 
@@ -278,10 +329,29 @@ async function callTool(name, args, env) {
   if (name === "merge_item") {
     if (!args.id) throw new Error("id required");
     const patch = applyItemPatch(args);
+    const isNewToOverlay = !live.items[args.id];
     live.items[args.id] = mergeItem(live.items[args.id] || { id: args.id }, patch);
     if (args.targetPrice != null) live.targets[args.id] = args.targetPrice;
     const saved = await saveLive(env, live);
-    return { revision: saved.revision, item: saved.items[args.id], target: saved.targets[args.id] };
+
+    // A watch with no name renders as a blank row. Tell the agent rather than
+    // accepting it silently — but never fail the write over it.
+    let warning;
+    if (isNewToOverlay && !args.name && !saved.items[args.id].name) {
+      const known = await fetchBay(env, "pirate")
+        .then((b) => (b.payload?.items || []).some((it) => it.id === args.id))
+        .catch(() => true);
+      if (!known) {
+        warning = `No item "${args.id}" exists yet and no name was given, so it will render as a blank row. Call merge_item again with name (and ideally variant, category, cadence, productUrls).`;
+      }
+    }
+
+    return {
+      revision: saved.revision,
+      item: saved.items[args.id],
+      target: saved.targets[args.id],
+      ...(warning ? { warning } : {}),
+    };
   }
 
   if (name === "set_target") {
