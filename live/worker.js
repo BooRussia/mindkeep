@@ -1,4 +1,5 @@
 import { bumpLive, emptyLive, mergeItem, mergeProject } from "../js/merge.js";
+import { binSlug, defaultBinLabel, listBinsFromItems } from "../js/bins.js";
 
 const KEY = "mindkeep-live-v1";
 
@@ -25,7 +26,7 @@ const TOOLS = [
   {
     name: "merge_item",
     description:
-      "Merge a price observation into an item. Unions history by date+retailer. Never deletes old prints. Pass id plus price/retailer or a full patch.",
+      "Merge a price observation into an item. Unions history by date+retailer. Never deletes old prints. Pass id plus price/retailer or a full patch. Include bin (slug) when creating a watch.",
     inputSchema: {
       type: "object",
       properties: {
@@ -59,12 +60,42 @@ const TOOLS = [
           items: { type: "object" },
         },
         allTimeLow: { type: "object" },
+        allTimeHigh: { type: "object" },
         identifiers: { type: "object", description: "{asin, upc, model, sku}" },
         currentBest: { type: "object" },
         priceHistory: { type: "array" },
         log: { type: "array" },
+        bin: {
+          type: "string",
+          description:
+            "Cargo bin slug, lowercase kebab-case. One per watch. Reuse a slug from list_bins, or pick daily, home, compute, range, drone, audio, kitchen. Empty/missing → unsorted.",
+        },
+        binLabel: { type: "string", description: "Display name for the bin. Optional; the deck titles the slug if omitted." },
       },
       required: ["id"],
+    },
+  },
+  {
+    name: "list_bins",
+    description:
+      "Named Price Pirate cargo bins after the live overlay. Excludes removed watches. Pete reuses these slugs on merge_item / set_bin.",
+    inputSchema: { type: "object", properties: {}, additionalProperties: false },
+  },
+  {
+    name: "set_bin",
+    description:
+      "Move a watch into a named bin. Creates the bin if the slug is new. History stays. Required: id + bin.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        id: { type: "string" },
+        bin: {
+          type: "string",
+          description: "Slug, lowercase kebab-case. Reuse list_bins or pick daily, home, compute, range, drone, audio, kitchen.",
+        },
+        binLabel: { type: "string", description: "Display name. Optional." },
+      },
+      required: ["id", "bin"],
     },
   },
   {
@@ -363,7 +394,10 @@ const ITEM_FIELDS = [
   "productUrls",
   "saleEvents",
   "allTimeLow",
+  "allTimeHigh",
   "identifiers",
+  "bin",
+  "binLabel",
 ];
 
 /**
@@ -391,6 +425,12 @@ function applyItemPatch(args) {
   const patch = { id };
   for (const key of ITEM_FIELDS) {
     if (args[key] != null) patch[key] = args[key];
+  }
+  if (patch.bin != null) patch.bin = binSlug(patch.bin);
+  if (patch.binLabel != null) {
+    const label = String(patch.binLabel).trim();
+    if (label) patch.binLabel = label;
+    else delete patch.binLabel;
   }
   if (args.targetPrice != null) patch.targetPrice = args.targetPrice;
   if (args.currentBest) patch.currentBest = args.currentBest;
@@ -453,17 +493,39 @@ async function callTool(name, args, env, ctx = null, origin = "") {
 
   if (name === "list_items") {
     const pirate = await fetchBay(env, "pirate").catch(() => ({ payload: { items: [] } }));
-    const items = mergedItems(pirate, live).map((merged) => ({
-      id: merged.id,
-      name: merged.name,
-      price: merged.currentBest?.price,
-      retailer: merged.currentBest?.retailer,
-      target: merged.targetPrice,
-      cadence: merged.cadence,
-      status: merged.status,
-      hidden: (live.removedIds || []).includes(merged.id),
-    }));
+    const items = mergedItems(pirate, live).map((merged) => {
+      const bin = binSlug(merged.bin);
+      return {
+        id: merged.id,
+        name: merged.name,
+        price: merged.currentBest?.price,
+        retailer: merged.currentBest?.retailer,
+        target: merged.targetPrice,
+        cadence: merged.cadence,
+        status: merged.status,
+        bin,
+        binLabel: merged.binLabel || defaultBinLabel(bin),
+        hidden: (live.removedIds || []).includes(merged.id),
+      };
+    });
     return { revision: live.revision, items };
+  }
+
+  if (name === "list_bins") {
+    const pirate = await fetchBay(env, "pirate").catch(() => ({ payload: { items: [] } }));
+    const removed = new Set(live.removedIds || []);
+    const items = mergedItems(pirate, live).filter((it) => !removed.has(it.id));
+    return { revision: live.revision, bins: listBinsFromItems(items) };
+  }
+
+  if (name === "set_bin") {
+    if (!args.id || args.bin == null || String(args.bin).trim() === "") throw new Error("id and bin required");
+    const bin = binSlug(args.bin);
+    const patch = { id: args.id, bin };
+    if (args.binLabel != null && String(args.binLabel).trim()) patch.binLabel = String(args.binLabel).trim();
+    live.items[args.id] = mergeItem(live.items[args.id] || { id: args.id }, patch);
+    const saved = await saveLive(env, live);
+    return { revision: saved.revision, item: saved.items[args.id] };
   }
 
   if (name === "get_item") {
@@ -495,6 +557,10 @@ async function callTool(name, args, env, ctx = null, origin = "") {
     let warning;
     if (isBrandNew && !args.name && !saved.items[args.id].name) {
       warning = `No item "${args.id}" exists yet and no name was given, so it will render as a blank row. Call merge_item again with name (and ideally variant, category, cadence, productUrls).`;
+    }
+    if (isBrandNew && !args.bin) {
+      const binNote = `No bin given — landed in "unsorted". Call set_bin or merge_item with a bin slug (list_bins to reuse one).`;
+      warning = warning ? `${warning} ${binNote}` : binNote;
     }
 
     let cutout = null;

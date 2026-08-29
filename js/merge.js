@@ -113,6 +113,20 @@ export function rebuildRetailers(item) {
     };
   }
 
+  const ceiling = (item.priceHistory || []).reduce(
+    (hi, h) => (Number(h.price) > Number(hi?.price ?? -Infinity) ? h : hi),
+    null
+  );
+  if (ceiling && (item.allTimeHigh == null || Number(ceiling.price) > Number(item.allTimeHigh.price))) {
+    item.allTimeHigh = {
+      price: ceiling.price,
+      retailer: ceiling.retailer,
+      date: String(ceiling.date).slice(0, 10),
+      url: item.retailers.find((r) => r.retailer === ceiling.retailer)?.url || "",
+      notes: item.allTimeHigh?.notes || "",
+    };
+  }
+
   return item;
 }
 
@@ -123,6 +137,7 @@ export function mergeItem(base = {}, patch = {}) {
   next.saleEvents = patch.saleEvents || base.saleEvents;
   if (patch.currentBest) next.currentBest = { ...(base.currentBest || {}), ...patch.currentBest };
   if (patch.allTimeLow) next.allTimeLow = { ...(base.allTimeLow || {}), ...patch.allTimeLow };
+  if (patch.allTimeHigh) next.allTimeHigh = { ...(base.allTimeHigh || {}), ...patch.allTimeHigh };
   if (patch.identifiers) next.identifiers = { ...(base.identifiers || {}), ...patch.identifiers };
   if (patch.retailers) next.retailers = patch.retailers;
   return rebuildRetailers(next);

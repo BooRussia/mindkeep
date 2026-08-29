@@ -15,6 +15,7 @@ function emptyOverlay() {
     removedIds: [],
     targets: {},
     itemImages: {},
+    bins: {},
     pings: [],
     notifiedTargets: {},
   };
@@ -184,6 +185,10 @@ export function decorateItem(item, overlay = {}, live = null) {
     null;
   if (target != null && target !== "") {
     next.targetPrice = Number(target);
+  }
+  if (overlay.bins?.[item.id]?.bin) {
+    next.bin = overlay.bins[item.id].bin;
+    if (overlay.bins[item.id].binLabel) next.binLabel = overlay.bins[item.id].binLabel;
   }
   if (overlay.itemImages?.[item.id]) {
     next.imageUrl = overlay.itemImages[item.id];

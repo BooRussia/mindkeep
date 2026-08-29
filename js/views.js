@@ -10,8 +10,10 @@ import {
   shortDate,
   shortSha,
 } from "./format.js";
-import { peteBrief as piratePeteBrief, renderPirateItem as pirateItemView, renderPirateList as pirateListView } from "./pirate.js";
+import { peteBrief as piratePeteBrief, renderPirateItem as pirateItemView, renderPirateList as pirateListView, setPirateLayout } from "./pirate.js";
 import { historyInRange } from "./range.js";
+
+export { setPirateLayout };
 
 let chart;
 

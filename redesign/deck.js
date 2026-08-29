@@ -10,9 +10,19 @@ import { gradeItem } from "../js/grades.js";
 import { buildBrief, isTargetHit } from "../js/brief.js";
 import { applyLiveOverlay } from "../js/merge.js";
 import { applyEnvelope } from "../js/vault.js";
+import { envelopeHTML } from "../js/envelope.js";
 import { historyInRange, rangePillsHTML, rangeSelectHTML } from "../js/range.js";
 import { callLive, liveWriteHint } from "../js/livewrite.js";
 import { cutoutFromUrl } from "../js/cutout.js";
+import {
+  binSlug,
+  defaultBinLabel,
+  groupItemsByBin,
+  itemBin,
+  knownBins,
+  stowIndex,
+  wireBinRails,
+} from "../js/bins.js";
 
 /* ---------------------------------------------------------------- state -- */
 
@@ -24,6 +34,7 @@ const S = {
   live: null,
   liveUrl: "",
   filter: "all",
+  priceView: "bins",
   sort: { key: "gap", dir: "asc" },
   chartRange: "all",
   peekId: null,
@@ -42,6 +53,7 @@ const readPrefs = () => {
 };
 const writePrefs = (p) => localStorage.setItem(PREFS_KEY, JSON.stringify(p));
 S.chartRange = readPrefs().chartRange || "all";
+S.priceView = readPrefs().priceView === "list" ? "list" : "bins";
 
 function liveCreds() {
   const p = readPrefs();
@@ -683,6 +695,7 @@ function priceRowCompact(it) {
         <span class="pdelta">${deltaHTML(g.stats.change7dPct, " 7d")}</span>
         <span class="pat">${esc(it.currentBest?.retailer || "")}</span>
       </div>
+      ${envelopeHTML(it, { compact: true })}
       ${meterHTML(it, { compact: true })}
     </div>
   </a>`;
@@ -716,7 +729,8 @@ function priceRowFull(it) {
       <div class="pbottom">
         <span class="pcell pcell-num pprice">${esc(money(it.currentBest?.price, it.currency))}</span>
         <span class="pcell pcell-num pdelta">${deltaHTML(g.stats.change7dPct)}</span>
-        <span class="pcell">${meterHTML(it, { legend: false })}
+        <span class="pcell">${envelopeHTML(it, { compact: true })}
+          ${meterHTML(it, { legend: false })}
           <span class="meter-legend"><span>${esc(it.currentBest?.retailer || "")}</span><span class="meter-gap" data-in="${m?.inZone ? "1" : "0"}">${esc(gapTxt)}</span></span>
         </span>
         <span class="pcell"><span class="verdict" data-call="${esc(b.call)}">${esc(callLabel(b.call))}</span></span>
@@ -729,6 +743,65 @@ function priceRowFull(it) {
       </div>
     </div>
   </a>`;
+}
+
+function crateCard(it) {
+  const b = buildBrief(it);
+  const g = gradeItem(it);
+  const inZone = isTargetHit(it) ? "1" : "0";
+  const rising = (g.stats.change7dPct ?? 0) > 0 ? "1" : "0";
+  return `<a class="crate" href="#/pirate/${esc(it.id)}" data-peek="${esc(it.id)}" data-crate
+    data-in-zone="${inZone}" data-rising="${rising}" data-stow="${stowIndex(it.id)}" data-call="${esc(b.call)}" role="listitem">
+    <span class="crate-lid" aria-hidden="true"></span>
+    ${thumbHTML(it)}
+    <span class="crate-name">${esc(it.name)}</span>
+    <span class="crate-price">${esc(money(it.currentBest?.price, it.currency))}</span>
+    ${envelopeHTML(it, { compact: true })}
+    <span class="crate-meta">
+      <span class="crate-delta">${deltaHTML(g.stats.change7dPct, " 7d")}</span>
+      <span class="verdict" data-call="${esc(b.call)}">${esc(callLabel(b.call))}</span>
+    </span>
+  </a>`;
+}
+
+function binSelectOptions(item) {
+  const current = itemBin(item).id;
+  return knownBins(S.items)
+    .map(
+      (b) =>
+        `<option value="${esc(b.id)}" ${b.id === current ? "selected" : ""}>${esc(b.label)}</option>`
+    )
+    .join("");
+}
+
+function binRailsHTML(list) {
+  const bins = groupItemsByBin(list);
+  if (!bins.length) return `<div class="empty">Nothing matches that filter.</div>`;
+  return `<div class="holds">
+    ${bins
+      .map((bin) => {
+        const n = bin.items.length;
+        return `<section class="hold" data-bin-rail="${esc(bin.id)}">
+          <header class="hold-head">
+            <div>
+              <span class="lbl">Hold · ${esc(bin.id)}</span>
+              <h2 class="hold-title">${esc(bin.label)}</h2>
+            </div>
+            <div class="hold-tools">
+              <span class="hold-count">${n} ${n === 1 ? "crate" : "crates"}</span>
+              <button type="button" class="btn btn-ghost btn-sm hold-nav" data-bin-prev aria-label="Previous crate in ${esc(bin.label)}">‹</button>
+              <button type="button" class="btn btn-ghost btn-sm hold-nav" data-bin-next aria-label="Next crate in ${esc(bin.label)}">›</button>
+            </div>
+          </header>
+          <div class="hold-bay">
+            <div class="hold-track" data-bin-track tabindex="0" role="list" aria-label="${esc(bin.label)} crates">
+              ${bin.items.map(crateCard).join("")}
+            </div>
+          </div>
+        </section>`;
+      })
+      .join("")}
+  </div>`;
 }
 
 const FILTERS = [
@@ -782,13 +855,20 @@ function viewPirate() {
   const list = filterItems();
   const s = (k) => (S.sort.key === k ? (S.sort.dir === "asc" ? "ascending" : "descending") : "none");
   const caret = (k) => (S.sort.key === k ? (S.sort.dir === "asc" ? "▲" : "▼") : "▲");
+  const binsOn = S.priceView !== "list";
   return `
     <header class="page-head">
       <div>
         <span class="lbl">Pete · price pirate</span>
         <h1>Prices</h1>
       </div>
-      <button type="button" class="btn" data-sheet="add-watch">+ Add a watch</button>
+      <div class="page-tools">
+        <div class="view-toggle" role="group" aria-label="Price layout">
+          <button type="button" data-price-view="bins" aria-pressed="${binsOn ? "true" : "false"}">Bins</button>
+          <button type="button" data-price-view="list" aria-pressed="${binsOn ? "false" : "true"}">List</button>
+        </div>
+        <button type="button" class="btn" data-sheet="add-watch">+ Add a watch</button>
+      </div>
     </header>
 
     <div class="filters" role="group" aria-label="Filter watches">
@@ -799,7 +879,10 @@ function viewPirate() {
       }).join("")}
     </div>
 
-    <div class="rows">
+    ${
+      binsOn
+        ? binRailsHTML(list)
+        : `<div class="rows">
       <div class="rows-head">
         <span></span>
         <button type="button" data-sort="name" aria-sort="${s("name")}">Item <span class="sort-caret">${caret("name")}</span></button>
@@ -811,7 +894,8 @@ function viewPirate() {
         <span></span>
       </div>
       ${list.map(priceRowFull).join("") || `<div class="empty">Nothing matches that filter.</div>`}
-    </div>`;
+    </div>`
+    }`;
 }
 
 /* ---- Item ----------------------------------------------------------- */
@@ -833,6 +917,8 @@ function viewItem(id) {
     ["90 day", g.stats.change90dPct],
     ["1 year", g.stats.change1yPct],
     ["all time", g.stats.changeAllPct],
+    ["vs low", g.stats.vsAtlPct],
+    ["vs high", g.stats.vsAthPct],
   ];
 
   return `
@@ -842,7 +928,7 @@ function viewItem(id) {
       <div class="item-id">
         ${thumbHTML(it)}
         <div style="min-width:0">
-          <span class="lbl">${esc(it.category || "item")} · checked ${esc(relTime(it.lastCheckedAt))} · ${esc(it.cadence)}</span>
+          <span class="lbl">${esc(it.category || "item")} · ${esc(itemBin(it).label)} · checked ${esc(relTime(it.lastCheckedAt))} · ${esc(it.cadence)}</span>
           <h1>${esc(it.name)}</h1>
           <p class="dim" style="font-size:var(--t-sm)">${esc(it.variant || "")}</p>
         </div>
@@ -864,10 +950,13 @@ function viewItem(id) {
                 ? `<a class="btn btn-solid" href="${esc(it.currentBest.url)}" target="_blank" rel="noreferrer">Open at ${esc(it.currentBest.retailer)} ↗</a>`
                 : ""
             }
+            <label class="sr-only" for="item-bin">Bin</label>
+            <select id="item-bin" class="bin-select" data-set-bin="${esc(it.id)}" title="Move to a bin">${binSelectOptions(it)}</select>
             <button type="button" class="btn" data-sheet="edit-target" data-id="${esc(it.id)}">Target ${esc(money(it.targetPrice, it.currency))}</button>
           </div>
         </div>
 
+        ${envelopeHTML(it)}
         ${meterHTML(it)}
 
         <div class="hero-verdict">
@@ -1165,7 +1254,9 @@ const MCP_TOOLS = [
   ["get_queue", "Everything waiting on you"],
   ["list_items", "Compact watch list"],
   ["get_item", "One item, live"],
-  ["merge_item", "Record a price"],
+  ["merge_item", "Record a price (pass bin / binLabel)"],
+  ["list_bins", "Named cargo bins on the watch list"],
+  ["set_bin", "Move a watch into a bin"],
   ["set_target", "Move the buy line"],
   ["ping", "Push an alert to the deck"],
   ["get_repo", "One project"],
@@ -1329,6 +1420,7 @@ function render() {
   else html = viewToday();
   el("stage").innerHTML = html;
   wireChart();
+  wireBinRails(el("stage"));
 }
 
 /* ------------------------------------------------------- chart crosshair -- */
@@ -1644,7 +1736,30 @@ function overlay() {
   p.targets = p.targets || {};
   p.removed = p.removed || [];
   p.itemImages = p.itemImages || {};
+  p.bins = p.bins || {};
   return p;
+}
+
+function saveBin(id, bin) {
+  const slug = binSlug(bin);
+  const label = knownBins(S.items).find((b) => b.id === slug)?.label || defaultBinLabel(slug);
+  const p = overlay();
+  p.bins[id] = { bin: slug, binLabel: label };
+  writePrefs(p);
+  const it = S.items.find((x) => x.id === id);
+  if (it) {
+    it.bin = slug;
+    it.binLabel = label;
+  }
+  persistLive("set_bin", { id, bin: slug, binLabel: label }, `Moved to ${label}`);
+  render();
+  if (S.peekId === id) {
+    const next = S.items.find((x) => x.id === id);
+    if (next) {
+      el("peek-body").innerHTML = peekHTML(next);
+      wireChart();
+    }
+  }
 }
 function saveTarget(id, value) {
   const p = overlay();
@@ -1690,7 +1805,7 @@ function peekHTML(it) {
     <div class="peek-hero">
       ${thumbHTML(it)}
       <div>
-        <span class="lbl">${esc(it.category || "item")} · ${esc(it.cadence || "")}</span>
+        <span class="lbl">${esc(it.category || "item")} · ${esc(itemBin(it).label)} · ${esc(it.cadence || "")}</span>
         <h2 class="peek-title" id="peek-title">${esc(it.name)}</h2>
         <p class="dim" style="font-size:var(--t-sm)">${esc(it.variant || "")}</p>
       </div>
@@ -1702,6 +1817,7 @@ function peekHTML(it) {
       <span class="verdict" data-call="${esc(b.call)}">${esc(callLabel(b.call))}</span>
       <span class="hero-call">${esc(b.headline)}</span>
     </div>
+    ${envelopeHTML(it)}
     ${meterHTML(it)}
     <p class="dim" style="font-size:var(--t-sm);margin:var(--s3) 0">${esc(b.body)}</p>
     <div class="chart-head">
@@ -1709,6 +1825,8 @@ function peekHTML(it) {
       ${rangeSelectHTML(it.priceHistory || [], S.chartRange)}
     </div>
     <div class="chart" data-chart data-chart-item="${esc(it.id)}"></div>
+    <label class="lbl" for="peek-bin">Bin</label>
+    <select id="peek-bin" class="bin-select" data-set-bin="${esc(it.id)}">${binSelectOptions(it)}</select>
     <div class="peek-actions">
       <a class="btn btn-solid" href="#/pirate/${esc(it.id)}" data-open-full>Open full page</a>
       ${it.currentBest?.url ? `<a class="btn" href="${esc(it.currentBest.url)}" target="_blank" rel="noreferrer">Open ${esc(it.currentBest.retailer)} ↗</a>` : ""}
@@ -1763,10 +1881,10 @@ URL: ${url}
 Buy at or under: $${target || "—"}
 
 Use the mindkeep MCP server (${base}/mcp):
-1. list_items — check whether it is already on the deck.
-2. If it is new, merge_item with a slug id, the price you find, and the retailer.
+1. list_items — check whether it is already on the deck. list_bins — reuse an existing bin slug if one fits.
+2. If it is new, merge_item with a slug id, the price you find, the retailer, and a bin slug (reuse list_bins, or pick daily, home, compute, range, drone, audio, kitchen). One bin per watch. Missing bin lands in unsorted.
 3. set_target with that id and targetPrice ${target || "<decide one>"}.
-4. Re-check daily. Every time, merge_item the best price you find and the retailer.
+4. Re-check daily. Every time, merge_item the best price you find and the retailer. To move a watch later, set_bin with id + bin (and optional binLabel).
 5. The moment any retailer prints at or under the target, call ping with the item id.
 6. After creating a new watch, call ensure_cutout so the deck gets a transparent product PNG.
 
@@ -1795,9 +1913,22 @@ document.addEventListener("click", async (e) => {
   }
 
   const peekBtn = t.closest("[data-peek]");
-  if (peekBtn && !t.closest("[data-recheck], [data-remove], [data-open-full]")) {
+  if (
+    peekBtn &&
+    !t.closest("[data-recheck], [data-remove], [data-open-full], [data-bin-prev], [data-bin-next], [data-set-bin], [data-price-view]")
+  ) {
     e.preventDefault();
-    return openPeek(peekBtn.dataset.peek, peekBtn.closest(".prow, .hbar, article") || peekBtn);
+    return openPeek(peekBtn.dataset.peek, peekBtn.closest(".prow, .hbar, .crate, article") || peekBtn);
+  }
+
+  const viewBtn = t.closest("[data-price-view]");
+  if (viewBtn) {
+    e.preventDefault();
+    S.priceView = viewBtn.dataset.priceView === "list" ? "list" : "bins";
+    const p = readPrefs();
+    p.priceView = S.priceView;
+    writePrefs(p);
+    return render();
   }
 
   const removeBtn = t.closest("[data-remove]");
@@ -1936,6 +2067,8 @@ Season: ${s.call.head} ${s.call.body}`,
 document.addEventListener("change", (e) => {
   const sel = e.target.closest("[data-chart-range-select]");
   if (sel) setChartRange(sel.value);
+  const binSel = e.target.closest("[data-set-bin]");
+  if (binSel) saveBin(binSel.dataset.setBin, binSel.value);
 });
 
 document.addEventListener("submit", (e) => {
@@ -2013,8 +2146,13 @@ function resolveLiveUrl(cfg) {
 
 function applyLocalTargets() {
   const p = overlay();
+  p.bins = p.bins || {};
   for (const it of S.items) {
     if (p.targets[it.id] != null) it.targetPrice = Number(p.targets[it.id]);
+    if (p.bins[it.id]?.bin) {
+      it.bin = p.bins[it.id].bin;
+      if (p.bins[it.id].binLabel) it.binLabel = p.bins[it.id].binLabel;
+    }
     if (p.itemImages?.[it.id]) {
       it.imageUrl = p.itemImages[it.id];
       it.imageSource = "cutout";

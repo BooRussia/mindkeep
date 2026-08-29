@@ -25,6 +25,8 @@ export function computeStats(item, now = Date.now()) {
   const history = [...(item.priceHistory || [])].sort(byDate);
   const current = item.currentBest?.price;
   const atl = item.allTimeLow?.price ?? null;
+  const histPrices = history.map((h) => Number(h.price)).filter(Number.isFinite);
+  const ath = item.allTimeHigh?.price ?? (histPrices.length ? Math.max(...histPrices) : null);
   const p1 = nearestOnOrBefore(history, now - 86400000);
   const p7 = nearestOnOrBefore(history, now - 7 * 86400000);
   const p30 = nearestOnOrBefore(history, now - 30 * 86400000);
@@ -49,6 +51,7 @@ export function computeStats(item, now = Date.now()) {
     change1yPct: pctChange(current, p365),
     changeAllPct: pctChange(current, first),
     vsAtlPct: pctChange(current, atl),
+    vsAthPct: pctChange(current, ath),
     vs30dAvgPct: pctChange(current, avg30),
     vs90dAvgPct: pctChange(current, avg90),
     avg30,

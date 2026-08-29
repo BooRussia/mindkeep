@@ -11,6 +11,8 @@
         "name": "GEPRC Vapor-D5 HD O4 Pro",
         "variant": "PNP with GPS · DJI O4 Pro · 6S",
         "category": "FPV",
+        "bin": "drone",
+        "binLabel": "Drone",
         "imageUrl": "",
         "imageSource": "imagine",
         "identifiers": {
@@ -191,6 +193,8 @@
         "name": "Ninja HydraSense Intelligent Water Filtration System",
         "variant": "WF1001WH1 Dove White",
         "category": "Water",
+        "bin": "home",
+        "binLabel": "Home",
         "imageUrl": "",
         "imageSource": "imagine",
         "identifiers": {
@@ -320,6 +324,8 @@
         "name": "Faxon Match Series 9mm Barrel G43/43X",
         "variant": "Straight fluted · threaded 1/2-28 · Black Nitride",
         "category": "Barrel",
+        "bin": "range",
+        "binLabel": "Range",
         "imageUrl": "https://cdn11.bigcommerce.com/s-f1hwux/images/stencil/1280x1280/products/1036/10382/1__35441.1708113322.jpg",
         "imageSource": "official",
         "identifiers": {
@@ -474,6 +480,8 @@
         "name": "Craftsman V20 Brushless RP Leaf Blower",
         "variant": "CMCBL730P1 kit · 5.0Ah battery + charger",
         "category": "Outdoor",
+        "bin": "home",
+        "binLabel": "Home",
         "imageUrl": "",
         "imageSource": "imagine",
         "identifiers": {

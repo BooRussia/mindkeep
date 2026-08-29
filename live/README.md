@@ -81,7 +81,9 @@ Commit that URL into `data/live.json` `overlayUrl` if you want every visitor to 
 | `get_queue` | all | Hits + alerts |
 | `list_items` | Pete | Compact watch list |
 | `get_item` | Pete | One item + live overlay |
-| `merge_item` | Pete | Price observation |
+| `merge_item` | Pete | Price observation (`bin` / `binLabel` persist) |
+| `list_bins` | Pete | Named cargo bins `{ id, label, count, itemIds }` |
+| `set_bin` | Pete | Move a watch into a bin (creates the slug if new) |
 | `set_target` | Pete | Buy line |
 | `ping` | Pete | Now-alert |
 | `get_repo` | Rig | One project |
@@ -92,6 +94,8 @@ Commit that URL into `data/live.json` `overlayUrl` if you want every visitor to 
 | `ensure_cutout` | Pete | Generate a transparent product PNG via Grok Imagine |
 
 REST is the same names under `/v1/<tool>`.
+
+Bins are one kebab-case slug per watch (`daily`, `home`, `compute`, `range`, `drone`, `audio`, `kitchen`, or a new one). Missing → `unsorted`. Pete should `list_bins` before creating a watch, pass `bin` on `merge_item`, and `set_bin` to move one later. History is never deleted.
 
 ## Product cutouts (Grok Imagine)
 

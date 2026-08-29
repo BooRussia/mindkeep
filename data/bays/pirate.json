@@ -31,6 +31,8 @@
         "name": "Dyson V15 Detect Extra",
         "variant": "Yellow / Iron, extra motorbar",
         "category": "Vacuum",
+        "bin": "home",
+        "binLabel": "Home",
         "imageUrl": "",
         "imageSource": "monogram",
         "identifiers": {
@@ -1700,6 +1702,8 @@
         "name": "Sony WH-1000XM5",
         "variant": "Black",
         "category": "Headphones",
+        "bin": "audio",
+        "binLabel": "Audio",
         "imageUrl": "",
         "imageSource": "monogram",
         "identifiers": {
@@ -3397,6 +3401,8 @@
         "name": "LG C4 65-inch OLED",
         "variant": "OLED65C4PUA",
         "category": "TV",
+        "bin": "home",
+        "binLabel": "Home",
         "imageUrl": "",
         "imageSource": "monogram",
         "identifiers": {
@@ -5082,6 +5088,8 @@
         "name": "Weber Genesis E-325s",
         "variant": "Black, 3-burner + sear",
         "category": "Grill",
+        "bin": "kitchen",
+        "binLabel": "Kitchen",
         "imageUrl": "",
         "imageSource": "monogram",
         "identifiers": {
@@ -5208,6 +5216,8 @@
         "name": "Framework Laptop 16",
         "variant": "DIY, Ryzen 7040, 16GB, 1TB",
         "category": "Laptop",
+        "bin": "compute",
+        "binLabel": "Compute",
         "imageUrl": "",
         "imageSource": "monogram",
         "identifiers": {

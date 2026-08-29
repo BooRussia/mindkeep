@@ -1,9 +1,16 @@
 import { buildBrief, isTargetHit } from "./brief.js";
 import { gradeItem } from "./grades.js";
 import { historyFor, seasonalRows, sparkSVG } from "./spark.js";
+import { envelopeHTML } from "./envelope.js";
 import { isRecurring, visibleItems } from "./vault.js";
 import { esc, money, monogram, pct, relTime, shortDate, signedClass } from "./format.js";
 import { rangePillsHTML } from "./range.js";
+import { groupItemsByBin, itemBin, stowIndex } from "./bins.js";
+
+let pirateLayout = "bins";
+export function setPirateLayout(view) {
+  pirateLayout = view === "list" ? "list" : "bins";
+}
 
 function gradeChip(g) {
   return `<span class="grade grade-${esc(g.grade)}">${esc(g.grade)}</span>`;
@@ -47,7 +54,8 @@ function watchCard(it) {
   const g = gradeItem(it);
   const ch = g.stats.change7dPct;
   const hit = isTargetHit(it);
-  return `<article class="watch-card" data-grade="${esc(g.grade)}" data-hit="${hit ? "1" : "0"}">
+  return `<article class="watch-card" data-crate data-grade="${esc(g.grade)}" data-hit="${hit ? "1" : "0"}"
+    data-in-zone="${hit ? "1" : "0"}" data-rising="${(ch ?? 0) > 0 ? "1" : "0"}" data-stow="${stowIndex(it.id)}">
     <button type="button" class="icon-btn watch-remove" data-remove-item="${esc(it.id)}" aria-label="Remove ${esc(it.name)}">Remove</button>
     <a class="watch-thumb" href="#/pirate/${esc(it.id)}" aria-label="${esc(it.name)}">${thumbHTML(it, "lg")}</a>
     <div class="watch-body">
@@ -60,6 +68,7 @@ function watchCard(it) {
         ${hit ? `<span class="grade grade-steal">target hit</span>` : ""}
       </div>
       <p class="meta">target ${esc(money(it.targetPrice, it.currency))} · ${esc(cadenceLabel(it))} · ${esc(it.currentBest?.retailer || "")}</p>
+      ${envelopeHTML(it, { compact: true })}
       ${sparkButton(it)}
     </div>
   </article>`;
@@ -70,13 +79,21 @@ export function renderPirateList(state) {
   const recurring = items.filter(isRecurring).map(watchCard);
   const once = items.filter((it) => !isRecurring(it)).map(watchCard);
   const hits = items.filter(isTargetHit);
+  const binsOn = pirateLayout !== "list";
+  const bins = groupItemsByBin(items);
   return `
     <header class="page-head">
       <div>
         <p class="kicker">Operator Pete</p>
         <h1>Price Pirate</h1>
       </div>
-      <p class="legend">Down is good. Name opens the item. The spark opens a larger tape. Remove hides it from the deck — history stays in the vault.</p>
+      <div class="page-tools">
+        <div class="view-toggle" role="group" aria-label="Price layout">
+          <button type="button" data-price-view="bins" aria-pressed="${binsOn ? "true" : "false"}">Bins</button>
+          <button type="button" data-price-view="list" aria-pressed="${binsOn ? "false" : "true"}">List</button>
+        </div>
+        <p class="legend">Down is good. Name opens the item. The spark opens a larger tape. Remove hides it from the deck — history stays in the vault.</p>
+      </div>
     </header>
     ${
       hits.length
@@ -88,7 +105,32 @@ export function renderPirateList(state) {
             .join("")}</div>`
         : ""
     }
-    <section class="watch-section">
+    ${
+      binsOn
+        ? bins
+            .map((bin) => {
+              const n = bin.items.length;
+              return `<section class="hold" data-bin-rail="${esc(bin.id)}">
+                <header class="hold-head">
+                  <div>
+                    <p class="kicker">Hold · ${esc(bin.id)}</p>
+                    <h2 class="hold-title">${esc(bin.label)}</h2>
+                  </div>
+                  <div class="hold-tools">
+                    <span class="hold-count">${n} ${n === 1 ? "crate" : "crates"}</span>
+                    <button type="button" class="icon-btn hold-nav" data-bin-prev aria-label="Previous crate in ${esc(bin.label)}">‹</button>
+                    <button type="button" class="icon-btn hold-nav" data-bin-next aria-label="Next crate in ${esc(bin.label)}">›</button>
+                  </div>
+                </header>
+                <div class="hold-bay">
+                  <div class="hold-track" data-bin-track tabindex="0" role="list" aria-label="${esc(bin.label)} crates">
+                    ${bin.items.map(watchCard).join("")}
+                  </div>
+                </div>
+              </section>`;
+            })
+            .join("") || `<p class="empty">No watches on the deck.</p>`
+        : `<section class="watch-section">
       <p class="kicker">Recurring watch</p>
       <p class="dim section-note">Daily / weekly / biweekly. Pete keeps a tape on these.</p>
       <div class="watch-list">
@@ -101,7 +143,8 @@ export function renderPirateList(state) {
       <div class="watch-list">
         ${once.join("") || `<p class="empty">No one-time checks.</p>`}
       </div>
-    </section>
+    </section>`
+    }
   `;
 }
 
@@ -162,6 +205,8 @@ export function renderPirateItem(state, id, rangeId = "all") {
     ["90d", g.stats.change90dPct],
     ["1y", g.stats.change1yPct],
     ["all", g.stats.changeAllPct],
+    ["vs low", g.stats.vsAtlPct],
+    ["vs high", g.stats.vsAthPct],
   ];
   const retailers = it.retailers || [];
   return `
@@ -169,7 +214,7 @@ export function renderPirateItem(state, id, rangeId = "all") {
     <header class="item-head">
       ${thumbHTML(it, "sm")}
       <div class="item-head-copy">
-        <p class="kicker">Pete · ${esc(it.category || "item")} · ${esc(cadenceLabel(it))}</p>
+        <p class="kicker">Pete · ${esc(it.category || "item")} · ${esc(itemBin(it).label)} · ${esc(cadenceLabel(it))}</p>
         <h1>${esc(it.name)}</h1>
         <p class="dim">${esc(it.variant || "")}</p>
       </div>
@@ -213,10 +258,15 @@ export function renderPirateItem(state, id, rangeId = "all") {
         <p class="dim">${esc(it.currentBest?.retailer || "")} · ${esc(relTime(it.currentBest?.observedAt))}</p>
       </article>
       <article class="kpi">
-        <div class="kpi-label">Best on record</div>
+        <div class="kpi-label">All-time low</div>
         <p class="kpi-value">${esc(it.allTimeLow ? money(it.allTimeLow.price, it.currency) : "—")}</p>
         <p class="dim">${esc(it.allTimeLow ? `${it.allTimeLow.retailer} · ${shortDate(it.allTimeLow.date)}` : "no ATL")}</p>
         ${brief.atlUnlikely ? `<p class="meta">Unlikely to reprint</p>` : ""}
+      </article>
+      <article class="kpi">
+        <div class="kpi-label">All-time high</div>
+        <p class="kpi-value">${esc(it.allTimeHigh ? money(it.allTimeHigh.price, it.currency) : "—")}</p>
+        <p class="dim">${esc(it.allTimeHigh ? `${it.allTimeHigh.retailer} · ${shortDate(it.allTimeHigh.date)}` : "from the tape")}</p>
       </article>
       ${windows
         .map(

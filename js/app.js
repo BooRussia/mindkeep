@@ -23,6 +23,7 @@ import {
   renderMailbag,
   renderPirateItem,
   renderPirateList,
+  setPirateLayout,
   renderShipyard,
   renderShipyardProject,
   renderToday,
@@ -33,6 +34,7 @@ import { gradeItem } from "./grades.js";
 import { isTargetHit } from "./brief.js";
 import { callLive, liveWriteHint } from "./livewrite.js";
 import { cutoutFromUrl } from "./cutout.js";
+import { wireBinRails } from "./bins.js";
 
 const stage = () => document.getElementById("stage");
 
@@ -120,6 +122,7 @@ async function render() {
     });
   });
   polishProductImages();
+  if (route.name === "pirate" && !route.id) wireBinRails(el);
 }
 
 async function polishProductImages() {
@@ -276,6 +279,13 @@ document.addEventListener("click", async (e) => {
   }
   if (e.target.closest("#paste-apply")) {
     await applyPaste(document.getElementById("paste-area").value);
+    return;
+  }
+  const viewBtn = e.target.closest("[data-price-view]");
+  if (viewBtn) {
+    e.preventDefault();
+    setPirateLayout(viewBtn.dataset.priceView);
+    await render();
     return;
   }
   const rangeBtn = e.target.closest("[data-chart-range]");
