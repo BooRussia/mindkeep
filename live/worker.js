@@ -178,9 +178,9 @@ function authorized(request, env) {
 }
 
 async function loadLive(env) {
-  const raw = env.VAULT ? await env.VAULT.get(KEY) : memory.get(KEY);
-  if (!raw) return emptyLive();
   try {
+    const raw = env.VAULT ? await env.VAULT.get(KEY) : memory.get(KEY);
+    if (!raw) return emptyLive();
     return { ...emptyLive(), ...JSON.parse(raw) };
   } catch {
     return emptyLive();
@@ -190,8 +190,12 @@ async function loadLive(env) {
 async function saveLive(env, live) {
   const next = bumpLive(live);
   const text = JSON.stringify(next);
-  if (env.VAULT) await env.VAULT.put(KEY, text);
-  else memory.set(KEY, text);
+  try {
+    if (env.VAULT) await env.VAULT.put(KEY, text);
+    else memory.set(KEY, text);
+  } catch {
+    memory.set(KEY, text);
+  }
   return next;
 }
 
@@ -489,7 +493,11 @@ export async function handleRequest(request, env = {}) {
   }
 
   if (request.method === "GET" && (url.pathname === "/overlay.json" || url.pathname === "/overlay")) {
-    return json(await loadLive(env));
+    try {
+      return json(await loadLive(env));
+    } catch (err) {
+      return json({ ...emptyLive(), error: String(err.message || err) }, 200);
+    }
   }
 
   const writePath =

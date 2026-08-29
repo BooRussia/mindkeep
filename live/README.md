@@ -33,14 +33,30 @@ curl -s -X POST http://127.0.0.1:8787/v1/merge_item \
 
 The Dyson card should move to $419 within a few seconds. No JSON paste.
 
-## MCP (Grok CLI)
+## Attach (Pete / grok.com)
+
+`mindkeep-live.boorussia.workers.dev` does **not** exist. Do not use it.
+
+Public Worker (this is the URL Pete can reach):
+
+- Overlay (read, no token): https://mindkeep-live.recent-satellite.workers.dev/overlay.json
+- MCP (write): https://mindkeep-live.recent-satellite.workers.dev/mcp
+
+```bash
+grok mcp add --transport http mindkeep https://mindkeep-live.recent-satellite.workers.dev/mcp \
+  --header "Authorization: Bearer <BOT_TOKEN>"
+```
+
+The token is the Wrangler `BOT_TOKEN` var on that Worker. It is not in git.
+
+Localhost is only for a Grok CLI on this machine. grok.com cannot see `127.0.0.1`.
+
+## MCP (Grok CLI on this computer)
 
 ```bash
 grok mcp add --transport http mindkeep http://127.0.0.1:8787/mcp \
   --header "Authorization: Bearer dev-bot-token"
 ```
-
-For grok.com, deploy the Worker (public HTTPS) and add that `/mcp` URL instead. Localhost will not reach the website.
 
 ## Deploy to Cloudflare
 

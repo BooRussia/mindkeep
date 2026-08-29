@@ -1,7 +1,7 @@
 {
-  "overlayUrl": "",
+  "overlayUrl": "https://mindkeep-live.recent-satellite.workers.dev/overlay.json",
   "pollMs": 4000,
-  "mcpUrl": "",
+  "mcpUrl": "https://mindkeep-live.recent-satellite.workers.dev/mcp",
   "localOverlayUrl": "http://127.0.0.1:8787/overlay.json",
   "localMcpUrl": "http://127.0.0.1:8787/mcp"
 }
