@@ -396,7 +396,7 @@ function drawChart(wrap, item, rangeId = S.chartRange) {
 
   wrap.innerHTML = `
     <svg viewBox="0 0 ${W} ${H}" role="img"
-         aria-label="Price history for ${esc(item.name)} with target line, buy zone and sale events">
+         aria-label="Price history for ${esc(item.name)}. Hover to read the price on a date.">
       <defs>
         <linearGradient id="zoneFill" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#4D9EFF" stop-opacity="0.16"/>
@@ -413,7 +413,7 @@ function drawChart(wrap, item, rangeId = S.chartRange) {
       ${xAxis}
     </svg>`;
 
-  return { W, H, padL, padR, padT, padB, rows };
+  return { W, H, padL, padR, padT, padB, rows, X, Y };
 }
 
 /* ------------------------------------------------------------ agent feed -- */
@@ -1335,6 +1335,42 @@ function render() {
 
 let chartResizeObserver = null;
 
+function svgCoords(svg, clientX, clientY) {
+  const ctm = svg.getScreenCTM();
+  if (!ctm) return { x: 0, y: 0 };
+  const pt = svg.createSVGPoint();
+  pt.x = clientX;
+  pt.y = clientY;
+  const p = pt.matrixTransform(ctm.inverse());
+  return { x: p.x, y: p.y };
+}
+
+/** Snap to the print whose x (calendar) is closest; if several share a day, pick the price nearest the cursor. */
+function nearestPrint(rows, X, Y, svgX, svgY) {
+  let bestDist = Infinity;
+  let bucket = [];
+  for (const row of rows) {
+    const d = Math.abs(X(row.date) - svgX);
+    if (d < bestDist - 0.75) {
+      bestDist = d;
+      bucket = [row];
+    } else if (Math.abs(d - bestDist) <= 0.75) {
+      bucket.push(row);
+    }
+  }
+  if (bucket.length <= 1) return bucket[0] || null;
+  let best = bucket[0];
+  let bestY = Infinity;
+  for (const row of bucket) {
+    const d = Math.abs(Y(Number(row.price)) - svgY);
+    if (d < bestY) {
+      bestY = d;
+      best = row;
+    }
+  }
+  return best;
+}
+
 function wireChart() {
   chartResizeObserver?.disconnect();
   chartResizeObserver = null;
@@ -1348,15 +1384,13 @@ function wireChart() {
 
   let lastW = 0;
   const mount = () => {
-    // innerHTML swaps also trip the observer — only redraw on a real width change
     const w = Math.round(wrap.clientWidth);
     if (w === lastW && wrap.dataset.drawnRange === S.chartRange && wrap.querySelector("svg")) return;
     lastW = w;
     wrap.dataset.drawnRange = S.chartRange;
     const geo = drawChart(wrap, item, S.chartRange);
     if (!geo) return;
-    const { W, padL, padR, padT, padB, H, rows } = geo;
-    const plotW = W - padL - padR;
+    const { padL, padR, padT, padB, H, W, rows, X, Y } = geo;
 
     const tip = document.createElement("div");
     tip.className = "chart-tip";
@@ -1364,37 +1398,81 @@ function wireChart() {
     wrap.appendChild(tip);
 
     const svg = wrap.querySelector("svg");
-    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    line.setAttribute("class", "crosshair");
-    line.setAttribute("y1", String(padT));
-    line.setAttribute("y2", String(H - padB));
-    line.style.display = "none";
-    svg.appendChild(line);
+    const ns = "http://www.w3.org/2000/svg";
+    const vline = document.createElementNS(ns, "line");
+    vline.setAttribute("class", "crosshair");
+    vline.setAttribute("y1", String(padT));
+    vline.setAttribute("y2", String(H - padB));
+    vline.style.display = "none";
+    svg.appendChild(vline);
+    const hline = document.createElementNS(ns, "line");
+    hline.setAttribute("class", "crosshair");
+    hline.setAttribute("x1", String(padL));
+    hline.setAttribute("x2", String(W - padR));
+    hline.style.display = "none";
+    svg.appendChild(hline);
+    const dot = document.createElementNS(ns, "circle");
+    dot.setAttribute("class", "hover-dot");
+    dot.setAttribute("r", "4.5");
+    dot.style.display = "none";
+    svg.appendChild(dot);
 
-    wrap.addEventListener("pointermove", (ev) => {
-      const box = wrap.getBoundingClientRect();
-      const x = ev.clientX - box.left;
-      const frac = Math.max(0, Math.min(1, (x - padL) / plotW));
-      const row = rows[Math.round(frac * (rows.length - 1))];
-      if (!row) return;
-      const px = padL + frac * plotW;
-      line.style.display = "";
-      line.setAttribute("x1", String(px));
-      line.setAttribute("x2", String(px));
-      tip.hidden = false;
-      tip.style.left = `${px}px`;
-      tip.style.top = `${H * 0.4}px`;
-      tip.innerHTML = `<b>${money(row.price, item.currency)}</b> · ${esc(row.retailer || "")}<br>${shortDate(row.date)}`;
-    });
-    wrap.addEventListener("pointerleave", () => {
+    const hide = () => {
       tip.hidden = true;
-      line.style.display = "none";
-    });
+      vline.style.display = "none";
+      hline.style.display = "none";
+      dot.style.display = "none";
+    };
+
+    const show = (ev) => {
+      const p = svgCoords(svg, ev.clientX, ev.clientY);
+      if (p.x < padL || p.x > W - padR) {
+        hide();
+        return;
+      }
+      const row = nearestPrint(rows, X, Y, p.x, p.y);
+      if (!row) return;
+      const px = X(row.date);
+      const py = Y(Number(row.price));
+      vline.style.display = "";
+      hline.style.display = "";
+      dot.style.display = "";
+      vline.setAttribute("x1", String(px));
+      vline.setAttribute("x2", String(px));
+      hline.setAttribute("y1", String(py));
+      hline.setAttribute("y2", String(py));
+      dot.setAttribute("cx", String(px));
+      dot.setAttribute("cy", String(py));
+      tip.hidden = false;
+      tip.innerHTML = `<span class="chart-tip-price">${esc(money(row.price, item.currency))}</span>
+        <span class="chart-tip-date">${esc(shortDate(row.date))}</span>
+        ${row.retailer ? `<span class="chart-tip-store">${esc(row.retailer)}</span>` : ""}`;
+      const tipW = tip.offsetWidth || 120;
+      const tipH = tip.offsetHeight || 48;
+      const minL = tipW / 2 + 8;
+      const maxL = wrap.clientWidth - tipW / 2 - 8;
+      const left = Math.max(minL, Math.min(maxL, px));
+      const above = py - tipH - 12;
+      if (above < 4) {
+        tip.style.transform = "translate(-50%, 12px)";
+      } else {
+        tip.style.transform = "translate(-50%, calc(-100% - 12px))";
+      }
+      tip.style.left = `${left}px`;
+      tip.style.top = `${py}px`;
+    };
+
+    wrap._hoverAbort?.abort();
+    wrap._hoverAbort = new AbortController();
+    const sig = { signal: wrap._hoverAbort.signal };
+    wrap.addEventListener("pointermove", show, sig);
+    wrap.addEventListener("pointerdown", show, sig);
+    wrap.addEventListener("pointerleave", hide, sig);
+    wrap.addEventListener("pointercancel", hide, sig);
   };
 
   mount();
 
-  // redraw at the new pixel size on resize (debounced) so text never stretches
   let t;
   chartResizeObserver = new ResizeObserver(() => {
     clearTimeout(t);

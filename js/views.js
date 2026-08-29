@@ -203,6 +203,11 @@ export function mountPirateChart(item, rangeId = "all") {
           backgroundColor: getComputedStyle(document.documentElement).getPropertyValue("--chart-fill").trim(),
           borderWidth: 1.5,
           pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHitRadius: 28,
+          pointHoverBackgroundColor: blue,
+          pointHoverBorderColor: "#fff",
+          pointHoverBorderWidth: 1.5,
           tension: 0.15,
           fill: false,
         },
@@ -233,13 +238,38 @@ export function mountPirateChart(item, rangeId = "all") {
       responsive: true,
       maintainAspectRatio: false,
       animation: glowOn ? { duration: 400 } : false,
+      interaction: { mode: "nearest", axis: "x", intersect: false },
       plugins: {
         legend: { display: false },
         tooltip: {
+          enabled: true,
+          displayColors: false,
+          backgroundColor: "rgba(18, 18, 22, 0.96)",
+          borderColor: "rgba(255,255,255,0.12)",
+          borderWidth: 1,
+          padding: 10,
+          caretPadding: 8,
+          titleFont: { family: "IBM Plex Mono", size: 11, weight: "500" },
+          bodyFont: { family: "IBM Plex Mono", size: 13, weight: "600" },
+          titleColor: "#9a9aa2",
+          bodyColor: blue,
           callbacks: {
-            label(ctx) {
-              return money(ctx.parsed.y, item.currency);
+            title(items) {
+              const row = history[items[0]?.dataIndex];
+              return row ? shortDate(row.date) : "";
             },
+            label(ctx) {
+              if (ctx.dataset.label !== "Best seen") return "";
+              const row = history[ctx.dataIndex];
+              const price = money(row?.price ?? ctx.parsed.y, item.currency);
+              return row?.retailer ? `${price}  ·  ${row.retailer}` : price;
+            },
+            labelColor() {
+              return { borderColor: "transparent", backgroundColor: "transparent" };
+            },
+          },
+          filter(item) {
+            return item.dataset.label === "Best seen";
           },
         },
       },

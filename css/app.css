@@ -678,6 +678,7 @@ html[data-glow="on"] .grade-steal {
 .chart-wrap canvas {
   flex: 1;
   min-height: 0;
+  cursor: crosshair;
 }
 .range-pills {
   display: flex;
