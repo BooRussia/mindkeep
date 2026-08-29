@@ -1,15 +1,22 @@
 import { buildBrief, isTargetHit } from "./brief.js";
 import { gradeItem } from "./grades.js";
 import { historyFor, seasonalRows, sparkSVG } from "./spark.js";
-import { envelopeHTML } from "./envelope.js";
 import { isRecurring, visibleItems } from "./vault.js";
 import { esc, money, monogram, pct, relTime, shortDate, signedClass } from "./format.js";
 import { rangePillsHTML } from "./range.js";
-import { groupItemsByBin, itemBin, stowIndex } from "./bins.js";
+import { itemBin, stowIndex } from "./bins.js";
+import { filterItems, itemTags, tagBarHTML, tagChip } from "./tags.js";
+import { icon } from "./icons.js";
 
-let pirateLayout = "bins";
-export function setPirateLayout(view) {
-  pirateLayout = view === "list" ? "list" : "bins";
+let pirateTag = "all";
+export function setPirateTag(id) {
+  pirateTag = id || "all";
+}
+export function getPirateTag() {
+  return pirateTag;
+}
+export function setPirateLayout() {
+  /* bins retired — one tagged board */
 }
 
 function gradeChip(g) {
@@ -52,23 +59,23 @@ function sparkButton(item, retailer = null, { grow = true, size = "sm" } = {}) {
 
 function watchCard(it) {
   const g = gradeItem(it);
+  const brief = buildBrief(it);
   const ch = g.stats.change7dPct;
   const hit = isTargetHit(it);
-  return `<article class="watch-card" data-crate data-grade="${esc(g.grade)}" data-hit="${hit ? "1" : "0"}"
-    data-in-zone="${hit ? "1" : "0"}" data-rising="${(ch ?? 0) > 0 ? "1" : "0"}" data-stow="${stowIndex(it.id)}">
+  const tags = itemTags(it).filter((t) => t.kind !== "cat");
+  return `<article class="watch-card" data-grade="${esc(g.grade)}" data-hit="${hit ? "1" : "0"}"
+    data-call="${esc(brief.call)}" data-rising="${(ch ?? 0) > 0 ? "1" : "0"}" data-stow="${stowIndex(it.id)}">
     <button type="button" class="icon-btn watch-remove" data-remove-item="${esc(it.id)}" aria-label="Remove ${esc(it.name)}">Remove</button>
     <a class="watch-thumb" href="#/pirate/${esc(it.id)}" aria-label="${esc(it.name)}">${thumbHTML(it, "lg")}</a>
     <div class="watch-body">
       <a class="watch-name" href="#/pirate/${esc(it.id)}">${esc(it.name)}</a>
-      <p class="dim watch-var">${esc(it.variant || "")}</p>
       <div class="watch-nums">
         <span class="num watch-price">${esc(money(it.currentBest?.price, it.currency))}</span>
-        <span class="pct ${signedClass(ch, { invert: true })}">${esc(pct(ch))} 7d</span>
-        ${gradeChip(g)}
-        ${hit ? `<span class="grade grade-steal">target hit</span>` : ""}
+        <span class="pct ${signedClass(ch, { invert: true })}">${ch != null && ch < 0 ? icon("down") : ch > 0 ? icon("up") : ""}${esc(pct(ch))}</span>
       </div>
-      <p class="meta">target ${esc(money(it.targetPrice, it.currency))} · ${esc(cadenceLabel(it))} · ${esc(it.currentBest?.retailer || "")}</p>
-      ${envelopeHTML(it, { compact: true })}
+      <div class="tag-row">
+        ${tags.map((t) => tagChip(t)).join("")}
+      </div>
       ${sparkButton(it)}
     </div>
   </article>`;
@@ -76,75 +83,19 @@ function watchCard(it) {
 
 export function renderPirateList(state) {
   const items = visibleItems(state);
-  const recurring = items.filter(isRecurring).map(watchCard);
-  const once = items.filter((it) => !isRecurring(it)).map(watchCard);
-  const hits = items.filter(isTargetHit);
-  const binsOn = pirateLayout !== "list";
-  const bins = groupItemsByBin(items);
+  const shown = filterItems(items, pirateTag);
   return `
     <header class="page-head">
       <div>
         <p class="kicker">Operator Pete</p>
         <h1>Price Pirate</h1>
       </div>
-      <div class="page-tools">
-        <div class="view-toggle" role="group" aria-label="Price layout">
-          <button type="button" data-price-view="bins" aria-pressed="${binsOn ? "true" : "false"}">Bins</button>
-          <button type="button" data-price-view="list" aria-pressed="${binsOn ? "false" : "true"}">List</button>
-        </div>
-        <p class="legend">Down is good. Name opens the item. The spark opens a larger tape. Remove hides it from the deck — history stays in the vault.</p>
-      </div>
+      <p class="legend">One board. Filter with tags. Picture + price + call. Name opens the item.</p>
     </header>
-    ${
-      hits.length
-        ? `<div class="hit-strip">${hits
-            .map(
-              (it) =>
-                `<a class="chip" href="#/pirate/${esc(it.id)}"><strong>${esc(it.name)}</strong><span class="good">target hit · ${esc(money(it.currentBest?.price, it.currency))}</span></a>`
-            )
-            .join("")}</div>`
-        : ""
-    }
-    ${
-      binsOn
-        ? bins
-            .map((bin) => {
-              const n = bin.items.length;
-              return `<section class="hold" data-bin-rail="${esc(bin.id)}">
-                <header class="hold-head">
-                  <div>
-                    <p class="kicker">Hold · ${esc(bin.id)}</p>
-                    <h2 class="hold-title">${esc(bin.label)}</h2>
-                  </div>
-                  <div class="hold-tools">
-                    <span class="hold-count">${n} ${n === 1 ? "crate" : "crates"}</span>
-                    <button type="button" class="icon-btn hold-nav" data-bin-prev aria-label="Previous crate in ${esc(bin.label)}">‹</button>
-                    <button type="button" class="icon-btn hold-nav" data-bin-next aria-label="Next crate in ${esc(bin.label)}">›</button>
-                  </div>
-                </header>
-                <div class="hold-bay">
-                  <div class="hold-track" data-bin-track tabindex="0" role="list" aria-label="${esc(bin.label)} crates">
-                    ${bin.items.map(watchCard).join("")}
-                  </div>
-                </div>
-              </section>`;
-            })
-            .join("") || `<p class="empty">No watches on the deck.</p>`
-        : `<section class="watch-section">
-      <p class="kicker">Recurring watch</p>
-      <p class="dim section-note">Daily / weekly / biweekly. Pete keeps a tape on these.</p>
-      <div class="watch-list">
-        ${recurring.join("") || `<p class="empty">No recurring watches.</p>`}
-      </div>
-    </section>
-    <section class="watch-section">
-      <p class="kicker">One-time check</p>
-      <p class="dim section-note">Manual cadence. One look, then it sits until you ask again.</p>
-      <div class="watch-list">
-        ${once.join("") || `<p class="empty">No one-time checks.</p>`}
-      </div>
-    </section>`
-    }
+    ${tagBarHTML(items, pirateTag)}
+    <div class="watch-list">
+      ${shown.map(watchCard).join("") || `<p class="empty">Nothing in this tag.</p>`}
+    </div>
   `;
 }
 

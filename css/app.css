@@ -1027,8 +1027,219 @@ html[data-glow="on"] .toast {
   padding-right: 5.5rem;
 }
 
-.watch-card[data-hit="1"] {
+.watch-card[data-hit="1"],
+.watch-card[data-call="buy_now"] {
   border-color: color-mix(in srgb, var(--blue) 45%, var(--line));
+}
+
+.watch-card[data-call="wait"],
+.watch-card[data-call="retarget"] {
+  border-color: color-mix(in srgb, var(--pink) 28%, var(--line));
+}
+
+.ico {
+  display: inline-block;
+  vertical-align: -0.2em;
+  flex: 0 0 auto;
+}
+
+.tag-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-6);
+  position: sticky;
+  top: var(--hud-h);
+  z-index: 8;
+  padding: var(--space-2) 0;
+  background: var(--bg);
+}
+
+.tag,
+.tag-bar .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding: 0 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+button.tag {
+  min-height: var(--tap-min);
+  cursor: pointer;
+}
+
+.tag-n {
+  font-family: var(--font-mono);
+  opacity: 0.8;
+}
+
+.tag[aria-pressed="true"],
+.tag-hit,
+.tag-call-buy_now {
+  color: var(--blue);
+  border-color: color-mix(in srgb, var(--blue) 45%, var(--line));
+}
+
+.tag-call-wait,
+.tag-call-retarget,
+.tag-level.tag-now {
+  color: var(--pink);
+  border-color: color-mix(in srgb, var(--pink) 40%, var(--line));
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+}
+
+.glance {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.glance-cell {
+  display: grid;
+  justify-items: start;
+  gap: 0.15rem;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--bg-elev);
+  min-height: 4.5rem;
+  color: var(--text-dim);
+}
+
+.glance-n {
+  font-size: var(--text-xl);
+  color: var(--text);
+  line-height: 1;
+}
+
+.glance-l {
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.glance-cell.is-hot {
+  color: var(--blue);
+  border-color: color-mix(in srgb, var(--blue) 40%, var(--line));
+}
+
+.glance-cell.is-hot .glance-n {
+  color: var(--blue);
+}
+
+.glance-cell.is-warn {
+  color: var(--pink);
+  border-color: color-mix(in srgb, var(--pink) 40%, var(--line));
+}
+
+.glance-cell.is-warn .glance-n {
+  color: var(--pink);
+}
+
+.need-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.need-card {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: var(--space-3);
+  align-items: center;
+  min-height: 4.75rem;
+  padding: var(--space-3);
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.need-card[data-level="now"] {
+  border-left: 3px solid var(--pink);
+}
+
+.need-card[data-level="soon"] {
+  border-left: 3px solid var(--blue);
+}
+
+.need-title {
+  display: block;
+  font-weight: var(--weight-semibold);
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.need-ico,
+.need-mono {
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--text-dim);
+}
+
+.need-card .thumb {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.thumb-md {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.motion-thumbs {
+  display: flex;
+  gap: var(--space-3);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+}
+
+.motion-tile {
+  flex: 0 0 6.5rem;
+  display: grid;
+  gap: var(--space-1);
+  justify-items: center;
+  text-align: center;
+}
+
+.motion-tile .thumb {
+  width: 5.5rem;
+  height: 5.5rem;
+}
+
+.motion-price {
+  font-size: var(--text-sm);
+}
+
+.pct .ico {
+  margin-right: 0.2rem;
+}
+
+@media (min-width: 48em) {
+  .need-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .page-tools {

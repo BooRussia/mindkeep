@@ -24,6 +24,8 @@ import {
   renderPirateItem,
   renderPirateList,
   setPirateLayout,
+  setPirateTag,
+  getPirateTag,
   renderShipyard,
   renderShipyardProject,
   renderToday,
@@ -34,7 +36,6 @@ import { gradeItem } from "./grades.js";
 import { isTargetHit } from "./brief.js";
 import { callLive, liveWriteHint } from "./livewrite.js";
 import { cutoutFromUrl } from "./cutout.js";
-import { wireBinRails } from "./bins.js";
 
 const stage = () => document.getElementById("stage");
 
@@ -122,7 +123,7 @@ async function render() {
     });
   });
   polishProductImages();
-  if (route.name === "pirate" && !route.id) wireBinRails(el);
+
 }
 
 async function polishProductImages() {
@@ -281,10 +282,12 @@ document.addEventListener("click", async (e) => {
     await applyPaste(document.getElementById("paste-area").value);
     return;
   }
-  const viewBtn = e.target.closest("[data-price-view]");
-  if (viewBtn) {
+  const tagBtn = e.target.closest("[data-tag-filter]");
+  if (tagBtn) {
     e.preventDefault();
-    setPirateLayout(viewBtn.dataset.priceView);
+    e.stopPropagation();
+    const id = tagBtn.dataset.tagFilter;
+    setPirateTag(id === getPirateTag() ? "all" : id);
     await render();
     return;
   }

@@ -10,10 +10,13 @@ import {
   shortDate,
   shortSha,
 } from "./format.js";
-import { peteBrief as piratePeteBrief, renderPirateItem as pirateItemView, renderPirateList as pirateListView, setPirateLayout } from "./pirate.js";
+import { peteBrief as piratePeteBrief, renderPirateItem as pirateItemView, renderPirateList as pirateListView, setPirateLayout, setPirateTag, getPirateTag, thumbHTML } from "./pirate.js";
+import { icon } from "./icons.js";
+import { buildBrief, isTargetHit } from "./brief.js";
+import { callLabel } from "./tags.js";
 import { historyInRange } from "./range.js";
 
-export { setPirateLayout };
+export { setPirateLayout, setPirateTag, getPirateTag };
 
 let chart;
 
@@ -38,101 +41,114 @@ export function destroyChart() {
   }
 }
 
-function kpis(state) {
-  const items = visibleItems(state);
-  const projects = allProjects(state.bays);
-  const hits = items.filter((it) => it.targetPrice != null && it.currentBest?.price <= it.targetPrice).length;
-  const need = projects.filter((p) => p.needsMe).length;
-  const active = projects.filter((p) => p.status === "active").length;
-  const lastMail = state.bays.mailbag?.payload?.lastScanAt;
-  return [
-    { label: "Watched items", value: String(items.length) },
-    { label: "Target hits", value: String(hits) },
-    { label: "Repos that need me", value: String(need) },
-    { label: "Active repos", value: String(active) },
-    { label: "Last mailbag scan", value: relTime(lastMail) },
-  ];
+function needMedia(state, alert) {
+  const href = alert.href || "";
+  const pid = href.match(/#\/pirate\/([^/?#]+)/);
+  if (pid) {
+    const item = visibleItems(state).find((it) => it.id === decodeURIComponent(pid[1]));
+    if (item) return thumbHTML(item, "md");
+    return `<span class="need-ico">${icon("price")}</span>`;
+  }
+  if (href.includes("/shipyard/")) {
+    const sid = href.match(/#\/shipyard\/(.+)/);
+    const proj = sid ? allProjects(state.bays).find((p) => p.id === decodeURIComponent(sid[1])) : null;
+    if (proj) return `<span class="need-ico need-mono">${esc(monogram(proj.name))}</span>`;
+    return `<span class="need-ico">${icon("repo")}</span>`;
+  }
+  if (href.includes("mailbag")) return `<span class="need-ico">${icon("mail")}</span>`;
+  const kindIco = alert.level === "now" ? "now" : alert.level === "soon" ? "soon" : "info";
+  return `<span class="need-ico">${icon(kindIco)}</span>`;
 }
 
-function inMotion(state) {
-  const now = Date.now();
-  const items = visibleItems(state)
-    .filter((it) => ageDays(it.lastCheckedAt, now) <= 7)
-    .map((it) => ({
-      href: `#/pirate/${it.id}`,
-      title: it.name,
-      sub: `${it.currentBest?.retailer || ""} ${money(it.currentBest?.price, it.currency)}`,
-    }));
-  const repos = allProjects(state.bays)
-    .filter((p) => ageDays(p.lastCommit?.at, now) <= 7)
-    .map((p) => ({
-      href: `#/shipyard/${p.id}`,
-      title: p.name,
-      sub: `${p.lastTool || p.inferred?.tool || ""} · ${relTime(p.lastCommit?.at)}`,
-    }));
-  return [...items, ...repos];
+function needKind(alert) {
+  const href = alert.href || "";
+  if (href.includes("/pirate")) return { ico: "price", label: "price" };
+  if (href.includes("/shipyard")) return { ico: "repo", label: "repo" };
+  if (href.includes("mailbag")) return { ico: "mail", label: "mail" };
+  return { ico: "info", label: alert.bayId || "note" };
 }
 
 export function renderToday(state) {
+  const items = visibleItems(state);
+  const projects = allProjects(state.bays);
   const alerts = allAlerts(state);
-  const motion = inMotion(state);
-  const k = kpis(state);
-  const empty = !visibleItems(state).length && !allProjects(state.bays).length;
+  const hits = items.filter(isTargetHit);
+  const buys = items.filter((it) => buildBrief(it).call === "buy_now");
+  const mailNeed = (state.bays.mailbag?.payload?.briefings || []).filter((b) => b.needsReply).length;
+  const blocked = projects.filter((p) => p.needsMe || p.status === "blocked").length;
+  const now = Date.now();
+  const motionItems = items.filter((it) => ageDays(it.lastCheckedAt, now) <= 7);
+  const empty = !items.length && !projects.length;
   if (empty) {
     return `<div class="empty">Add a quarry or import JSON.</div>`;
   }
+
+  const glance = [
+    { ico: "target", n: hits.length, label: "hits", href: "#/pirate", tone: hits.length ? "hot" : "" },
+    { ico: "price", n: buys.length, label: "buy", href: "#/pirate", tone: "" },
+    { ico: "repo", n: blocked, label: "need me", href: "#/shipyard", tone: blocked ? "warn" : "" },
+    { ico: "mail", n: mailNeed, label: "reply", href: "#/mailbag", tone: mailNeed ? "warn" : "" },
+  ];
+
   return `
     <header class="page-head">
       <div>
-        <p class="kicker">Command deck</p>
-        <h1>Today</h1>
+        <p class="kicker">Deck</p>
+        <h1>${esc(new Date().toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }))}</h1>
       </div>
-      <p class="dim">${esc(new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }))}</p>
     </header>
+    <div class="glance">
+      ${glance
+        .map(
+          (g) => `<a class="glance-cell${g.tone ? ` is-${g.tone}` : ""}" href="${g.href}">
+            ${icon(g.ico)}
+            <span class="glance-n num">${g.n}</span>
+            <span class="glance-l">${esc(g.label)}</span>
+          </a>`
+        )
+        .join("")}
+    </div>
     <section>
       <p class="kicker">Needs you</p>
-      <div class="queue">
+      <div class="need-grid">
         ${
           alerts.length
             ? alerts
-                .map(
-                  (a) => `
-          <a class="alert" data-level="${esc(a.level)}" href="${esc(a.href || "#/")}">
-            <span class="alert-tick" aria-hidden="true"></span>
-            <div>
-              <h3>${esc(a.title)}</h3>
-              <p>${esc(a.body)}</p>
-            </div>
-            <span class="meta">${esc(a.level)} · ${esc(a.operator || a.bayId)}</span>
-          </a>`
-                )
+                .slice(0, 12)
+                .map((a) => {
+                  const kind = needKind(a);
+                  return `<a class="need-card" data-level="${esc(a.level)}" href="${esc(a.href || "#/")}">
+                    ${needMedia(state, a)}
+                    <span class="need-copy">
+                      <span class="need-title">${esc(a.title)}</span>
+                      <span class="tag-row">
+                        <span class="tag tag-level tag-${esc(a.level)}">${icon(a.level === "now" ? "now" : a.level === "soon" ? "soon" : "info")}${esc(a.level)}</span>
+                        <span class="tag tag-kind">${icon(kind.ico)}${esc(kind.label)}</span>
+                      </span>
+                    </span>
+                  </a>`;
+                })
                 .join("")
             : `<p class="dim">Queue is clear.</p>`
         }
       </div>
     </section>
     <section>
-      <p class="kicker">In motion · 7 days</p>
-      <div class="chip-row">
+      <p class="kicker">Touched · 7d</p>
+      <div class="motion-thumbs">
         ${
-          motion.length
-            ? motion
+          motionItems.length
+            ? motionItems
                 .map(
-                  (m) => `<a class="chip" href="${esc(m.href)}"><strong>${esc(m.title)}</strong><span class="dim">${esc(m.sub)}</span></a>`
+                  (it) => `<a class="motion-tile" href="#/pirate/${esc(it.id)}" title="${esc(it.name)}">
+                    ${thumbHTML(it, "md")}
+                    <span class="motion-price num">${esc(money(it.currentBest?.price, it.currency))}</span>
+                    <span class="tag tag-call tag-call-${esc(buildBrief(it).call)}">${esc(callLabel(buildBrief(it).call))}</span>
+                  </a>`
                 )
                 .join("")
-            : `<p class="dim">Nothing touched this week.</p>`
+            : `<p class="dim">Nothing this week.</p>`
         }
-      </div>
-    </section>
-    <section>
-      <p class="kicker">Deck</p>
-      <div class="kpis">
-        ${k
-          .map(
-            (x) => `<article class="kpi"><div class="kpi-label">${esc(x.label)}</div><p class="kpi-value">${esc(x.value)}</p></article>`
-          )
-          .join("")}
       </div>
     </section>
   `;
