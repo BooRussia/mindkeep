@@ -31,6 +31,8 @@ import {
 } from "./views.js";
 import { gradeItem } from "./grades.js";
 import { isTargetHit } from "./brief.js";
+import { callLive, liveWriteHint } from "./livewrite.js";
+import { cutoutFromUrl } from "./cutout.js";
 
 const stage = () => document.getElementById("stage");
 
@@ -40,6 +42,18 @@ let dispatchAgent = "Pete";
 let liveCfg = { overlayUrl: "", pollMs: 4000 };
 let liveTimer = 0;
 let lastLiveRevision = null;
+let chartRange = readPrefs().chartRange || "all";
+
+function liveCreds() {
+  const prefs = readPrefs();
+  return { overlayUrl: resolveLiveUrl(), token: prefs.writeToken || "" };
+}
+
+async function persistLive(tool, args, localMsg) {
+  const result = await callLive(liveCreds(), tool, args);
+  toast(liveWriteHint(result, { action: localMsg }));
+  return result;
+}
 
 function resolveLiveUrl() {
   const prefs = readPrefs();
@@ -78,7 +92,7 @@ async function render() {
   const prefs = readPrefs();
   let html = "";
   if (route.name === "today") html = renderToday(state);
-  else if (route.name === "pirate" && route.id) html = renderPirateItem(state, route.id);
+  else if (route.name === "pirate" && route.id) html = renderPirateItem(state, route.id, chartRange);
   else if (route.name === "pirate") html = renderPirateList(state);
   else if (route.name === "shipyard" && route.id) html = renderShipyardProject(state, route.id);
   else if (route.name === "shipyard") html = renderShipyard(state);
@@ -92,7 +106,7 @@ async function render() {
   if (route.name === "pirate" && route.id) {
     const item = visibleItems(state).find((x) => x.id === route.id);
     if (item) {
-      const start = () => mountPirateChart(item);
+      const start = () => mountPirateChart(item, chartRange);
       if (window.Chart) start();
       else window.addEventListener("load", start, { once: true });
     }
@@ -105,6 +119,33 @@ async function render() {
       wrap.textContent = wrap.parentElement?.getAttribute("aria-label")?.slice(0, 2).toUpperCase() || "MK";
     });
   });
+  polishProductImages();
+}
+
+async function polishProductImages() {
+  const overlay = state.overlay || {};
+  for (const it of visibleItems(state)) {
+    if (overlay.itemImages?.[it.id]) continue;
+    if (!it.needsCutout && it.imageSource !== "imagine-raw") continue;
+    const src = it.imageUrl;
+    if (!src || src.startsWith("data:")) continue;
+    try {
+      const cut = await cutoutFromUrl(src);
+      if (!cut) continue;
+      patchOverlay((o) => {
+        o.itemImages = { ...(o.itemImages || {}), [it.id]: cut };
+      });
+      it.imageUrl = cut;
+      it.imageSource = "cutout";
+      it.needsCutout = false;
+      const imgs = document.querySelectorAll(`img.thumb-img[src="${src}"]`);
+      imgs.forEach((img) => {
+        img.src = cut;
+      });
+    } catch {
+      /* worker Imagine is the other path */
+    }
+  }
 }
 
 function firePing(ping) {
@@ -237,6 +278,21 @@ document.addEventListener("click", async (e) => {
     await applyPaste(document.getElementById("paste-area").value);
     return;
   }
+  const rangeBtn = e.target.closest("[data-chart-range]");
+  if (rangeBtn) {
+    e.preventDefault();
+    chartRange = rangeBtn.dataset.chartRange;
+    const prefs = readPrefs();
+    prefs.chartRange = chartRange;
+    writePrefs(prefs);
+    const route = parseRoute();
+    const item = route.id ? visibleItems(state).find((x) => x.id === route.id) : null;
+    document.querySelectorAll("[data-chart-range]").forEach((btn) => {
+      btn.setAttribute("aria-pressed", btn.dataset.chartRange === chartRange ? "true" : "false");
+    });
+    if (item) mountPirateChart(item, chartRange);
+    return;
+  }
   const sparkBtn = e.target.closest("[data-spark]");
   if (sparkBtn) {
     e.preventDefault();
@@ -263,17 +319,18 @@ document.addEventListener("click", async (e) => {
     patchOverlay((o) => {
       o.removedIds = [...new Set([...(o.removedIds || []), id])];
     });
-    toast("Removed from the deck.");
+    await persistLive("remove_item", { id }, "Removed from the deck");
     location.hash = "#/pirate";
     await boot();
     return;
   }
   const restoreBtn = e.target.closest("[data-restore-item]");
   if (restoreBtn) {
+    const id = restoreBtn.dataset.restoreItem;
     patchOverlay((o) => {
-      o.removedIds = (o.removedIds || []).filter((id) => id !== restoreBtn.dataset.restoreItem);
+      o.removedIds = (o.removedIds || []).filter((x) => x !== id);
     });
-    toast("Restored.");
+    await persistLive("restore_item", { id }, "Restored");
     await boot();
     return;
   }
@@ -284,7 +341,7 @@ document.addEventListener("click", async (e) => {
     patchOverlay((o) => {
       o.targets = { ...(o.targets || {}), [id]: value };
     });
-    toast("Target updated.");
+    await persistLive("set_target", { id, targetPrice: value }, "Target updated");
     await boot();
     return;
   }
@@ -316,6 +373,7 @@ document.addEventListener("click", async (e) => {
   if (e.target.closest("[data-save-live-url]")) {
     const prefs = readPrefs();
     prefs.liveUrl = (document.getElementById("live-url")?.value || "").trim();
+    prefs.writeToken = (document.getElementById("live-token")?.value || "").trim();
     writePrefs(prefs);
     toast(prefs.liveUrl ? "Live URL saved." : "Live URL cleared.");
     await boot();
@@ -419,7 +477,7 @@ document.addEventListener("submit", async (e) => {
   patchOverlay((o) => {
     o.targets = { ...(o.targets || {}), [id]: value };
   });
-  toast("Target saved. Pete will ping when it prints.");
+  await persistLive("set_target", { id, targetPrice: value }, "Target saved. Pete will ping when it prints");
   await boot();
 });
 
@@ -440,10 +498,17 @@ document.addEventListener("change", (e) => {
       const w = img.width * scale;
       const h = img.height * scale;
       ctx.drawImage(img, (side - w) / 2, (side - h) / 2, w, h);
+      let dataUrl = canvas.toDataURL("image/png");
+      try {
+        const cut = await cutoutFromUrl(dataUrl);
+        if (cut) dataUrl = cut;
+      } catch {
+        /* keep the scaled original */
+      }
       patchOverlay((o) => {
-        o.itemImages = { ...(o.itemImages || {}), [input.dataset.importPng]: canvas.toDataURL("image/png") };
+        o.itemImages = { ...(o.itemImages || {}), [input.dataset.importPng]: dataUrl };
       });
-      toast("PNG attached to this item.");
+      toast("PNG attached — studio background stripped if it was there.");
       await boot();
     };
     img.src = reader.result;

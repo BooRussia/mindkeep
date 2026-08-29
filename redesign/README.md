@@ -48,7 +48,8 @@ survives colorblindness and a grayscale screenshot.
   floor has drifted up — so it can't contradict a `retarget` brief.
 - **Chart as the neon showpiece.** Custom SVG drawn at real pixel size (no viewBox squash):
   buy-zone gradient under the target line, dashed target, dotted floor, sale-event diamonds
-  on their true calendar dates, glowing price line, hover crosshair.
+  on their true calendar dates, glowing price line, hover crosshair. Time range is a
+  dropdown + pills (1M through ALL, plus calendar years).
 - **Retailers sorted by price** with the cheapest marked and the rest shown as `+$x over`.
 - **Agents page replaces Dispatch.** MCP endpoint, connection state, copy-the-Grok-command,
   a paste-a-URL box that writes the instruction for your bot, the tool list, and a live
@@ -81,8 +82,9 @@ Verified in-browser, not assumed:
   presets back in is a token swap, not a rewrite.
 - **The three.js field.** Deliberately dropped — the telemetry strip and the chart carry
   the "this thing is alive" job now, at no framerate cost.
-- **Remove-item / PNG import.** `remove` is a stub button; the local overlay only persists
-  targets. Both are one-liners against the existing `vault.js`.
+- **Remove-item / PNG import.** Remove writes `removed` locally and, when a bot token is
+  saved, calls `remove_item` on the live overlay so the hide survives a refresh on every
+  device. PNG import still lives on the original app (`/` item page).
 
 ## Files
 

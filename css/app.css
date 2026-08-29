@@ -658,12 +658,51 @@ html[data-glow="on"] .grade-steal {
 
 .chart-wrap {
   position: relative;
-  height: 16rem;
+  height: 18.5rem;
   background: var(--bg-elev);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   padding: var(--space-3);
   margin-bottom: var(--space-6);
+  display: flex;
+  flex-direction: column;
+}
+.chart-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-2);
+}
+.chart-wrap canvas {
+  flex: 1;
+  min-height: 0;
+}
+.range-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.range-pill {
+  min-height: 28px;
+  padding: 0 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+.range-pill:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+}
+.range-pill[aria-pressed="true"] {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
 }
 
 .two-col {

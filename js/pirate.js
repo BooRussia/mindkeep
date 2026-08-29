@@ -3,6 +3,7 @@ import { gradeItem } from "./grades.js";
 import { historyFor, seasonalRows, sparkSVG } from "./spark.js";
 import { isRecurring, visibleItems } from "./vault.js";
 import { esc, money, monogram, pct, relTime, shortDate, signedClass } from "./format.js";
+import { rangePillsHTML } from "./range.js";
 
 function gradeChip(g) {
   return `<span class="grade grade-${esc(g.grade)}">${esc(g.grade)}</span>`;
@@ -148,7 +149,7 @@ ${urls || "- none"}
 `;
 }
 
-export function renderPirateItem(state, id) {
+export function renderPirateItem(state, id, rangeId = "all") {
   const it = visibleItems(state).find((x) => x.id === id) || state.bays.pirate?.payload?.items?.find((x) => x.id === id);
   if (!it) return `<p class="empty">No item ${esc(id)}. It may have been removed — restore it on Data.</p>`;
   const g = gradeItem(it);
@@ -159,6 +160,8 @@ export function renderPirateItem(state, id) {
     ["7d", g.stats.change7dPct],
     ["30d", g.stats.change30dPct],
     ["90d", g.stats.change90dPct],
+    ["1y", g.stats.change1yPct],
+    ["all", g.stats.changeAllPct],
   ];
   const retailers = it.retailers || [];
   return `
@@ -229,7 +232,13 @@ export function renderPirateItem(state, id) {
       ${seasonalCard(it, "prime_day", "Prime Day")}
     </div>
 
-    <div class="chart-wrap"><canvas id="price-chart" aria-label="Price history"></canvas></div>
+    <div class="chart-wrap">
+      <div class="chart-toolbar">
+        <span class="kpi-label">Price history · ${(it.priceHistory || []).length} prints</span>
+        ${rangePillsHTML(it.priceHistory || [], rangeId)}
+      </div>
+      <canvas id="price-chart" aria-label="Price history"></canvas>
+    </div>
 
     <section class="card">
       <h3>Indexed sites</h3>

@@ -142,16 +142,160 @@ const TOOLS = [
   },
   {
     name: "remove_item",
-    description: "Hide a Price Pirate item from the deck. History stays.",
+    description: "Hide a Price Pirate item from the deck on the live overlay so every client sees it gone. History stays.",
     inputSchema: {
       type: "object",
       properties: { id: { type: "string" } },
       required: ["id"],
     },
   },
+  {
+    name: "restore_item",
+    description: "Un-hide a Price Pirate item previously passed to remove_item.",
+    inputSchema: {
+      type: "object",
+      properties: { id: { type: "string" } },
+      required: ["id"],
+    },
+  },
+  {
+    name: "ensure_cutout",
+    description:
+      "Generate a transparent-background product PNG for an item via Grok Imagine (needs XAI_API_KEY on the Worker). Safe to call on every new watch.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        id: { type: "string" },
+        force: { type: "boolean", description: "Regenerate even if a cutout already exists." },
+      },
+      required: ["id"],
+    },
+  },
 ];
 
 const memory = new Map();
+const cutoutMem = new Map();
+
+async function putCutout(env, id, bytes, type = "image/png") {
+  if (env.VAULT) await env.VAULT.put(`cutout:${id}`, bytes);
+  else cutoutMem.set(id, { bytes, type });
+}
+
+async function getCutout(env, id) {
+  if (env.VAULT) {
+    const buf = await env.VAULT.get(`cutout:${id}`, { type: "arrayBuffer" });
+    if (!buf) return null;
+    return { bytes: buf, type: "image/png" };
+  }
+  return cutoutMem.get(id) || null;
+}
+
+function cutoutPublicUrl(origin, id) {
+  return `${origin.replace(/\/$/, "")}/cutout/${encodeURIComponent(id)}.png`;
+}
+
+async function fetchImageBytes(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`image fetch ${res.status}`);
+  const type = res.headers.get("content-type") || "image/png";
+  const bytes = await res.arrayBuffer();
+  return { bytes, type };
+}
+
+function b64ToBytes(b64) {
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out.buffer;
+}
+
+/**
+ * Grok Imagine: generate a studio product shot, then edit it to a transparent
+ * PNG cutout. Requires Worker secret XAI_API_KEY.
+ *   npx wrangler secret put XAI_API_KEY
+ */
+async function imagineCutout(env, item) {
+  const key = env.XAI_API_KEY;
+  if (!key) return { skipped: "no-xai-key" };
+  const model = env.XAI_IMAGE_MODEL || "grok-imagine-image-2.0";
+  const name = item.name || item.id;
+  const variant = item.variant ? ` (${item.variant})` : "";
+  const headers = { Authorization: `Bearer ${key}`, "Content-Type": "application/json" };
+
+  const genRes = await fetch("https://api.x.ai/v1/images/generations", {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      model,
+      prompt: `Professional studio product photograph of ${name}${variant}. Single product only, front three-quarter view, even soft lighting, plain white seamless backdrop, no text, no watermark, no props, no floor shadow.`,
+      n: 1,
+    }),
+  });
+  if (!genRes.ok) {
+    const err = await genRes.text();
+    throw new Error(`Imagine generate failed (${genRes.status}): ${err.slice(0, 240)}`);
+  }
+  const genJson = await genRes.json();
+  const gen = genJson.data?.[0] || genJson;
+  const src = gen.url || (gen.b64_json ? `data:image/png;base64,${gen.b64_json}` : null);
+  if (!src) throw new Error("Imagine generate returned no image");
+
+  let finalUrl = src;
+  try {
+    const editRes = await fetch("https://api.x.ai/v1/images/edits", {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        model,
+        prompt:
+          "Remove the background completely. Keep only the product. Transparent PNG cutout, no drop shadow, no floor, no reflections, product unchanged.",
+        image: { url: src, type: "image_url" },
+      }),
+    });
+    if (editRes.ok) {
+      const editJson = await editRes.json();
+      const edit = editJson.data?.[0] || editJson;
+      if (edit.url) finalUrl = edit.url;
+      else if (edit.b64_json) finalUrl = `data:image/png;base64,${edit.b64_json}`;
+    }
+  } catch {
+    /* keep the studio shot; the deck's built-in knockout will finish it */
+  }
+
+  if (finalUrl.startsWith("data:")) {
+    const b64 = finalUrl.split(",")[1] || "";
+    return { bytes: b64ToBytes(b64), type: "image/png", source: "imagine" };
+  }
+  const fetched = await fetchImageBytes(finalUrl);
+  return { ...fetched, source: "imagine" };
+}
+
+async function ensureItemCutout(env, id, origin, { force = false } = {}) {
+  if (!force) {
+    const existing = await getCutout(env, id);
+    if (existing) return { id, imageUrl: cutoutPublicUrl(origin, id), existed: true };
+  }
+  const live = await loadLive(env);
+  const pirate = await fetchBay(env, "pirate").catch(() => null);
+  const published = (pirate?.payload?.items || []).find((it) => it.id === id) || { id };
+  const item = mergeItem(published, live.items[id] || {});
+  const result = await imagineCutout(env, item);
+  if (result.skipped) {
+    live.items[id] = mergeItem(live.items[id] || { id }, { needsCutout: true });
+    await saveLive(env, live);
+    return { id, skipped: result.skipped, needsCutout: true };
+  }
+  await putCutout(env, id, result.bytes, result.type);
+  const imageUrl = cutoutPublicUrl(origin, id);
+  live.items[id] = mergeItem(live.items[id] || { id }, {
+    id,
+    imageUrl,
+    imageSource: "imagine",
+    needsCutout: false,
+  });
+  await saveLive(env, live);
+  return { id, imageUrl, generated: true };
+}
 
 function cors(headers = {}) {
   return {
@@ -278,9 +422,10 @@ function applyItemPatch(args) {
   return patch;
 }
 
-async function callTool(name, args, env) {
+async function callTool(name, args, env, ctx = null, origin = "") {
   const live = await loadLive(env);
   args = args || {};
+  const workerOrigin = origin || env.PUBLIC_BASE || "";
 
   if (name === "get_queue") {
     const pirate = await fetchBay(env, "pirate").catch(() => null);
@@ -334,20 +479,30 @@ async function callTool(name, args, env) {
     if (!args.id) throw new Error("id required");
     const patch = applyItemPatch(args);
     const isNewToOverlay = !live.items[args.id];
+    const publishedHas = await fetchBay(env, "pirate")
+      .then((b) => (b.payload?.items || []).some((it) => it.id === args.id))
+      .catch(() => true);
+    const isBrandNew = isNewToOverlay && !publishedHas;
     live.items[args.id] = mergeItem(live.items[args.id] || { id: args.id }, patch);
     if (args.targetPrice != null) live.targets[args.id] = args.targetPrice;
+    if (isBrandNew && !live.items[args.id].imageUrl) {
+      live.items[args.id].needsCutout = true;
+    }
     const saved = await saveLive(env, live);
 
     // A watch with no name renders as a blank row. Tell the agent rather than
     // accepting it silently — but never fail the write over it.
     let warning;
-    if (isNewToOverlay && !args.name && !saved.items[args.id].name) {
-      const known = await fetchBay(env, "pirate")
-        .then((b) => (b.payload?.items || []).some((it) => it.id === args.id))
-        .catch(() => true);
-      if (!known) {
-        warning = `No item "${args.id}" exists yet and no name was given, so it will render as a blank row. Call merge_item again with name (and ideally variant, category, cadence, productUrls).`;
-      }
+    if (isBrandNew && !args.name && !saved.items[args.id].name) {
+      warning = `No item "${args.id}" exists yet and no name was given, so it will render as a blank row. Call merge_item again with name (and ideally variant, category, cadence, productUrls).`;
+    }
+
+    let cutout = null;
+    if (isBrandNew && workerOrigin) {
+      const run = () =>
+        ensureItemCutout(env, args.id, workerOrigin).catch((err) => ({ error: String(err.message || err) }));
+      if (ctx && typeof ctx.waitUntil === "function") ctx.waitUntil(run());
+      else cutout = await run();
     }
 
     return {
@@ -355,6 +510,10 @@ async function callTool(name, args, env) {
       item: saved.items[args.id],
       target: saved.targets[args.id],
       ...(warning ? { warning } : {}),
+      ...(cutout ? { cutout } : {}),
+      ...(isBrandNew && !cutout
+        ? { cutoutQueued: Boolean(env.XAI_API_KEY), needsXaiKey: !env.XAI_API_KEY }
+        : {}),
     };
   }
 
@@ -425,6 +584,19 @@ async function callTool(name, args, env) {
     return { revision: saved.revision, removedIds: saved.removedIds };
   }
 
+  if (name === "restore_item") {
+    if (!args.id) throw new Error("id required");
+    live.removedIds = (live.removedIds || []).filter((id) => id !== args.id);
+    const saved = await saveLive(env, live);
+    return { revision: saved.revision, removedIds: saved.removedIds };
+  }
+
+  if (name === "ensure_cutout") {
+    if (!args.id) throw new Error("id required");
+    if (!workerOrigin) throw new Error("Worker origin unknown — cannot mint a public cutout URL.");
+    return ensureItemCutout(env, args.id, workerOrigin, { force: Boolean(args.force) });
+  }
+
   throw new Error(`Unknown tool ${name}`);
 }
 
@@ -436,7 +608,7 @@ function mcpError(id, message, code = -32000) {
   return { jsonrpc: "2.0", id, error: { code, message } };
 }
 
-async function handleMcp(body, env) {
+async function handleMcp(body, env, ctx = null, origin = "") {
   const method = body?.method;
   const id = body?.id ?? null;
   if (method === "initialize") {
@@ -459,7 +631,7 @@ async function handleMcp(body, env) {
     const name = body.params?.name;
     const args = body.params?.arguments || {};
     try {
-      const data = await callTool(name, args, env);
+      const data = await callTool(name, args, env, ctx, origin);
       return mcpResult(id, {
         content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
         structuredContent: data,
@@ -474,10 +646,24 @@ async function handleMcp(body, env) {
   return mcpError(id, `Unknown method ${method}`, -32601);
 }
 
-export async function handleRequest(request, env = {}) {
+export async function handleRequest(request, env = {}, ctx = null) {
   const url = new URL(request.url);
   if (request.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: cors() });
+  }
+
+  const cutoutMatch = url.pathname.match(/^\/cutout\/([^/]+?)(?:\.png)?$/);
+  if (request.method === "GET" && cutoutMatch) {
+    const id = decodeURIComponent(cutoutMatch[1]);
+    const hit = await getCutout(env, id);
+    if (!hit) return json({ error: "No cutout" }, 404);
+    return new Response(hit.bytes, {
+      status: 200,
+      headers: cors({
+        "Content-Type": hit.type || "image/png",
+        "Cache-Control": "public, max-age=86400",
+      }),
+    });
   }
 
   if (request.method === "GET" && (url.pathname === "/" || url.pathname === "/health")) {
@@ -512,13 +698,13 @@ export async function handleRequest(request, env = {}) {
     if (url.pathname.startsWith("/v1/")) {
       const name = url.pathname.replace("/v1/", "");
       try {
-        const data = await callTool(name, body || {}, env);
+        const data = await callTool(name, body || {}, env, ctx, url.origin);
         return json(data);
       } catch (err) {
         return json({ error: String(err.message || err) }, 400);
       }
     }
-    const rpc = await handleMcp(body, env);
+    const rpc = await handleMcp(body, env, ctx, url.origin);
     if (rpc == null) return new Response(null, { status: 202, headers: cors() });
     const accept = request.headers.get("Accept") || "";
     if (accept.includes("text/event-stream")) {
@@ -535,5 +721,5 @@ export async function handleRequest(request, env = {}) {
 }
 
 export default {
-  fetch: (request, env) => handleRequest(request, env),
+  fetch: (request, env, ctx) => handleRequest(request, env, ctx),
 };

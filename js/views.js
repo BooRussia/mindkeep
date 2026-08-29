@@ -11,6 +11,7 @@ import {
   shortSha,
 } from "./format.js";
 import { peteBrief as piratePeteBrief, renderPirateItem as pirateItemView, renderPirateList as pirateListView } from "./pirate.js";
+import { historyInRange } from "./range.js";
 
 let chart;
 
@@ -143,15 +144,15 @@ export function peteBrief(it, g) {
   return piratePeteBrief(it, g);
 }
 
-export function renderPirateItem(state, id) {
-  return pirateItemView(state, id);
+export function renderPirateItem(state, id, rangeId) {
+  return pirateItemView(state, id, rangeId);
 }
 
-export function mountPirateChart(item) {
+export function mountPirateChart(item, rangeId = "all") {
   destroyChart();
   const canvas = document.getElementById("price-chart");
   if (!canvas || !window.Chart) return;
-  const history = [...(item.priceHistory || [])].sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  const history = historyInRange(item.priceHistory || [], rangeId);
   const labels = history.map((h) => isoDay(h.date));
   const data = history.map((h) => h.price);
   const blue = getComputedStyle(document.documentElement).getPropertyValue("--blue").trim() || "#4D9EFF";
@@ -532,10 +533,14 @@ export function renderData(state, themeDoc, prefs) {
         <span class="kpi-label">Overlay URL</span>
         <input class="target-input" id="live-url" value="${esc(prefs.liveUrl || "")}" placeholder="https://mindkeep-live.your-account.workers.dev/overlay.json" autocomplete="off" spellcheck="false">
       </label>
+      <label>
+        <span class="kpi-label">Bot write token</span>
+        <input class="target-input" id="live-token" type="password" value="${esc(prefs.writeToken || "")}" placeholder="same value as BOT_TOKEN on the Worker" autocomplete="off" spellcheck="false">
+      </label>
       <div class="actions">
-        <button type="button" class="btn btn-primary" data-save-live-url>Save live URL</button>
+        <button type="button" class="btn btn-primary" data-save-live-url>Save live URL + token</button>
       </div>
-      <p class="dim">Writes never go through this browser. Bots call MCP with a Bearer token. See <span class="mono">live/README.md</span>.</p>
+      <p class="dim">The token stays in this browser's localStorage and is used when you remove a watch, restore one, or save a target — so those writes land on the live overlay instead of dying on refresh. Bots still use MCP. Never commit the token. See <span class="mono">live/README.md</span>.</p>
     </section>
     <section class="card" style="margin-bottom:1.5rem">
       <h3>Vault</h3>
@@ -543,7 +548,7 @@ export function renderData(state, themeDoc, prefs) {
         <button type="button" class="btn" data-export-vault>Export vault JSON</button>
         <button type="button" class="btn" data-reset-overlay>Reset overlay</button>
       </div>
-      <p class="dim">localStorage key <span class="mono">mindkeep-vault-v1</span>. Overlay merges by item/repo id and unions price history. It never deletes old history. Remove only hides an item.</p>
+      <p class="dim">localStorage key <span class="mono">mindkeep-vault-v1</span>. Overlay merges by item/repo id and unions price history. It never deletes old history. Remove hides an item on the live overlay when a write token is set; otherwise it only hides it in this browser.</p>
     </section>
     <section class="card" style="margin-bottom:1.5rem">
       <label class="toggle">

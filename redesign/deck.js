@@ -10,6 +10,9 @@ import { gradeItem } from "../js/grades.js";
 import { buildBrief, isTargetHit } from "../js/brief.js";
 import { applyLiveOverlay } from "../js/merge.js";
 import { applyEnvelope } from "../js/vault.js";
+import { historyInRange, rangePillsHTML, rangeSelectHTML } from "../js/range.js";
+import { callLive, liveWriteHint } from "../js/livewrite.js";
+import { cutoutFromUrl } from "../js/cutout.js";
 
 /* ---------------------------------------------------------------- state -- */
 
@@ -22,6 +25,8 @@ const S = {
   liveUrl: "",
   filter: "all",
   sort: { key: "gap", dir: "asc" },
+  chartRange: "all",
+  peekId: null,
   route: { name: "today", id: null },
   paletteIdx: 0,
   paletteRows: [],
@@ -36,6 +41,18 @@ const readPrefs = () => {
   }
 };
 const writePrefs = (p) => localStorage.setItem(PREFS_KEY, JSON.stringify(p));
+S.chartRange = readPrefs().chartRange || "all";
+
+function liveCreds() {
+  const p = readPrefs();
+  return { overlayUrl: S.liveUrl, token: p.writeToken || "" };
+}
+
+async function persistLive(tool, args, localMsg) {
+  const result = await callLive(liveCreds(), tool, args);
+  toast(liveWriteHint(result, { action: localMsg }));
+  return result;
+}
 
 /* ------------------------------------------------------------ utilities -- */
 
@@ -271,10 +288,8 @@ function chartHTML() {
   return `<div class="chart" data-chart></div>`;
 }
 
-function drawChart(wrap, item) {
-  const rows = [...(item.priceHistory || [])].sort((a, b) =>
-    String(a.date).localeCompare(String(b.date))
-  );
+function drawChart(wrap, item, rangeId = S.chartRange) {
+  const rows = historyInRange(item.priceHistory || [], rangeId);
   if (rows.length < 2) {
     wrap.innerHTML = `<div class="empty">Not enough price history to plot.</div>`;
     return null;
@@ -472,6 +487,9 @@ function viewToday() {
   const rest = alerts.length - top.length;
   const hits = S.items.filter(isTargetHit);
   const needs = S.projects.filter((p) => p.needsMe || p.status === "blocked");
+  const falling = S.items.filter((it) => (gradeItem(it).stats.change7dPct ?? 0) < 0);
+  const hottest = S.items.slice().sort((a, b) => sortGap(a) - sortGap(b))[0];
+  const maxPrice = Math.max(1, ...S.items.map((it) => it.currentBest?.price || 0));
 
   return `
     <header class="page-head">
@@ -483,6 +501,69 @@ function viewToday() {
         new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })
       )}</p>
     </header>
+
+    <div class="kpi-strip">
+      <article class="kpi-card">
+        <span class="lbl">Watching</span>
+        <p class="kpi-num">${S.items.length}</p>
+        <p class="kpi-sub">${plural(S.items.filter((it) => ["daily", "weekly", "biweekly"].includes(it.cadence)).length, "recurring tape", "recurring tapes")}</p>
+      </article>
+      <article class="kpi-card">
+        <span class="lbl">At target</span>
+        <p class="kpi-num">${hits.length}</p>
+        <p class="kpi-sub">${hits.length ? hits.map((it) => esc(it.name.split(" ")[0])).join(" · ") : "none in the buy zone"}</p>
+      </article>
+      <article class="kpi-card">
+        <span class="lbl">Falling 7d</span>
+        <p class="kpi-num">${falling.length}</p>
+        <p class="kpi-sub">${falling.length ? "price down is the signal" : "no 7-day drops"}</p>
+      </article>
+      <article class="kpi-card">
+        <span class="lbl">Need you</span>
+        <p class="kpi-num">${needs.length + alerts.filter((a) => a.level === "now").length}</p>
+        <p class="kpi-sub">${plural(needs.length, "repo", "repos")} · ${plural(alerts.length, "alert", "alerts")}</p>
+      </article>
+    </div>
+
+    <div class="widget-grid">
+      <section class="widget">
+        <div class="widget-head">
+          <div>
+            <span class="lbl">Against the buy line</span>
+            <h2>Watches</h2>
+          </div>
+          <a class="link" href="#/pirate">Open Prices →</a>
+        </div>
+        <div class="hbars">
+          ${
+            S.items
+              .slice()
+              .sort((a, b) => sortGap(a) - sortGap(b))
+              .slice(0, 6)
+              .map((it) => {
+                const m = meterGeom(it);
+                const width = Math.max(6, Math.min(100, ((it.currentBest?.price || 0) / maxPrice) * 100));
+                return `<a class="hbar" href="#/pirate/${esc(it.id)}" data-peek="${esc(it.id)}">
+                  <span class="hbar-label">${esc(it.name)}</span>
+                  <span class="hbar-meta">${esc(money(it.currentBest?.price, it.currency))}</span>
+                  <span class="hbar-track"><span class="hbar-fill" data-over="${m && !m.inZone ? "1" : "0"}" style="width:${width.toFixed(1)}%"></span></span>
+                </a>`;
+              })
+              .join("") || `<div class="empty">No watches yet.</div>`
+          }
+        </div>
+      </section>
+      <section class="widget">
+        <div class="widget-head">
+          <div>
+            <span class="lbl">${hottest ? esc(hottest.name) : "Price tape"}</span>
+            <p class="kpi-num">${hottest ? esc(money(hottest.currentBest?.price, hottest.currency)) : "—"}</p>
+          </div>
+          ${hottest ? rangeSelectHTML(hottest.priceHistory || [], S.chartRange) : ""}
+        </div>
+        ${hottest ? `<div class="chart" data-chart data-chart-item="${esc(hottest.id)}"></div>` : `<div class="empty">No tape to plot.</div>`}
+      </section>
+    </div>
 
     <section class="section">
       <div class="section-head">
@@ -590,7 +671,7 @@ function sortGap(it) {
 function priceRowCompact(it) {
   const b = buildBrief(it);
   const g = gradeItem(it);
-  return `<a class="prow" href="#/pirate/${esc(it.id)}">
+  return `<a class="prow" href="#/pirate/${esc(it.id)}" data-peek="${esc(it.id)}">
     ${thumbHTML(it)}
     <div class="pmain">
       <div class="ptop">
@@ -625,7 +706,7 @@ function priceRowFull(it) {
   const g = gradeItem(it);
   const m = meterGeom(it);
   const gapTxt = gapLabel(m, it, true);
-  return `<a class="prow prow-table" href="#/pirate/${esc(it.id)}">
+  return `<a class="prow prow-table" href="#/pirate/${esc(it.id)}" data-peek="${esc(it.id)}">
     ${thumbHTML(it)}
     <div class="pmain">
       <div class="ptop">
@@ -641,7 +722,9 @@ function priceRowFull(it) {
         <span class="pcell"><span class="verdict" data-call="${esc(b.call)}">${esc(callLabel(b.call))}</span></span>
         <span class="pcell">${sparkHTML(it)}</span>
         <span class="pcell pactions">
+          <button type="button" class="btn btn-ghost btn-sm" data-peek="${esc(it.id)}" title="Peek">▣</button>
           <button type="button" class="btn btn-ghost btn-sm" data-recheck="${esc(it.id)}" title="Ask Pete to re-check now">↻</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-remove="${esc(it.id)}" title="Remove from deck">✕</button>
         </span>
       </div>
     </div>
@@ -748,8 +831,8 @@ function viewItem(id) {
     ["7 day", g.stats.change7dPct],
     ["30 day", g.stats.change30dPct],
     ["90 day", g.stats.change90dPct],
-    ["vs low", g.stats.vsAtlPct],
-    ["vs 30d avg", g.stats.vs30dAvgPct],
+    ["1 year", g.stats.change1yPct],
+    ["all time", g.stats.changeAllPct],
   ];
 
   return `
@@ -816,12 +899,16 @@ function viewItem(id) {
     <section class="card chart-card">
       <div class="chart-head">
         <span class="lbl">Price tape · ${esc((it.priceHistory || []).length)} prints</span>
-        <div class="chart-legend">
-          <span><i class="lg-swatch" data-k="price"></i>best seen</span>
-          <span><i class="lg-swatch" data-k="target"></i>your target</span>
-          <span><i class="lg-swatch" data-k="zone"></i>buy zone</span>
-          <span><i class="lg-swatch"></i>sale events</span>
+        <div style="display:flex;gap:var(--s3);align-items:center;flex-wrap:wrap">
+          ${rangePillsHTML(it.priceHistory || [], S.chartRange)}
+          ${rangeSelectHTML(it.priceHistory || [], S.chartRange)}
         </div>
+      </div>
+      <div class="chart-legend">
+        <span><i class="lg-swatch" data-k="price"></i>best seen</span>
+        <span><i class="lg-swatch" data-k="target"></i>your target</span>
+        <span><i class="lg-swatch" data-k="zone"></i>buy zone</span>
+        <span><i class="lg-swatch"></i>sale events</span>
       </div>
       ${chartHTML(it)}
     </section>
@@ -1084,7 +1171,9 @@ const MCP_TOOLS = [
   ["get_repo", "One project"],
   ["merge_watch", "Update a project watch"],
   ["post_briefing", "Add a mail briefing"],
-  ["remove_item", "Hide from the deck"],
+  ["remove_item", "Hide from the deck (persists on the overlay)"],
+  ["restore_item", "Un-hide a removed watch"],
+  ["ensure_cutout", "Transparent product PNG via Grok Imagine"],
 ];
 
 function viewAgents() {
@@ -1188,7 +1277,7 @@ function parseRoute() {
 
 function setNav() {
   const key = S.route.name === "today" ? "today" : S.route.name;
-  document.querySelectorAll(".nav a, .dock a").forEach((a) => {
+  document.querySelectorAll(".nav a, .dock a, .rail-nav a").forEach((a) => {
     a.classList.toggle("is-active", a.dataset.route === key);
   });
   const needs = S.projects.filter((p) => p.needsMe || p.status === "blocked").length;
@@ -1217,6 +1306,12 @@ function renderTelemetry() {
     feed ? `<span class="tele">last write <b>${esc(relTime(feed.at))}</b> ${esc(feed.who)}</span>` : "",
   ].filter(Boolean);
   el("telemetry").innerHTML = bits.join('<span class="tele-sep"></span>');
+  const railLive = el("rail-live");
+  if (railLive) {
+    railLive.innerHTML = connected
+      ? `wire live · rev ${esc(String(S.live.revision ?? 0))}`
+      : "wire offline";
+  }
 }
 
 function render() {
@@ -1244,18 +1339,21 @@ function wireChart() {
   chartResizeObserver?.disconnect();
   chartResizeObserver = null;
 
-  const wrap = $(".chart");
+  const peekOpen = el("peek") && !el("peek").hidden;
+  const wrap = peekOpen ? el("peek").querySelector("[data-chart]") : $(".chart");
   if (!wrap) return;
-  const item = S.items.find((x) => x.id === S.route.id);
+  const itemId = wrap.dataset.chartItem || S.route.id || S.peekId;
+  const item = S.items.find((x) => x.id === itemId);
   if (!item) return;
 
   let lastW = 0;
   const mount = () => {
     // innerHTML swaps also trip the observer — only redraw on a real width change
     const w = Math.round(wrap.clientWidth);
-    if (w === lastW) return;
+    if (w === lastW && wrap.dataset.drawnRange === S.chartRange && wrap.querySelector("svg")) return;
     lastW = w;
-    const geo = drawChart(wrap, item);
+    wrap.dataset.drawnRange = S.chartRange;
+    const geo = drawChart(wrap, item, S.chartRange);
     if (!geo) return;
     const { W, padL, padR, padT, padB, H, rows } = geo;
     const plotW = W - padL - padR;
@@ -1343,13 +1441,19 @@ function sheetFor(kind, id) {
     );
   }
   if (kind === "wire-settings") {
+    const p = readPrefs();
     openSheet(
       "Wire endpoint",
-      `<p class="dim" style="font-size:var(--t-sm)">The deck only reads <span class="mono">overlay.json</span>. Write tokens never live in this browser.</p>
+      `<p class="dim" style="font-size:var(--t-sm)">Reads go to <span class="mono">overlay.json</span>. Paste the bot token so Remove / Restore / Target persist on the live overlay instead of only this browser.</p>
        <div class="field">
          <label class="lbl" for="live-url">Overlay URL</label>
          <input id="live-url" value="${esc(S.liveUrl)}" spellcheck="false" autocomplete="off"
                 placeholder="https://mindkeep-live.<you>.workers.dev/overlay.json">
+       </div>
+       <div class="field">
+         <label class="lbl" for="live-token">Bot write token</label>
+         <input id="live-token" type="password" value="${esc(p.writeToken || "")}" spellcheck="false" autocomplete="off"
+                placeholder="same value as BOT_TOKEN on the Worker">
        </div>
        <div class="row-actions"><button type="button" class="btn btn-solid" data-save-live>Save</button></div>`
     );
@@ -1461,6 +1565,7 @@ function overlay() {
   const p = readPrefs();
   p.targets = p.targets || {};
   p.removed = p.removed || [];
+  p.itemImages = p.itemImages || {};
   return p;
 }
 function saveTarget(id, value) {
@@ -1469,6 +1574,101 @@ function saveTarget(id, value) {
   writePrefs(p);
   const it = S.items.find((x) => x.id === id);
   if (it) it.targetPrice = value;
+  persistLive("set_target", { id, targetPrice: value }, "Target saved");
+}
+
+function setChartRange(id) {
+  S.chartRange = id || "all";
+  const p = readPrefs();
+  p.chartRange = S.chartRange;
+  writePrefs(p);
+  document.querySelectorAll("[data-chart-range]").forEach((btn) => {
+    btn.setAttribute("aria-pressed", btn.dataset.chartRange === S.chartRange ? "true" : "false");
+  });
+  document.querySelectorAll("[data-chart-range-select]").forEach((sel) => {
+    sel.value = S.chartRange;
+  });
+  document.querySelectorAll("[data-chart]").forEach((w) => {
+    w.dataset.drawnRange = "";
+  });
+  wireChart();
+}
+
+async function removeWatch(id) {
+  if (!window.confirm("Remove from Price Pirate? History stays. This hides it on the live overlay when a write token is set.")) return;
+  const p = overlay();
+  p.removed = [...new Set([...(p.removed || []), id])];
+  writePrefs(p);
+  closePeek();
+  await persistLive("remove_item", { id }, "Removed from the deck");
+  location.hash = "#/pirate";
+  await boot();
+}
+
+function peekHTML(it) {
+  const b = buildBrief(it);
+  const g = gradeItem(it);
+  return `
+    <div class="peek-hero">
+      ${thumbHTML(it)}
+      <div>
+        <span class="lbl">${esc(it.category || "item")} · ${esc(it.cadence || "")}</span>
+        <h2 class="peek-title" id="peek-title">${esc(it.name)}</h2>
+        <p class="dim" style="font-size:var(--t-sm)">${esc(it.variant || "")}</p>
+      </div>
+    </div>
+    <p class="peek-price">${esc(money(it.currentBest?.price, it.currency))}
+      <span class="dim" style="font-size:var(--t-sm)"> at ${esc(it.currentBest?.retailer || "—")} · ${deltaHTML(g.stats.change7dPct, " 7d")}</span>
+    </p>
+    <div class="hero-verdict" style="margin:var(--s3) 0">
+      <span class="verdict" data-call="${esc(b.call)}">${esc(callLabel(b.call))}</span>
+      <span class="hero-call">${esc(b.headline)}</span>
+    </div>
+    ${meterHTML(it)}
+    <p class="dim" style="font-size:var(--t-sm);margin:var(--s3) 0">${esc(b.body)}</p>
+    <div class="chart-head">
+      <span class="lbl">Tape</span>
+      ${rangeSelectHTML(it.priceHistory || [], S.chartRange)}
+    </div>
+    <div class="chart" data-chart data-chart-item="${esc(it.id)}"></div>
+    <div class="peek-actions">
+      <a class="btn btn-solid" href="#/pirate/${esc(it.id)}" data-open-full>Open full page</a>
+      ${it.currentBest?.url ? `<a class="btn" href="${esc(it.currentBest.url)}" target="_blank" rel="noreferrer">Open ${esc(it.currentBest.retailer)} ↗</a>` : ""}
+      <button type="button" class="btn btn-ghost" data-remove="${esc(it.id)}">Remove</button>
+    </div>`;
+}
+
+function openPeek(id, originEl) {
+  const it = S.items.find((x) => x.id === id);
+  if (!it) return;
+  S.peekId = id;
+  const peek = el("peek");
+  el("peek-body").innerHTML = peekHTML(it);
+  peek.hidden = false;
+  wireChart();
+  const card = peek.querySelector(".peek-card");
+  if (originEl && card && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const from = originEl.getBoundingClientRect();
+    const to = card.getBoundingClientRect();
+    const dx = from.left + from.width / 2 - (to.left + to.width / 2);
+    const dy = from.top + from.height / 2 - (to.top + to.height / 2);
+    card.animate(
+      [
+        { transform: `translate(${dx}px, ${dy}px) scale(0.92)`, opacity: 0.4 },
+        { transform: "none", opacity: 1 },
+      ],
+      { duration: 220, easing: "cubic-bezier(0.2, 0, 0, 1)" }
+    );
+  }
+}
+
+function closePeek() {
+  const peek = el("peek");
+  if (!peek || peek.hidden) return;
+  peek.hidden = true;
+  S.peekId = null;
+  el("peek-body").innerHTML = "";
+  if (S.route.name === "pirate" && S.route.id) wireChart();
 }
 
 /* ---- copy blocks -------------------------------------------------------- */
@@ -1490,6 +1690,7 @@ Use the mindkeep MCP server (${base}/mcp):
 3. set_target with that id and targetPrice ${target || "<decide one>"}.
 4. Re-check daily. Every time, merge_item the best price you find and the retailer.
 5. The moment any retailer prints at or under the target, call ping with the item id.
+6. After creating a new watch, call ensure_cutout so the deck gets a transparent product PNG.
 
 Do not paste JSON at me — write it over MCP.`;
 }
@@ -1501,8 +1702,32 @@ document.addEventListener("click", async (e) => {
 
   if (t.closest("[data-close-palette]")) return closePalette();
   if (t.closest("[data-close-sheet]")) return closeSheet();
-  if (t.closest("#cmd-open")) return openPalette();
+  if (t.closest("#cmd-open") || t.closest("[data-open-palette]")) return openPalette();
   if (t.closest("#settings-btn")) return sheetFor("settings");
+  if (t.closest("[data-close-peek]")) {
+    e.preventDefault();
+    return closePeek();
+  }
+
+  const rangeBtn = t.closest("[data-chart-range]");
+  if (rangeBtn) {
+    e.preventDefault();
+    setChartRange(rangeBtn.dataset.chartRange);
+    return;
+  }
+
+  const peekBtn = t.closest("[data-peek]");
+  if (peekBtn && !t.closest("[data-recheck], [data-remove], [data-open-full]")) {
+    e.preventDefault();
+    return openPeek(peekBtn.dataset.peek, peekBtn.closest(".prow, .hbar, article") || peekBtn);
+  }
+
+  const removeBtn = t.closest("[data-remove]");
+  if (removeBtn) {
+    e.preventDefault();
+    e.stopPropagation();
+    return removeWatch(removeBtn.dataset.remove);
+  }
 
   const sheetBtn = t.closest("[data-sheet]");
   if (sheetBtn) {
@@ -1603,6 +1828,7 @@ Season: ${s.call.head} ${s.call.body}`,
   if (t.closest("[data-save-live]")) {
     const p = readPrefs();
     p.liveUrl = el("live-url").value.trim();
+    if (el("live-token")) p.writeToken = el("live-token").value.trim();
     writePrefs(p);
     closeSheet();
     toast("Endpoint saved.");
@@ -1629,6 +1855,11 @@ Season: ${s.call.head} ${s.call.body}`,
   }
 });
 
+document.addEventListener("change", (e) => {
+  const sel = e.target.closest("[data-chart-range-select]");
+  if (sel) setChartRange(sel.value);
+});
+
 document.addEventListener("submit", (e) => {
   const form = e.target.closest("[data-target-form]");
   if (!form) return;
@@ -1650,6 +1881,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closePalette();
     closeSheet();
+    closePeek();
     return;
   }
   if (
@@ -1684,6 +1916,7 @@ el("palette-input").addEventListener("input", () => {
 });
 
 window.addEventListener("hashchange", () => {
+  closePeek();
   render();
   window.scrollTo(0, 0);
 });
@@ -1704,7 +1937,34 @@ function applyLocalTargets() {
   const p = overlay();
   for (const it of S.items) {
     if (p.targets[it.id] != null) it.targetPrice = Number(p.targets[it.id]);
+    if (p.itemImages?.[it.id]) {
+      it.imageUrl = p.itemImages[it.id];
+      it.imageSource = "cutout";
+    }
   }
+}
+
+async function polishCutouts() {
+  const p = overlay();
+  p.itemImages = p.itemImages || {};
+  let wrote = false;
+  for (const it of S.items) {
+    if (p.itemImages[it.id]) continue;
+    if (!it.needsCutout && it.imageSource !== "imagine-raw") continue;
+    if (!it.imageUrl || String(it.imageUrl).startsWith("data:")) continue;
+    try {
+      const cut = await cutoutFromUrl(it.imageUrl);
+      if (!cut) continue;
+      p.itemImages[it.id] = cut;
+      it.imageUrl = cut;
+      it.imageSource = "cutout";
+      it.needsCutout = false;
+      wrote = true;
+    } catch {
+      /* Worker Imagine is the other path */
+    }
+  }
+  if (wrote) writePrefs(p);
 }
 
 let lastRevision = null;
@@ -1741,6 +2001,7 @@ async function boot() {
   const removed = new Set([...(S.live?.removedIds || []), ...overlay().removed]);
   S.items = S.items.filter((it) => !removed.has(it.id));
   applyLocalTargets();
+  polishCutouts();
 
   S.projects = [];
   for (const acc of bays.shipyard?.payload?.accounts || []) {

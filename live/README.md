@@ -87,9 +87,36 @@ Commit that URL into `data/live.json` `overlayUrl` if you want every visitor to 
 | `get_repo` | Rig | One project |
 | `merge_watch` | Rig | LAST WATCH |
 | `post_briefing` | Post | Mailbag |
-| `remove_item` | Pete | Hide from deck |
+| `remove_item` | Pete | Hide from deck (persists on the overlay) |
+| `restore_item` | Pete | Un-hide a removed watch |
+| `ensure_cutout` | Pete | Generate a transparent product PNG via Grok Imagine |
 
 REST is the same names under `/v1/<tool>`.
+
+## Product cutouts (Grok Imagine)
+
+When Pete `merge_item`s a **new** watch, the Worker queues a Grok Imagine job that generates a studio shot and edits it to a transparent PNG. The deck then loads `/cutout/<id>.png`.
+
+This needs an xAI API key on the Worker — **not** in the Pages JS:
+
+```bash
+npx wrangler secret put XAI_API_KEY
+# optional override, default grok-imagine-image-2.0
+# npx wrangler secret put XAI_IMAGE_MODEL
+```
+
+Locally:
+
+```bash
+set XAI_API_KEY=xai-...
+node live/dev-server.mjs
+```
+
+If the key is missing, the item is flagged `needsCutout`. The dashboard still knocks out a studio backdrop in-browser (no key) when you drop a PNG, so the page stays clean either way.
+
+## Owner writes from the dashboard
+
+Remove / restore / set-target in the UI only persist across devices if you paste the same `BOT_TOKEN` into **Data → Bot write token** (stored in this browser's localStorage). Without it, those actions stay local.
 
 ## Do not
 

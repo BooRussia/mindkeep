@@ -12,3 +12,4 @@ dist/
 tokens.json
 secrets.json
 .claude/
+.verify/

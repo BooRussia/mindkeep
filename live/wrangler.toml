@@ -15,3 +15,6 @@ PAGES_BASE = "https://boorussia.github.io/mindkeep"
 
 # Bot write token (never commit the value):
 #   npx wrangler secret put BOT_TOKEN
+#
+# Optional — Grok Imagine product cutouts for new watches:
+#   npx wrangler secret put XAI_API_KEY

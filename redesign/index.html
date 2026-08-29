@@ -18,9 +18,31 @@
   <body>
     <a class="skip" href="#stage">Skip to content</a>
 
+    <aside class="rail" id="rail" aria-label="MindKeep">
+      <a class="wordmark" href="#/" aria-label="MindKeep deck">MINDKEEP</a>
+      <button type="button" class="cmd-open rail-search" data-open-palette>
+        <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="7" cy="7" r="4.5" /><path d="M10.5 10.5 14 14" stroke-linecap="round" />
+        </svg>
+        <span class="cmd-open-label">Search</span>
+        <kbd>⌘K</kbd>
+      </button>
+      <nav class="rail-nav" aria-label="Sections">
+        <a href="#/" data-route="today"><span class="rail-ico" aria-hidden="true">▣</span>Deck</a>
+        <a href="#/pirate" data-route="pirate"><span class="rail-ico" aria-hidden="true">$</span>Prices</a>
+        <a href="#/shipyard" data-route="shipyard"><span class="rail-ico" aria-hidden="true">⌥</span>Projects</a>
+        <a href="#/mailbag" data-route="mailbag"><span class="rail-ico" aria-hidden="true">✉</span>Mail</a>
+        <a href="#/agents" data-route="agents"><span class="rail-ico" aria-hidden="true">◆</span>Agents</a>
+      </nav>
+      <div class="rail-foot">
+        <button type="button" class="rail-settings" data-sheet="settings">Settings</button>
+        <div class="rail-live" id="rail-live"></div>
+      </div>
+    </aside>
+
     <header class="hud">
       <div class="hud-left">
-        <a class="wordmark" href="#/" aria-label="MindKeep deck">MINDKEEP</a>
+        <a class="wordmark hud-wordmark" href="#/" aria-label="MindKeep deck">MINDKEEP</a>
         <span class="rule" aria-hidden="true"></span>
         <nav class="nav" aria-label="Sections">
           <a href="#/" data-route="today">Deck</a>
@@ -31,7 +53,7 @@
         </nav>
       </div>
       <div class="hud-right">
-        <button type="button" class="cmd-open" id="cmd-open">
+        <button type="button" class="cmd-open" id="cmd-open" data-open-palette>
           <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6">
             <circle cx="7" cy="7" r="4.5" /><path d="M10.5 10.5 14 14" stroke-linecap="round" />
           </svg>
@@ -93,6 +115,15 @@
           <button type="button" class="btn btn-ghost" data-close-sheet aria-label="Close">✕</button>
         </header>
         <div class="sheet-body" id="sheet-body"></div>
+      </div>
+    </div>
+
+    <!-- Product peek: more detail than a row, less than the item page -->
+    <div class="peek" id="peek" hidden>
+      <div class="peek-scrim" data-close-peek></div>
+      <div class="peek-card" role="dialog" aria-modal="true" aria-labelledby="peek-title">
+        <button type="button" class="peek-close" data-close-peek aria-label="Close">✕</button>
+        <div class="peek-body" id="peek-body"></div>
       </div>
     </div>
 

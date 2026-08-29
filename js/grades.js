@@ -29,6 +29,8 @@ export function computeStats(item, now = Date.now()) {
   const p7 = nearestOnOrBefore(history, now - 7 * 86400000);
   const p30 = nearestOnOrBefore(history, now - 30 * 86400000);
   const p90 = nearestOnOrBefore(history, now - 90 * 86400000);
+  const p365 = nearestOnOrBefore(history, now - 365 * 86400000);
+  const first = history[0]?.price ?? null;
   const avg30 = mean(
     history
       .filter((h) => now - new Date(h.date).getTime() <= 30 * 86400000)
@@ -44,6 +46,8 @@ export function computeStats(item, now = Date.now()) {
     change7dPct: pctChange(current, p7),
     change30dPct: pctChange(current, p30),
     change90dPct: pctChange(current, p90),
+    change1yPct: pctChange(current, p365),
+    changeAllPct: pctChange(current, first),
     vsAtlPct: pctChange(current, atl),
     vs30dAvgPct: pctChange(current, avg30),
     vs90dAvgPct: pctChange(current, avg90),
