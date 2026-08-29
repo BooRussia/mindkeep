@@ -13,8 +13,8 @@
         "category": "ammo",
         "bin": "range",
         "binLabel": "Range",
-        "imageUrl": "https://www.cci-ammunition.com/dw/image/v2/BKSZ_PRD/on/demandware.static/-/Sites-cci-master-catalog/default/dw3c058b4b/images/large/BL_5203_9mmLugerBlazerFMJ_COMBO_R.jpg?sw=800&sh=800&sm=fit",
-        "imageSource": "official",
+        "imageUrl": "",
+        "imageSource": "imagine",
         "identifiers": {
           "asin": null,
           "upc": "604544650594",

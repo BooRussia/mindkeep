@@ -7,6 +7,7 @@ import {
   resetOverlay,
   validateEnvelope,
   visibleItems,
+  localProductSrc,
 } from "./vault.js";
 import { applyTheme, loadThemeDoc, readPrefs, writePrefs } from "./theme.js";
 import { syncField } from "./field.js";
@@ -34,7 +35,7 @@ import {
 } from "./views.js";
 import { gradeItem } from "./grades.js";
 import { isTargetHit } from "./brief.js";
-import { callLive, liveWriteHint } from "./livewrite.js";
+import { callLive, liveWriteHint, workerBase } from "./livewrite.js";
 import { cutoutFromUrl } from "./cutout.js";
 
 const stage = () => document.getElementById("stage");
@@ -114,16 +115,55 @@ async function render() {
       else window.addEventListener("load", start, { once: true });
     }
   }
-  document.querySelectorAll("img.thumb-img").forEach((img) => {
-    img.addEventListener("error", () => {
-      const wrap = img.closest(".thumb");
-      if (!wrap) return;
-      wrap.classList.add("thumb-mono");
-      wrap.textContent = wrap.parentElement?.getAttribute("aria-label")?.slice(0, 2).toUpperCase() || "MK";
-    });
-  });
+  bindThumbFallbacks();
   polishProductImages();
 
+}
+
+const cutoutAsked = new Set();
+
+function monogramThumb(img) {
+  const wrap = img.closest(".thumb");
+  if (!wrap) return;
+  wrap.classList.add("thumb-mono");
+  wrap.textContent =
+    wrap.parentElement?.getAttribute("aria-label")?.slice(0, 2).toUpperCase() ||
+    (img.dataset.itemName || "MK").slice(0, 2).toUpperCase();
+}
+
+function bindThumbFallbacks() {
+  const base = workerBase(resolveLiveUrl());
+  document.querySelectorAll("img.thumb-img").forEach((img) => {
+    if (img.dataset.boundThumb === "1") return;
+    img.dataset.boundThumb = "1";
+    img.addEventListener("error", async () => {
+      const id = img.dataset.itemId;
+      const tried = img.dataset.tried || "";
+      if (id && base && !tried.includes("cutout")) {
+        img.dataset.tried = `${tried}cutout,`;
+        img.src = `${base}/cutout/${encodeURIComponent(id)}.png`;
+        return;
+      }
+      if (id && base && !tried.includes("ensure") && !cutoutAsked.has(id)) {
+        const token = readPrefs().writeToken;
+        if (token) {
+          cutoutAsked.add(id);
+          img.dataset.tried = `${tried}ensure,`;
+          const result = await callLive(liveCreds(), "ensure_cutout", {
+            id,
+            name: img.dataset.itemName || "",
+            variant: img.dataset.itemVariant || "",
+          });
+          const url = result?.ok && result.data?.imageUrl;
+          if (url) {
+            img.src = url;
+            return;
+          }
+        }
+      }
+      monogramThumb(img);
+    });
+  });
 }
 
 async function polishProductImages() {
@@ -133,6 +173,7 @@ async function polishProductImages() {
     if (!it.needsCutout && it.imageSource !== "imagine-raw") continue;
     const src = it.imageUrl;
     if (!src || src.startsWith("data:")) continue;
+    if (src === localProductSrc(it.id)) continue;
     try {
       const cut = await cutoutFromUrl(src);
       if (!cut) continue;
@@ -147,7 +188,7 @@ async function polishProductImages() {
         img.src = cut;
       });
     } catch {
-      /* worker Imagine is the other path */
+      /* worker Imagine / local PNG are the other paths */
     }
   }
 }

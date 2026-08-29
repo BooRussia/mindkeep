@@ -91,7 +91,7 @@ Commit that URL into `data/live.json` `overlayUrl` if you want every visitor to 
 | `post_briefing` | Post | Mailbag |
 | `remove_item` | Pete | Hide from deck (persists on the overlay) |
 | `restore_item` | Pete | Un-hide a removed watch |
-| `ensure_cutout` | Pete | Generate a transparent product PNG via Grok Imagine |
+| `ensure_cutout` | Pete | Grok Imagine product PNG at `/cutout/<id>.png`. Pass `id`, `name`, `variant`. |
 
 REST is the same names under `/v1/<tool>`.
 
@@ -99,7 +99,16 @@ Bins are one kebab-case slug per watch (`daily`, `home`, `compute`, `range`, `dr
 
 ## Product cutouts (Grok Imagine)
 
-When Pete `merge_item`s a **new** watch, the Worker queues a Grok Imagine job that generates a studio shot and edits it to a transparent PNG. The deck then loads `/cutout/<id>.png`.
+Thumbs never hotlink a store CDN. The deck always tries, in order:
+
+1. `assets/products/<id>.png` on Pages (commit these — this is the durable path)
+2. `GET /cutout/<id>.png` on this Worker (public)
+3. If the owner pasted the bot token, the page POSTs `ensure_cutout`
+4. Monogram
+
+Pete should call `ensure_cutout` after every new `merge_item`, passing `id`, `name`, and `variant`. Do **not** set `imageUrl` to an Amazon/CCI/Faxon CDN — those 403 in the browser. Empty `imageUrl` is correct; the deck uses the local PNG.
+
+`merge_item` itself queues Imagine when the watch has no usable thumb (not only the first create). Overlay polls also backfill up to 3 missing cutouts per request, with a 30-minute cooldown.
 
 This needs an xAI API key on the Worker — **not** in the Pages JS:
 
@@ -112,11 +121,11 @@ npx wrangler secret put XAI_API_KEY
 Locally:
 
 ```bash
-set XAI_API_KEY=xai-...
+export XAI_API_KEY=xai-...
 node live/dev-server.mjs
 ```
 
-If the key is missing, the item is flagged `needsCutout`. The dashboard still knocks out a studio backdrop in-browser (no key) when you drop a PNG, so the page stays clean either way.
+If the key is missing, the item is flagged `needsCutout`. Commit a PNG into `assets/products/` or drop one on the item page.
 
 ## Owner writes from the dashboard
 

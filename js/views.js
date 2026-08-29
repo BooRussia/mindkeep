@@ -620,7 +620,7 @@ export function renderData(state, themeDoc, prefs) {
     </section>
     <section class="card" style="margin-bottom:1.5rem">
       <h3>Product PNGs</h3>
-      <p class="dim">Cutouts live in <span class="mono">assets/products/[id].png</span>. Bring a transparent PNG on the item page to override locally.</p>
+      <p class="dim">Cutouts live in <span class="mono">assets/products/[id].png</span>. Retailer photos are never hotlinked. Missing file → Worker <span class="mono">/cutout/[id].png</span> (Grok Imagine) → monogram. Bring a PNG on the item page to override locally.</p>
     </section>
     <section class="card" style="margin-bottom:1.5rem">
       <h3>Expected paths</h3>

@@ -70,7 +70,7 @@ If `renderer` is not `pirate`, `shipyard`, or `mailbag`, the generic briefing li
 - Recurring watches (`daily` / `weekly` / `biweekly`) sit above one-time checks (`manual` / `once`).
 - Name opens the item. The spark under the price expands like an X cashtag chart. The tape has 1M / 3M / 6M / 1Y / 2Y / 5Y / ALL (and calendar years when the history spans them).
 - Remove hides the item. With a bot write token on **Data**, that hide is written to the live overlay so every device sees it. Without the token it only hides in this browser. Restore on **Data**. History in `/data` is not deleted.
-- Product cutouts: transparent PNGs in `assets/products/[id].png`. When Pete `merge_item`s a **new** watch, the Worker asks Grok Imagine for a transparent cutout if `XAI_API_KEY` is set (`npx wrangler secret put XAI_API_KEY`). No key? The dashboard still knocks out a studio backdrop in-browser when you drop a PNG — no Grok key needed for that path.
+- Product thumbs: `assets/products/[id].png` is the source of truth on Pages. Retailer CDNs are never used as `<img src>` (they 403). Pete calls `ensure_cutout` after `merge_item` (pass `id`, `name`, `variant`) so the Worker asks Grok Imagine for a black-studio PNG when `XAI_API_KEY` is set (`npx wrangler secret put XAI_API_KEY`). The deck then loads `/cutout/<id>.png` if the local file 404s. No key? Drop a PNG on the item page — the in-browser knockout still works.
 - Price target is the buy line. The brief says buy now / wait / retarget when the old ATL is dead (new gen, supply shock — RAM/AI is the pattern).
 - When live price ≤ target, MindKeep writes a Pete ping (Today queue + optional desktop notification). Pete can also paste a `kind: "alert"` envelope. This site does not scrape stores.
 

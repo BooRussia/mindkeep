@@ -192,11 +192,14 @@ const TOOLS = [
   {
     name: "ensure_cutout",
     description:
-      "Generate a transparent-background product PNG for an item via Grok Imagine (needs XAI_API_KEY on the Worker). Safe to call on every new watch.",
+      "Generate a product PNG via Grok Imagine and publish it at /cutout/<id>.png. Safe to call on every watch, including ones that already exist. Pass name + variant so Imagine has facts even if the item is not in pirate.json yet. Needs XAI_API_KEY on the Worker. Never pass a retailer CDN as the display image — those 403 in the browser.",
     inputSchema: {
       type: "object",
       properties: {
         id: { type: "string" },
+        name: { type: "string", description: "Product name. Pete should pass this every time." },
+        variant: { type: "string" },
+        prompt: { type: "string", description: "Optional Imagine prompt override." },
         force: { type: "boolean", description: "Regenerate even if a cutout already exists." },
       },
       required: ["id"],
@@ -225,6 +228,15 @@ function cutoutPublicUrl(origin, id) {
   return `${origin.replace(/\/$/, "")}/cutout/${encodeURIComponent(id)}.png`;
 }
 
+function usableThumb(url) {
+  const s = String(url || "");
+  if (!s) return false;
+  if (s.startsWith("data:image/")) return true;
+  if (s.includes("/cutout/")) return true;
+  if (s.startsWith("./") || s.startsWith("assets/")) return true;
+  return false;
+}
+
 async function fetchImageBytes(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`image fetch ${res.status}`);
@@ -241,8 +253,9 @@ function b64ToBytes(b64) {
 }
 
 /**
- * Grok Imagine: generate a studio product shot, then edit it to a transparent
- * PNG cutout. Requires Worker secret XAI_API_KEY.
+ * Grok Imagine: studio product shot on black (matches the dark deck).
+ * If the item already has an official photo URL, edit that instead of generating.
+ * Requires Worker secret XAI_API_KEY.
  *   npx wrangler secret put XAI_API_KEY
  */
 async function imagineCutout(env, item) {
@@ -250,15 +263,49 @@ async function imagineCutout(env, item) {
   if (!key) return { skipped: "no-xai-key" };
   const model = env.XAI_IMAGE_MODEL || "grok-imagine-image-2.0";
   const name = item.name || item.id;
-  const variant = item.variant ? ` (${item.variant})` : "";
+  const variant = item.variant ? `, ${item.variant}` : "";
   const headers = { Authorization: `Bearer ${key}`, "Content-Type": "application/json" };
+  const prompt =
+    item.imaginePrompt ||
+    `Professional studio product photograph of ${name}${variant}. Single product only, three-quarter view, even soft lighting, solid pure black backdrop, no floor, no shadow, no text overlay, no watermark, no props, no people.`;
+
+  const official = item.imageUrl;
+  if (official && /^https?:\/\//i.test(official) && !official.includes("/cutout/")) {
+    try {
+      const editRes = await fetch("https://api.x.ai/v1/images/edits", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          model,
+          prompt:
+            "Place this exact product on a solid pure black background. Keep the product unchanged. No floor, no shadow, no extra props, no watermark.",
+          image: { url: official, type: "image_url" },
+        }),
+      });
+      if (editRes.ok) {
+        const editJson = await editRes.json();
+        const edit = editJson.data?.[0] || editJson;
+        const src = edit.url || (edit.b64_json ? `data:image/png;base64,${edit.b64_json}` : null);
+        if (src) {
+          if (src.startsWith("data:")) {
+            const b64 = src.split(",")[1] || "";
+            return { bytes: b64ToBytes(b64), type: "image/png", source: "imagine-edit" };
+          }
+          const fetched = await fetchImageBytes(src);
+          return { ...fetched, source: "imagine-edit" };
+        }
+      }
+    } catch {
+      /* fall through to generate */
+    }
+  }
 
   const genRes = await fetch("https://api.x.ai/v1/images/generations", {
     method: "POST",
     headers,
     body: JSON.stringify({
       model,
-      prompt: `Professional studio product photograph of ${name}${variant}. Single product only, front three-quarter view, even soft lighting, plain white seamless backdrop, no text, no watermark, no props, no floor shadow.`,
+      prompt,
       n: 1,
     }),
   });
@@ -279,7 +326,7 @@ async function imagineCutout(env, item) {
       body: JSON.stringify({
         model,
         prompt:
-          "Remove the background completely. Keep only the product. Transparent PNG cutout, no drop shadow, no floor, no reflections, product unchanged.",
+          "Place this exact product on a solid pure black background. Keep the product unchanged. No floor, no shadow, no extra props, no watermark.",
         image: { url: src, type: "image_url" },
       }),
     });
@@ -301,7 +348,7 @@ async function imagineCutout(env, item) {
   return { ...fetched, source: "imagine" };
 }
 
-async function ensureItemCutout(env, id, origin, { force = false } = {}) {
+async function ensureItemCutout(env, id, origin, { force = false, name, variant, prompt } = {}) {
   if (!force) {
     const existing = await getCutout(env, id);
     if (existing) return { id, imageUrl: cutoutPublicUrl(origin, id), existed: true };
@@ -309,6 +356,14 @@ async function ensureItemCutout(env, id, origin, { force = false } = {}) {
   const live = await loadLive(env);
   const pirate = await fetchBay(env, "pirate").catch(() => null);
   const published = (pirate?.payload?.items || []).find((it) => it.id === id) || { id };
+  const extras = {};
+  if (name) extras.name = name;
+  if (variant) extras.variant = variant;
+  if (prompt) extras.imaginePrompt = prompt;
+  if (Object.keys(extras).length) {
+    live.items[id] = mergeItem(live.items[id] || { id }, extras);
+    await saveLive(env, live);
+  }
   const item = mergeItem(published, live.items[id] || {});
   const result = await imagineCutout(env, item);
   if (result.skipped) {
@@ -326,6 +381,33 @@ async function ensureItemCutout(env, id, origin, { force = false } = {}) {
   });
   await saveLive(env, live);
   return { id, imageUrl, generated: true };
+}
+
+async function backfillMissingCutouts(env, origin) {
+  if (!env.XAI_API_KEY) return;
+  const live = await loadLive(env);
+  const pirate = await fetchBay(env, "pirate").catch(() => null);
+  const items = mergedItems(pirate, live);
+  const removed = new Set(live.removedIds || []);
+  const attempted = { ...(live.cutoutAttempted || {}) };
+  const jobs = [];
+  for (const it of items) {
+    if (!it?.id || removed.has(it.id)) continue;
+    if (usableThumb(it.imageUrl)) continue;
+    const last = Number(attempted[it.id] || 0);
+    if (last && Date.now() - last < 30 * 60 * 1000) continue;
+    const existing = await getCutout(env, it.id);
+    if (existing) continue;
+    jobs.push(it);
+    if (jobs.length >= 3) break;
+  }
+  if (!jobs.length) return;
+  live.cutoutAttempted = attempted;
+  for (const it of jobs) live.cutoutAttempted[it.id] = Date.now();
+  await saveLive(env, live);
+  for (const it of jobs) {
+    await ensureItemCutout(env, it.id, origin, { name: it.name, variant: it.variant }).catch(() => null);
+  }
 }
 
 function cors(headers = {}) {
@@ -547,8 +629,19 @@ async function callTool(name, args, env, ctx = null, origin = "") {
     const isBrandNew = isNewToOverlay && !publishedHas;
     live.items[args.id] = mergeItem(live.items[args.id] || { id: args.id }, patch);
     if (args.targetPrice != null) live.targets[args.id] = args.targetPrice;
-    if (isBrandNew && !live.items[args.id].imageUrl) {
-      live.items[args.id].needsCutout = true;
+    const mergedNow = live.items[args.id];
+    const existingCutout = await getCutout(env, args.id);
+    if (existingCutout && workerOrigin) {
+      mergedNow.imageUrl = cutoutPublicUrl(workerOrigin, args.id);
+      mergedNow.imageSource = "imagine";
+      mergedNow.needsCutout = false;
+    }
+    const lastTry = Number((live.cutoutAttempted || {})[args.id] || 0);
+    const recentlyTried = lastTry && Date.now() - lastTry < 30 * 60 * 1000;
+    const needsThumb = !usableThumb(mergedNow.imageUrl) && !existingCutout;
+    if (needsThumb) mergedNow.needsCutout = true;
+    if (needsThumb && !recentlyTried) {
+      live.cutoutAttempted = { ...(live.cutoutAttempted || {}), [args.id]: Date.now() };
     }
     const saved = await saveLive(env, live);
 
@@ -564,9 +657,12 @@ async function callTool(name, args, env, ctx = null, origin = "") {
     }
 
     let cutout = null;
-    if (isBrandNew && workerOrigin) {
+    if (needsThumb && !recentlyTried && workerOrigin) {
       const run = () =>
-        ensureItemCutout(env, args.id, workerOrigin).catch((err) => ({ error: String(err.message || err) }));
+        ensureItemCutout(env, args.id, workerOrigin, {
+          name: saved.items[args.id]?.name,
+          variant: saved.items[args.id]?.variant,
+        }).catch((err) => ({ error: String(err.message || err) }));
       if (ctx && typeof ctx.waitUntil === "function") ctx.waitUntil(run());
       else cutout = await run();
     }
@@ -577,7 +673,7 @@ async function callTool(name, args, env, ctx = null, origin = "") {
       target: saved.targets[args.id],
       ...(warning ? { warning } : {}),
       ...(cutout ? { cutout } : {}),
-      ...(isBrandNew && !cutout
+      ...(needsThumb && !cutout
         ? { cutoutQueued: Boolean(env.XAI_API_KEY), needsXaiKey: !env.XAI_API_KEY }
         : {}),
     };
@@ -660,7 +756,12 @@ async function callTool(name, args, env, ctx = null, origin = "") {
   if (name === "ensure_cutout") {
     if (!args.id) throw new Error("id required");
     if (!workerOrigin) throw new Error("Worker origin unknown — cannot mint a public cutout URL.");
-    return ensureItemCutout(env, args.id, workerOrigin, { force: Boolean(args.force) });
+    return ensureItemCutout(env, args.id, workerOrigin, {
+      force: Boolean(args.force),
+      name: args.name,
+      variant: args.variant,
+      prompt: args.prompt,
+    });
   }
 
   throw new Error(`Unknown tool ${name}`);
@@ -746,6 +847,9 @@ export async function handleRequest(request, env = {}, ctx = null) {
 
   if (request.method === "GET" && (url.pathname === "/overlay.json" || url.pathname === "/overlay")) {
     try {
+      if (ctx && typeof ctx.waitUntil === "function" && env.XAI_API_KEY) {
+        ctx.waitUntil(backfillMissingCutouts(env, url.origin).catch(() => null));
+      }
       return json(await loadLive(env));
     } catch (err) {
       return json({ ...emptyLive(), error: String(err.message || err) }, 200);

@@ -177,6 +177,20 @@ export function appendDrop(envelope) {
   return overlay;
 }
 
+export function localProductSrc(id) {
+  return `./assets/products/${id}.png`;
+}
+
+/** Retailer CDNs 403/hotlink in the browser. Only same-origin, data, or Worker cutouts display. */
+export function isUsableThumb(url) {
+  const s = String(url || "");
+  if (!s) return false;
+  if (s.startsWith("data:image/")) return true;
+  if (s.includes("/cutout/")) return true;
+  if (s.startsWith("./") || s.startsWith("assets/") || s.startsWith("/")) return true;
+  return false;
+}
+
 export function decorateItem(item, overlay = {}, live = null) {
   const next = { ...item };
   const target =
@@ -190,12 +204,18 @@ export function decorateItem(item, overlay = {}, live = null) {
     next.bin = overlay.bins[item.id].bin;
     if (overlay.bins[item.id].binLabel) next.binLabel = overlay.bins[item.id].binLabel;
   }
+  const liveUrl = live?.items?.[item.id]?.imageUrl;
   if (overlay.itemImages?.[item.id]) {
     next.imageUrl = overlay.itemImages[item.id];
     next.imageSource = "import";
-  } else if (!next.imageUrl) {
-    next.imageUrl = `./assets/products/${item.id}.png`;
-    if (next.imageSource === "monogram") next.imageSource = "imagine";
+  } else if (isUsableThumb(liveUrl)) {
+    next.imageUrl = liveUrl;
+    next.imageSource = "imagine";
+  } else {
+    next.imageUrl = localProductSrc(item.id);
+    if (!next.imageSource || next.imageSource === "monogram" || next.imageSource === "official") {
+      next.imageSource = "imagine";
+    }
   }
   if (next.notifyOnTarget == null) next.notifyOnTarget = true;
   return next;

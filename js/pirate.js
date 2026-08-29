@@ -26,7 +26,7 @@ function gradeChip(g) {
 export function thumbHTML(item, size = "lg") {
   const label = esc(item.name);
   if (item.imageUrl) {
-    return `<span class="thumb thumb-${size}"><img class="thumb-img" src="${esc(item.imageUrl)}" alt="" width="160" height="160"></span>`;
+    return `<span class="thumb thumb-${size}"><img class="thumb-img" src="${esc(item.imageUrl)}" alt="" width="160" height="160" data-item-id="${esc(item.id)}" data-item-name="${label}" data-item-variant="${esc(item.variant || "")}"></span>`;
   }
   return `<span class="thumb thumb-${size} thumb-mono" aria-hidden="true">${esc(monogram(item.name || label))}</span>`;
 }
